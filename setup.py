@@ -29,8 +29,11 @@ setup(name='collective.funkload',
           'funkload',
           'zope.testing',
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
+      entry_points={
+          'console_scripts': [
+              'fl-run-bench = collective.funkload.bench:run'],
+          'zc.buildout': [
+              'default = collective.funkload.recipe:TestRunner'],
+          },
       test_suite='collective.funkload',
       )

@@ -1,14 +1,18 @@
 import sys
 import optparse
 import unittest
+import datetime
+from thread import error as ThreadError
 
 from zope.testing.testrunner import runner
 from zope.testing.testrunner import options
 
 from funkload import BenchRunner
 from funkload import FunkLoadTestCase
+from funkload import utils
 
 from collective.funkload import testcase
+from collective.funkload import loop
 
 bench = optparse.OptionGroup(options.parser, BenchRunner.USAGE)
 bench.add_option("--url", type="string", dest="main_url",
@@ -38,6 +42,8 @@ bench.add_option("", "--simple-fetch", action="store_true",
 options.parser.add_option_group(bench)
 
 class FLBenchRunner(BenchRunner.BenchRunner, unittest.TestCase):
+
+    __str__ = BenchRunner.BenchRunner.__repr__
                         
     def __init__(self, test, options):
         self.threads = []
@@ -78,7 +84,32 @@ class FLBenchRunner(BenchRunner.BenchRunner, unittest.TestCase):
         """Translate from TestCase to BenchRunner"""
         return BenchRunner.BenchRunner.run(self)
 
-    __str__ = BenchRunner.BenchRunner.__repr__
+    def startThreads(self, cycle, number_of_threads):
+        """Starting threads."""
+        BenchRunner.trace(
+            "* Current time: %s\n" % datetime.datetime.now().isoformat())
+        BenchRunner.trace("* Starting threads: ")
+        threads = []
+        i = 0
+        utils.set_running_flag(True)
+        utils.set_recording_flag(False)
+        for thread_id in range(number_of_threads):
+            i += 1
+            thread = loop.LoopTestRunner(
+                self.test, self.options, cycle, number_of_threads,
+                thread_id, self.sleep_time)
+            BenchRunner.trace(".")
+            try:
+                thread.start()
+            except ThreadError:
+                BenchRunner.trace("\nERROR: Can not create more than %i threads, try a "
+                      "smaller stack size using: 'ulimit -s 2048' "
+                      "for example\n" % i)
+                raise
+            threads.append(thread)
+            BenchRunner.thread_sleep(self.startup_delay)
+        BenchRunner.trace(' done.\n')
+        self.threads = threads
 
 class Runner(runner.Runner):
 
