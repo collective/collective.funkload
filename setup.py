@@ -5,7 +5,7 @@ version = '0.1'
 
 setup(name='collective.funkload',
       version=version,
-      description="Miscellaneous experimentation and extensions to Funkload",
+      description="Miscellaneous experimentation with and extensions to Funkload",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
@@ -25,8 +25,10 @@ setup(name='collective.funkload',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'zope.testing',
       ],
       entry_points="""
       # -*- Entry points: -*-
       """,
+      test_suite='collective.funkload',
       )
