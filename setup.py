@@ -25,6 +25,7 @@ setup(name='collective.funkload',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'funkload',
           'zope.testing',
       ],
       entry_points="""
