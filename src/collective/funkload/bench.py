@@ -11,7 +11,6 @@ from funkload import BenchRunner
 from funkload import FunkLoadTestCase
 from funkload import utils
 
-from collective.funkload import testcase
 from collective.funkload import loop
 
 bench = optparse.OptionGroup(options.parser, BenchRunner.USAGE)
@@ -41,6 +40,8 @@ bench.add_option("", "--simple-fetch", action="store_true",
                   "or images when fetching an html page.")
 options.parser.add_option_group(bench)
 
+in_bench_mode = False
+
 class FLBenchRunner(BenchRunner.BenchRunner, unittest.TestCase):
 
     __str__ = BenchRunner.BenchRunner.__repr__
@@ -52,7 +53,10 @@ class FLBenchRunner(BenchRunner.BenchRunner, unittest.TestCase):
         self.method_name = test._TestCase__testMethodName
         self.options = options
         self.color = not options.no_color
-        # create a unittest to get the configuration file
+        
+        test.in_bench_mode = True
+
+
         self.config_path = test._config_path
         self.result_path = test.result_path
         self.class_title = test.conf_get('main', 'title')
@@ -134,9 +138,12 @@ class Runner(runner.Runner):
 
 def run(defaults=None, args=None):
     runner = Runner(defaults, args)
-    testcase.patch()
+
+    global in_bench_mode
+    in_bench_mode = True
     runner.run()
-    testcase.unpatch()
+    in_bench_mode = False
+    
     if runner.failed and runner.options.exitwithstatus:
         sys.exit(1)
     return runner.failed

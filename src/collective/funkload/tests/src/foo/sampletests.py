@@ -1,8 +1,8 @@
 import unittest
 
-from funkload import FunkLoadTestCase
+from collective.funkload import testcase
 
-class FooTestCase(FunkLoadTestCase.FunkLoadTestCase):
+class FooTestCase(testcase.FunkLoadTestCase):
 
     def test_foo(self):
         pass
