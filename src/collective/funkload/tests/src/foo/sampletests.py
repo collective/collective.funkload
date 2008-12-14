@@ -2,7 +2,7 @@ import unittest
 
 from collective.funkload import testcase
 
-class FooTestCase(testcase.FunkLoadTestCase):
+class FooTestCase(testcase.FLTestCase):
 
     def test_foo(self):
         pass
