@@ -1,4 +1,5 @@
 import sys
+import os
 import optparse
 import unittest
 import datetime
@@ -58,7 +59,7 @@ class FLBenchRunner(BenchRunner.BenchRunner, unittest.TestCase):
         self.method_name = test._TestCase__testMethodName
         self.options = options
         self.color = not options.no_color
-        
+
         test.in_bench_mode = True
         test.options = options
 
@@ -89,8 +90,19 @@ class FLBenchRunner(BenchRunner.BenchRunner, unittest.TestCase):
         # and call setUp/tearDown Cycle
         self.test = test
 
+    def configureLogging(self):
+        utils.close_logger("FunkLoad")
+        self.test.logger = utils.get_default_logger(
+            self.test.log_to, self.test.log_path)
+        if not os.access(self.test.result_path, os.F_OK):
+            utils.close_logger("FunkLoadResult")
+            self.test.logger_result = utils.get_default_logger(
+                log_to="xml", log_path=self.test.result_path,
+                name="FunkLoadResult")
+
     def run(self, *args, **kw):
         """Translate from TestCase to BenchRunner"""
+        self.configureLogging()
         return BenchRunner.BenchRunner.run(self)
 
     def startThreads(self, cycle, number_of_threads):
