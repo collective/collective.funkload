@@ -48,14 +48,15 @@ class TestRunner:
         if defaults:
             defaults = '(%s) + ' % defaults
 
-        wd = options.get('working-directory', '')
-        if not wd:
+        wd = options.get('working-directory', None)
+        if wd is None:
             wd = options['location']
-            if os.path.exists(wd):
-                assert os.path.isdir(wd)
-            else:
-                os.mkdir(wd)
             dest.append(wd)
+        if os.path.exists(wd):
+            assert os.path.isdir(wd)
+        else:
+            os.makedirs(wd)
+
         wd = os.path.abspath(wd)
         initialization = initialization_template % wd
 
