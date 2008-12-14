@@ -13,7 +13,12 @@ from funkload import utils
 
 from collective.funkload import loop
 
-bench = optparse.OptionGroup(options.parser, BenchRunner.USAGE)
+USAGE = """\
+A FunkLoad unittest use a configuration file named [class].conf, this
+configuration is overriden by the command line options.  See
+http://funkload.nuxeo.org/ for more information."""
+
+bench = optparse.OptionGroup(options.parser, 'Benchmark', USAGE)
 bench.add_option("--url", type="string", dest="main_url",
                   help="Base URL to bench.")
 bench.add_option("--cycles", type="string", dest="bench_cycles",
@@ -55,7 +60,7 @@ class FLBenchRunner(BenchRunner.BenchRunner, unittest.TestCase):
         self.color = not options.no_color
         
         test.in_bench_mode = True
-
+        test.options = options
 
         self.config_path = test._config_path
         self.result_path = test.result_path
