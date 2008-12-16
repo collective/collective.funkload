@@ -33,3 +33,49 @@ argument semantics for finding tests with "-s", "-m" and "-t".
     Benching FooTestCase.test_foo...
     * Server: http://bar.com...
     * Cycles: [1]...
+
+------------------------
+collective.funkload.diff
+------------------------
+
+The build-diffs console script will use "fl-build-report --diff" to
+generate a differential report comparing the most recent benchmark
+report against the previous report and against any available reports
+from a day, a week, a month and a year ago.  When multiple reports are
+available from the previous unit of time, the differential report will
+be generated against the report closest to exactly that unit of time
+in the past.
+
+The diff module provides a function for parsing the date stamp from
+a report filename.
+
+    >>> from collective.funkload import diff
+    >>> diff.parse_date(diff.report_re.match(
+    ...     'test_foo-20081211T071242')).isoformat()
+    '2008-12-11T07:12:42'
+
+    >>> import os
+    >>> sorted(os.listdir(reports_dir), reverse=True)
+    ['test_foo-20081211T071242',
+     'test_foo-20081211T071241',
+     'test_foo-20081210T071243',
+     'test_foo-20081210T071241',
+     'test_foo-20081209T071242',
+     'test_foo-20081205T071242',
+     'test_foo-20081204T071242',
+     'test_foo-20081203T071242',
+     'test_foo-20081111T071242',
+     'test_foo-20071211T071242',
+     'test_bar-20081211T071242']
+
+    >>> diff.run(reports_dir)
+    Creating diff report ...done: 
+    file://.../reports/diff_foo-20081211T_071242_vs_071241/index.html
+    Creating diff report ...done: 
+    file://.../reports/diff_foo_20081211T071242_vs_20081210T071243/index.html
+    Creating diff report ...done: 
+    file://.../reports/diff_foo_20081211T071242_vs_20081204T071242/index.html
+    Creating diff report ...done: 
+    file://.../reports/diff_foo_20081211T071242_vs_20081111T071242/index.html
+    Creating diff report ...done: 
+    file://.../reports/diff_foo_20081211T071242_vs_20071211T071242/index.html
