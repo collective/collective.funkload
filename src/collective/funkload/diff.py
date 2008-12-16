@@ -111,6 +111,9 @@ def run(reports_dir):
         prev_date, prev_path = reports.pop()
         build_diff(reports_dir, prev_path, latest_path)
 
+        if not reports:
+            continue
+
         # Generate the diffs for the intervals
         for report_date, report_path in get_interval_reports(
             latest_date, latest_path, reports):

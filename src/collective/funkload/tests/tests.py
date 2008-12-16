@@ -13,6 +13,8 @@ optionflags = (doctest.NORMALIZE_WHITESPACE|
                doctest.REPORT_NDIFF)
 
 reports = ['test_bar-20081211T071242',
+           'test_baz-20081211T071243',
+           'test_baz-20081211T071242',
            'test_foo-20081211T071242',
            'test_foo-20081211T071241',
            'test_foo-20081210T071243',

@@ -66,6 +66,8 @@ a report filename.
      'test_foo-20081203T071242',
      'test_foo-20081111T071242',
      'test_foo-20071211T071242',
+     'test_baz-20081211T071243',
+     'test_baz-20081211T071242',
      'test_bar-20081211T071242']
 
     >>> diff.run(reports_dir)
@@ -79,3 +81,5 @@ a report filename.
     file://.../reports/diff_foo_20081211T071242_vs_20081111T071242/index.html
     Creating diff report ...done: 
     file://.../reports/diff_foo_20081211T071242_vs_20071211T071242/index.html
+    Creating diff report ...done: 
+    file://.../reports/diff_baz-20081211T_071243_vs_071242/index.html
