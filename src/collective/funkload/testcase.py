@@ -47,6 +47,12 @@ class FLTestCase(FunkLoadTestCase.FunkLoadTestCase):
         self.result_path = os.path.abspath(
             self.conf_get(section, 'result_path', 'funkload.xml'))
 
+        # init loggers
+        self.logger = utils.get_default_logger(self.log_to, self.log_path)
+        self.logger_result = utils.get_default_logger(log_to="xml",
+                                                log_path=self.result_path,
+                                                name="FunkLoadResult")
+
         # init webunit browser (passing a fake methodName)
         self._browser = FunkLoadTestCase.WebTestCase(methodName='log')
         self.clearContext()
