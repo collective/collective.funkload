@@ -38,6 +38,10 @@ bench.add_option("-M", "--sleep-time-max", type="string",
 bench.add_option("--startup-delay", type="string",
                   dest="bench_startup_delay",
                   help="Startup delay between thread.")
+bench.add_option("-l", "--label", type="string",
+                  help="Add a label to this bench run "
+                  "for easier identification (it will be appended to the directory name "
+                  "for reports generated from it).")
 bench.add_option("", "--accept-invalid-links", action="store_true",
                   help="Do not fail if css/image links are "
                   "not reachable.")
