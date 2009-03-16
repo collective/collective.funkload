@@ -27,7 +27,7 @@ setup(name='collective.funkload',
           'setuptools',
           # -*- Extra requirements: -*-
           'funkload',
-          'zope.testing',
+          'zope.testing>=3.6', # testrunner refactored
       ],
       entry_points={
           'console_scripts': [
