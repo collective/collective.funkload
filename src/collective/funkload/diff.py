@@ -14,7 +14,7 @@ ago."""
 
 cur_path = os.path.abspath(os.path.curdir)
 parser = optparse.OptionParser(
-    usage="Usage: %prog REPORTS_DIR", description=description)
+    usage="Usage: %prog", description=description)
 parser.add_option("-o", "--output-directory", type="string",
                   dest="output_dir",
                   help="Parent directory to store reports, the directory"
@@ -129,7 +129,8 @@ def run(options):
 
 def main():
     (options, args) = parser.parse_args()
-    assert not args
+    if args:
+        parser.error('does not accept positional arguments')
     return run(options)
 
 if __name__=='__main__':
