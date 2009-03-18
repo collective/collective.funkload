@@ -70,7 +70,8 @@ a report filename.
      'test_baz-20081211T071242',
      'test_bar-20081211T071242']
 
-    >>> diff.run(reports_dir)
+    >>> options, _ = diff.parser.parse_args(args=['-o', reports_dir])
+    >>> diff.run(options)
     Creating diff report ...done: 
     file://.../reports/diff_foo-20081211T_071242_vs_071241/index.html
     Creating diff report ...done: 

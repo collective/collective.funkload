@@ -1,8 +1,6 @@
 import os
 import re
-import itertools
 import bisect
-import operator
 import datetime
 import optparse
 
@@ -14,8 +12,18 @@ Generate FunkLoad differential reports against the previous report and
 against any available reports from a day, a week, a month and a year
 ago."""
 
+cur_path = os.path.abspath(os.path.curdir)
 parser = optparse.OptionParser(
     usage="Usage: %prog REPORTS_DIR", description=description)
+parser.add_option("-o", "--output-directory", type="string",
+                  dest="output_dir",
+                  help="Parent directory to store reports, the directory"
+                  "name of the report will be generated automatically.",
+                  default=cur_path)
+parser.add_option("-r", "--report-directory", type="string",
+                  dest="report_dir",
+                  help="Directory name to store the report.",
+                  default=None)
 
 zero_delta = datetime.timedelta(0)
 
@@ -36,10 +44,10 @@ def get_report_dates(reports_dir):
                 (parse_date(match), os.path.join(reports_dir, path)))
     return results
 
-def build_diff(reports_dir, report_dir1, report_dir2):
+def build_diff(options, report_dir1, report_dir2):
     utils.trace("Creating diff report ...")
     html_path = ReportRenderDiff.RenderDiff(
-        report_dir1, report_dir2, reports_dir)
+        report_dir1, report_dir2, options)
     utils.trace("done: \n")
     utils.trace("file://%s\n" % html_path)
 
@@ -100,8 +108,8 @@ def get_interval_reports(latest_date, latest_path, reports):
             if candidate_date > min:
                 yield candidate_date, candidate_path
 
-def run(reports_dir):
-    for reports in get_report_dates(reports_dir).itervalues():
+def run(options):
+    for reports in get_report_dates(options.output_dir).itervalues():
         if len(reports) < 2:
             continue
 
@@ -109,7 +117,7 @@ def run(reports_dir):
 
         # Generate the diff for the previous report
         prev_date, prev_path = reports.pop()
-        build_diff(reports_dir, prev_path, latest_path)
+        build_diff(options, prev_path, latest_path)
 
         if not reports:
             continue
@@ -117,12 +125,12 @@ def run(reports_dir):
         # Generate the diffs for the intervals
         for report_date, report_path in get_interval_reports(
             latest_date, latest_path, reports):
-            build_diff(reports_dir, report_path, latest_path)
+            build_diff(options, report_path, latest_path)
 
 def main():
     (options, args) = parser.parse_args()
-    reports_dir, = args
-    return run(reports_dir)
+    assert not args
+    return run(options)
 
 if __name__=='__main__':
     main()
