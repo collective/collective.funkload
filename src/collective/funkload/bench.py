@@ -60,7 +60,7 @@ class FLBenchRunner(BenchRunner.BenchRunner, unittest.TestCase):
         self.threads = []
         self.module_name = test.__class__.__module__
         self.class_name = test.__class__.__name__
-        self.method_name = test._TestCase__testMethodName
+        self.method_name = test.meta_method_name
         self.options = options
         self.color = not options.no_color
 
@@ -142,6 +142,11 @@ class Runner(runner.Runner):
             for test in suite:
                 if isinstance(test,
                               FunkLoadTestCase.FunkLoadTestCase):
+                    import pdb, sys
+                    debugger = pdb.Pdb(stdin=sys.__stdin__,
+                            stdout=sys.__stdout__)
+                    #debugger.set_trace(sys._getframe())
+                    
                     idx = suite._tests.index(test)
                     suite._tests.remove(test)
                     suite._tests.insert(idx, FLBenchRunner(test, self.options))

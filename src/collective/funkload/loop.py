@@ -7,7 +7,7 @@ class LoopTestRunner(BenchRunner.LoopTestRunner):
     def __init__(self, test, options, cycle, cvus, thread_id,
                  sleep_time, debug=False):
         meta_method_name = BenchRunner.mmn_encode(
-            test._TestCase__testMethodName, cycle, cvus, thread_id)
+            test.meta_method_name, cycle, cvus, thread_id)
         threading.Thread.__init__(
             self, target=self.run, name=meta_method_name, args=())
         # Instanciate test anew with meta_method_name to ensure correct logging
