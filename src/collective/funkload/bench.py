@@ -142,11 +142,6 @@ class Runner(runner.Runner):
             for test in suite:
                 if isinstance(test,
                               FunkLoadTestCase.FunkLoadTestCase):
-                    import pdb, sys
-                    debugger = pdb.Pdb(stdin=sys.__stdin__,
-                            stdout=sys.__stdout__)
-                    #debugger.set_trace(sys._getframe())
-                    
                     idx = suite._tests.index(test)
                     suite._tests.remove(test)
                     suite._tests.insert(idx, FLBenchRunner(test, self.options))
