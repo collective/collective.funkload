@@ -26,7 +26,6 @@ class FunkloadWrapper(object):
         except IndexError:
             action = None
         
-        
         if action and action in actions:
             test_path = ['--test-path=%s' % (path) for path in sys.path if path.startswith(self._dir)]
             fl_args = [self._args[0]] + test_path + ['--url=%s' % self._url] +  self._args[2:]
@@ -43,7 +42,6 @@ class FunkloadWrapper(object):
         """ Launch a FunkLoad unit test. """
         raise NotImplementedError
 
-    
     def bench(self):
         """ Launch a FunkLoad unit test as load test. """
         collective.funkload.bench.run(args=sys.argv)
