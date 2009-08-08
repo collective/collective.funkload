@@ -14,7 +14,7 @@ class TestRunner(object):
 
         options_funkload = {'eggs':'funkload\ncollective.funkload',
                             'scripts':'funkload',
-                            'arguments':'url="%s"' % (self.test_url)}
+                            'arguments':'url="%s",buildout_dir="%s"' % (self.test_url,self.buildout['buildout'].get('directory'))}
         
         self._recipe = Scripts(buildout,name,options_funkload)
         

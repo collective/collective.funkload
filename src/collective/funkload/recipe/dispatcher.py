@@ -1,11 +1,13 @@
 
 import sys
 import collective.funkload.bench
+import zope.testing.testrunner
 
 class FunkloadWrapper(object):
     
-    def __init__(self,url):
+    def __init__(self,url,buildout_dir):
         self._url = url
+        self._dir = buildout_dir
     
     def _usage(self):
         """ Print usage """
@@ -27,7 +29,9 @@ class FunkloadWrapper(object):
         
         
         if action and action in actions:
-            fl_args = [self._args[0]] + ['--url=%s' % self._url] +  self._args[2:]
+            test_path = ['--test-path=%s' % (path) for path in sys.path if path.startswith(self._dir)]
+            fl_args = [self._args[0]] + test_path + ['--url=%s' % self._url] +  self._args[2:]
+            
             sys.argv = fl_args
             
             action = getattr(self,action)
@@ -43,9 +47,9 @@ class FunkloadWrapper(object):
     
     def bench(self):
         """ Launch a FunkLoad unit test as load test. """
-        collective.funkload.bench.run()
+        collective.funkload.bench.run(args=sys.argv)
 
-def main(url):
-    wrapper = FunkloadWrapper(url)
+def main(url,buildout_dir):
+    wrapper = FunkloadWrapper(url,buildout_dir)
     wrapper._dispatch()
 
