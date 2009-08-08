@@ -138,13 +138,14 @@ class Runner(runner.Runner):
         return super(Runner, self).register_tests(tests)
 
     def convertFLTests(self, tests):
+        """ Only run funkload tests here, and wrap them in a bench """
         for layer, suite in tests.iteritems():
-            for test in suite:
-                if isinstance(test,
-                              FunkLoadTestCase.FunkLoadTestCase):
-                    idx = suite._tests.index(test)
-                    suite._tests.remove(test)
+            for test in suite._tests[:]:
+                idx = suite._tests.index(test)
+                suite._tests.remove(test)
+                if isinstance(test, FunkLoadTestCase.FunkLoadTestCase):
                     suite._tests.insert(idx, FLBenchRunner(test, self.options))
+                    
 
 def run(defaults=None, args=None):
     runner = Runner(defaults, args)
