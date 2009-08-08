@@ -31,8 +31,8 @@ Test with a url defined
     ... parts = test1
     ... index = http://pypi.python.org/simple
     ... [test1]
-    ... recipe = collective.recipe.funkload
-    ... address = 127.0.0.1:8080 
+    ... recipe = collective.funkload
+    ... url = 127.0.0.1:8080 
     ... """)
 
 
@@ -41,13 +41,6 @@ Running the buildout gives us::
     >>> print 'start\n', system(buildout) 
     start
     ...
-    Generated script '/sample-buildout/bin/fl-credential-ctl'.
-    Generated script '/sample-buildout/bin/fl-run-test'.
-    Generated script '/sample-buildout/bin/fl-record'.
-    Generated script '/sample-buildout/bin/fl-run-bench'.
-    Generated script '/sample-buildout/bin/fl-monitor-ctl'.
-    Generated script '/sample-buildout/bin/fl-install-demo'.
-    Generated script '/sample-buildout/bin/fl-build-report'.
     Generated script '/sample-buildout/bin/funkload'.
     
 Test that the script contains our url
@@ -55,11 +48,11 @@ Test that the script contains our url
     >>> import os
     >>> script = os.path.join(sample_buildout,'bin','funkload')
     >>> print open(script,'r').read()
-    #!...TEST_URL = "127.0.0.1:8080"...
+    #!...url="127.0.0.1:8080"...
     
 
 
-Test without a url defined (it will automatically be taken from a section called instance)
+Test without a url defined will fail.
 
     >>> write('buildout.cfg',
     ... """
@@ -67,9 +60,7 @@ Test without a url defined (it will automatically be taken from a section called
     ... parts = test1
     ... index = http://pypi.python.org/simple
     ... [test1]
-    ... recipe = collective.recipe.funkload
-    ... [instance]
-    ... http-address = 192.168.1.100:8080
+    ... recipe = collective.funkload
     ... """)
 
 Running the buildout gives us:
@@ -77,39 +68,6 @@ Running the buildout gives us:
     >>> print 'start\n', system(buildout) 
     start
     ...
-    Generated script '/sample-buildout/bin/fl-credential-ctl'.
-    Generated script '/sample-buildout/bin/fl-run-test'.
-    Generated script '/sample-buildout/bin/fl-record'.
-    Generated script '/sample-buildout/bin/fl-run-bench'.
-    Generated script '/sample-buildout/bin/fl-monitor-ctl'.
-    Generated script '/sample-buildout/bin/fl-install-demo'.
-    Generated script '/sample-buildout/bin/fl-build-report'.
-    Generated script '/sample-buildout/bin/funkload'.
+    KeyError: 'You must specify an url to test'
 
-Test that the script contains our url
-
-    >>> import os
-    >>> script = os.path.join(sample_buildout,'bin','funkload')
-    >>> print open(script,'r').read()
-    #!...TEST_URL = "192.168.1.100:8080"...
-
-
-
-Test without a url defined (it will automatically be taken from a section called instance)
-
-    >>> write('buildout.cfg',
-    ... """
-    ... [buildout]
-    ... parts = test1
-    ... index = http://pypi.python.org/simple
-    ... [test1]
-    ... recipe = collective.recipe.funkload
-    ... """)
-
-Running the buildout gives us:
-
-    >>> print 'start', system(buildout) 
-    start...
-    
-    ...You must specify an address to test...
 

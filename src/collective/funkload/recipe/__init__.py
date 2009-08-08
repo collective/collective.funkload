@@ -10,7 +10,7 @@ class TestRunner(object):
 
         self.test_url = self.options.get('url')
         if not self.test_url:
-            raise KeyError, "You must specify an address to test"
+            raise KeyError, "You must specify an url to test"
 
         default_location = os.path.join(self.buildout['buildout'].get('directory'),'var','funkload')
         self.location = self.options.get('location',default_location)
