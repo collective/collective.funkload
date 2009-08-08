@@ -1,7 +1,6 @@
 
 import sys
 import collective.funkload.bench
-import zope.testing.testrunner
 
 class FunkloadWrapper(object):
     
@@ -11,7 +10,7 @@ class FunkloadWrapper(object):
     
     def _usage(self):
         """ Print usage """
-        print "Usage"
+        print "Usage:"
         for method in self._getActions():
             method = getattr(self,method)
             print str(method.__name__) + ": " + str(method.__doc__)
