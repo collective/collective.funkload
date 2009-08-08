@@ -47,7 +47,7 @@ class FunkloadWrapper(object):
     
     def bench(self,args):
         """ Launch a FunkLoad unit test as load test. """
-        self._runscript('fl-run-bench')
+        self._runscript('fl-run-bench',' --url ' + TEST_URL)
     
 
 if __name__ == '__main__':

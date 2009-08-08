@@ -33,7 +33,8 @@ setup(name='collective.funkload',
       entry_points={
           'console_scripts': [
               'fl-run-bench = collective.funkload.bench:run',
-              'build-diffs = collective.funkload.diff:main'],
+              'build-diffs = collective.funkload.diff:main',
+              'funkload = collective.funkload.recipe.dispatcher:main'],
           'zc.buildout': [
               'default = collective.funkload.recipe:TestRunner'],
           },
