@@ -27,6 +27,7 @@ setup(name='collective.funkload',
           'setuptools',
           # -*- Extra requirements: -*-
           'funkload',
+          'zc.recipe.egg',
           'zope.testing>=3.6', # testrunner refactored
       ],
       entry_points={
