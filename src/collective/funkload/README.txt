@@ -21,7 +21,7 @@ collective.funkload.bench
 
 The collective.funkload package provides a wrapper around the Funkload
 benchmark runner that handles dotted path arguments gracefully.
-Specifically, rather than pass *.py file and TestCase.test_method
+Specifically, rather than pass ``*.py`` file and TestCase.test_method
 arguments, collective.funkload.bench.run() supports zope.testing
 argument semantics for finding tests with "-s", "-m" and "-t".
 
