@@ -1,8 +1,10 @@
 Changelog
 =========
 
-0.2 - Unreleased
-----------------
+0.1.1 - 2009-08-09
+------------------
+
+* Only run funkload tests when invoking bench with -m, -s, -t [evilbungle]
 
 
 0.1 - 2009-08-09
