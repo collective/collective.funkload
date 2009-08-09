@@ -6,6 +6,8 @@ collective.funkload
 Miscellaneous experimentation with and extensions to Funkload
 -------------------------------------------------------------
 
+``collective.funkload`` is a wrapper to `Funkload <http://pypi.python.org/pypi/funkload>`_, a web performance testing and reporting tool.
+
 The scripts that Funkload installs generally require that they be
 executed from the directory where the test modules live.  While this
 is appropriate for generating test cases with the Funkload recorder,
