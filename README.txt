@@ -1,4 +1,1 @@
-Introduction
-============
-
-
+See ``src/collective/funkload/README.txt``

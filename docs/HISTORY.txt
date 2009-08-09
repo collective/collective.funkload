@@ -1,8 +1,9 @@
 Changelog
 =========
 
-0.1 - Unreleased
+0.1 - 2009-08-09
 ----------------
 
-* Initial release
+* Initial release, mainly a snapshot from trunk to compliment the release of
+  collective.recipe.funkload
 
