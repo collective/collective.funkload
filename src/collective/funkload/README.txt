@@ -94,7 +94,7 @@ Start with a directory with a number of benchmark result XML files.
      'baz-bench-20081211T071243',
      'baz-bench-20081211T071242',
      'bar-bench-20081211T071242']
-
+ 
 Compare the most recent result XML files against HTML report
 directories relative to the current date for one day ago, one week
 ago, one month ago and 1 year ago.
@@ -107,17 +107,19 @@ ago, one month ago and 1 year ago.
     Creating html report ...done: 
     file://.../reports/test_foo-20081211T071241/index.html
     Creating html report ...done: 
-    file://.../reports/test_foo_20081210T071243/index.html
+    file://.../reports/test_foo-20081210T071243/index.html
     Creating html report ...done: 
-    file://.../reports/test_foo_20081204T071242/index.html
+    file://.../reports/test_foo-20081204T071242/index.html
     Creating html report ...done: 
-    file://.../reports/test_foo_20081111T071242/index.html
+    file://.../reports/test_foo-20081111T071242/index.html
     Creating html report ...done: 
-    file://.../reports/test_foo_20071211T071242/index.html
+    file://.../reports/test_foo-20071211T071242/index.html
     Creating html report ...done: 
     file://.../reports/test_baz-20081211T071243/index.html
     Creating html report ...done: 
     file://.../reports/test_baz-20081211T071242/index.html
+    Creating html report ...done: 
+    file://.../reports/test_bar-20081211T071242/index.html
     Creating diff report ...done: 
     file://.../reports/diff_foo-20081211T_071242_vs_071241/index.html
     Creating diff report ...done: 
@@ -130,6 +132,97 @@ ago, one month ago and 1 year ago.
     file://.../reports/diff_foo_20081211T071242_vs_20071211T071242/index.html
     Creating diff report ...done: 
     file://.../reports/diff_baz-20081211T_071243_vs_071242/index.html
+    Creating report index ...done:
+    file://.../reports/index.html
+
+The report index renders a table with links to the HTML reports on the
+X and Y axes and links to the differential reports in the table
+cells.  In this case there's only one HTML report on the X axis and
+four reports on the Y axis.
+
+    >>> print open(os.path.join(reports_dir, 'index.html')).read()
+    <...
+    <h1>test_foo reports</h1>
+    <table>
+        <thead> <tr> <th></th> <th> <a
+        href="test_foo-20081211T071242/index.html">test_foo-20081211T071242</a>
+        </th> </tr> </thead>
+        <tbody>
+            <tr>
+                <th> <a
+                href="test_foo-20081211T071241/index.html">test_foo-20081211T071241</a>
+                </th>
+                <td> <a
+                href="diff_foo-20081211T_071242_vs_071241/index.html">diff_foo-20081211T_071242_vs_071241</a>
+                </td>
+            </tr>
+            <tr>
+                <th> <a
+                href="test_foo-20081210T071243/index.html">test_foo-20081210T071243</a>
+                </th>
+                <td> <a
+                href="diff_foo_20081211T071242_vs_20081210T071243/index.html">diff_foo_20081211T071242_vs_20081210T071243</a>
+                </td>
+            </tr>
+            <tr>
+                <th> <a
+                href="test_foo-20081204T071242/index.html">test_foo-20081204T071242</a>
+                </th>
+                <td> <a
+                href="diff_foo_20081211T071242_vs_20081204T071242/index.html">diff_foo_20081211T071242_vs_20081204T071242</a>
+                </td>
+            </tr>
+            <tr>
+                <th> <a
+                href="test_foo-20081111T071242/index.html">test_foo-20081111T071242</a>
+                </th>
+                <td> <a
+                href="diff_foo_20081211T071242_vs_20081111T071242/index.html">diff_foo_20081211T071242_vs_20081111T071242</a>
+                </td>
+            </tr>
+            <tr>
+                <th> <a
+                href="test_foo-20071211T071242/index.html">test_foo-20071211T071242</a>
+                </th>
+                <td> <a
+                href="diff_foo_20081211T071242_vs_20071211T071242/index.html">diff_foo_20081211T071242_vs_20071211T071242</a>
+                </td>
+            </tr>
+        </tbody>
+        <tfooter> <tr> <th></th> <th> <a
+        href="test_foo-20081211T071242/index.html">test_foo-20081211T071242</a>
+        </th> </tr> </tfooter>
+    </table>
+    <h1>test_baz reports</h1>
+    <table>
+        <thead> <tr> <th></th> <th> <a
+        href="test_baz-20081211T071243/index.html">test_baz-20081211T071243</a>
+        </th> </tr> </thead>
+        <tbody>
+            <tr>
+                <th> <a
+                href="test_baz-20081211T071242/index.html">test_baz-20081211T071242</a>
+                </th>
+                <td> <a
+                href="diff_baz-20081211T_071243_vs_071242/index.html">diff_baz-20081211T_071243_vs_071242</a>
+                </td>
+            </tr>
+        </tbody>
+        <tfooter> <tr> <th></th> <th> <a
+        href="test_baz-20081211T071243/index.html">test_baz-20081211T071243</a>
+        </th> </tr> </tfooter>
+    </table>
+    <h1>test_bar reports</h1>
+    <table>
+        <thead> <tr> <th></th> <th> <a
+        href="test_bar-20081211T071242/index.html">test_bar-20081211T071242</a>
+        </th> </tr> </thead>
+        <tbody>
+        </tbody>
+        <tfooter> <tr> <th></th> <th> <a
+        href="test_baz-20081211T071243/index.html">test_baz-20081211T071243</a>
+        </th> </tr> </tfooter>
+    </table>
 
 Without any arguments, HTML report directories are generated for each
 set of benchmark result XML files and differentials are generated
@@ -231,6 +324,181 @@ timestamp placing the most recent first.
     file://.../reports/diff_foo_20081203T071242_vs_20071211T071242/index.html
     Creating diff report ...done:
     file://.../reports/diff_foo_20081111T071242_vs_20071211T071242/index.html
+
+The report index now includes all the reports on both axes for a
+complete NxN grid.
+
+    >>> print open(os.path.join(reports_dir, 'index.html')).read()
+    <...
+    <h1>test_foo reports</h1>
+    <table>
+        <thead> <tr>
+            <th> <a
+            href="test_foo-20081211T071242/index.html">test_foo-20081211T071242</a>
+            </th>
+            <th> <a
+            href="test_foo-20081211T071241/index.html">test_foo-20081211T071241</a>
+            </th>
+            <th> <a
+            href="test_foo-20081210T071243/index.html">test_foo-20081210T071243</a>
+            </th>
+            <th> <a
+            href="test_foo-20081210T071241/index.html">test_foo-20081210T071241</a>
+            </th>
+            <th> <a
+            href="test_foo-20081209T071242/index.html">test_foo-20081209T071242</a>
+            </th>
+            <th> <a
+            href="test_foo-20081205T071242/index.html">test_foo-20081205T071242</a>
+            </th>
+            <th> <a
+            href="test_foo-20081204T071242/index.html">test_foo-20081204T071242</a>
+            </th>
+            <th> <a
+            href="test_foo-20081203T071242/index.html">test_foo-20081203T071242</a>
+            </th>
+            <th> <a
+            href="test_foo-20081111T071242/index.html">test_foo-20081111T071242</a>
+            </th>
+            <th> <a
+            href="test_foo-20071211T071242/index.html">test_foo-20071211T071242</a>
+            </th>
+        </tr> </thead>
+        <tbody>
+    test_foo-20081211T071242/index.html
+    diff_foo-20081211T_071242_vs_071241/index.html
+    diff_foo_20081211T071242_vs_20081210T071243/index.html
+    diff_foo_20081211T071242_vs_20081210T071241/index.html
+    diff_foo_20081211T071242_vs_20081209T071242/index.html
+    diff_foo_20081211T071242_vs_20081205T071242/index.html
+    diff_foo_20081211T071242_vs_20081204T071242/index.html
+    diff_foo_20081211T071242_vs_20081203T071242/index.html
+    diff_foo_20081211T071242_vs_20081111T071242/index.html
+    diff_foo_20081211T071242_vs_20071211T071242/index.html
+    test_foo-20081211T071241/index.html
+    diff_foo-20081211T_071242_vs_071241/index.html
+    diff_foo_20081211T071241_vs_20081210T071243/index.html
+    diff_foo_20081211T071241_vs_20081210T071241/index.html
+    diff_foo_20081211T071241_vs_20081209T071242/index.html
+    diff_foo_20081211T071241_vs_20081205T071242/index.html
+    diff_foo_20081211T071241_vs_20081204T071242/index.html
+    diff_foo_20081211T071241_vs_20081203T071242/index.html
+    diff_foo_20081211T071241_vs_20081111T071242/index.html
+    diff_foo_20081211T071241_vs_20071211T071242/index.html
+    test_foo-20081210T071243/index.html
+    diff_foo-20081211T_071242_vs_071241/index.html
+    diff_foo_20081211T071241_vs_20081210T071243/index.html
+    diff_foo_20081210T071243_vs_20081210T071241/index.html
+    diff_foo_20081210T071243_vs_20081209T071242/index.html
+    diff_foo_20081210T071243_vs_20081205T071242/index.html
+    diff_foo_20081210T071243_vs_20081204T071242/index.html
+    diff_foo_20081210T071243_vs_20081203T071242/index.html
+    diff_foo_20081210T071243_vs_20081111T071242/index.html
+    diff_foo_20081210T071243_vs_20071211T071242/index.html
+    test_foo-20081210T071241/index.html
+    diff_foo-20081211T_071242_vs_071241/index.html
+    diff_foo_20081211T071241_vs_20081210T071243/index.html
+    diff_foo_20081210T071243_vs_20081210T071241/index.html
+    diff_foo_20081210T071241_vs_20081209T071242/index.html
+    diff_foo_20081210T071241_vs_20081205T071242/index.html
+    diff_foo_20081210T071241_vs_20081204T071242/index.html
+    diff_foo_20081210T071241_vs_20081203T071242/index.html
+    diff_foo_20081210T071241_vs_20081111T071242/index.html
+    diff_foo_20081210T071241_vs_20071211T071242/index.html
+    test_foo-20081209T071242/index.html
+    diff_foo-20081211T_071242_vs_071241/index.html
+    diff_foo_20081211T071241_vs_20081210T071243/index.html
+    diff_foo_20081210T071243_vs_20081210T071241/index.html
+    diff_foo_20081210T071241_vs_20081209T071242/index.html
+    diff_foo_20081209T071242_vs_20081205T071242/index.html
+    diff_foo_20081209T071242_vs_20081204T071242/index.html
+    diff_foo_20081209T071242_vs_20081203T071242/index.html
+    diff_foo_20081209T071242_vs_20081111T071242/index.html
+    diff_foo_20081209T071242_vs_20071211T071242/index.html
+    test_foo-20081205T071242/index.html
+    diff_foo-20081211T_071242_vs_071241/index.html
+    diff_foo_20081211T071241_vs_20081210T071243/index.html
+    diff_foo_20081210T071243_vs_20081210T071241/index.html
+    diff_foo_20081210T071241_vs_20081209T071242/index.html
+    diff_foo_20081209T071242_vs_20081205T071242/index.html
+    diff_foo_20081205T071242_vs_20081204T071242/index.html
+    diff_foo_20081205T071242_vs_20081203T071242/index.html
+    diff_foo_20081205T071242_vs_20081111T071242/index.html
+    diff_foo_20081205T071242_vs_20071211T071242/index.html
+    test_foo-20081204T071242/index.html
+    diff_foo-20081211T_071242_vs_071241/index.html
+    diff_foo_20081211T071241_vs_20081210T071243/index.html
+    diff_foo_20081210T071243_vs_20081210T071241/index.html
+    diff_foo_20081210T071241_vs_20081209T071242/index.html
+    diff_foo_20081209T071242_vs_20081205T071242/index.html
+    diff_foo_20081205T071242_vs_20081204T071242/index.html
+    diff_foo_20081204T071242_vs_20081203T071242/index.html
+    diff_foo_20081204T071242_vs_20081111T071242/index.html
+    diff_foo_20081204T071242_vs_20071211T071242/index.html
+    test_foo-20081203T071242/index.html
+    diff_foo-20081211T_071242_vs_071241/index.html
+    diff_foo_20081211T071241_vs_20081210T071243/index.html
+    diff_foo_20081210T071243_vs_20081210T071241/index.html
+    diff_foo_20081210T071241_vs_20081209T071242/index.html
+    diff_foo_20081209T071242_vs_20081205T071242/index.html
+    diff_foo_20081205T071242_vs_20081204T071242/index.html
+    diff_foo_20081204T071242_vs_20081203T071242/index.html
+    diff_foo_20081203T071242_vs_20081111T071242/index.html
+    diff_foo_20081203T071242_vs_20071211T071242/index.html
+    test_foo-20081111T071242/index.html
+    diff_foo-20081211T_071242_vs_071241/index.html
+    diff_foo_20081211T071241_vs_20081210T071243/index.html
+    diff_foo_20081210T071243_vs_20081210T071241/index.html
+    diff_foo_20081210T071241_vs_20081209T071242/index.html
+    diff_foo_20081209T071242_vs_20081205T071242/index.html
+    diff_foo_20081205T071242_vs_20081204T071242/index.html
+    diff_foo_20081204T071242_vs_20081203T071242/index.html
+    diff_foo_20081203T071242_vs_20081111T071242/index.html
+    diff_foo_20081111T071242_vs_20071211T071242/index.html
+        </tbody>
+        <tfooter> <tr>
+            <th> <a
+            href="test_foo-20081211T071242/index.html">test_foo-20081211T071242</a>
+            </th>
+            <th> <a
+            href="test_foo-20081211T071241/index.html">test_foo-20081211T071241</a>
+            </th>
+            <th> <a
+            href="test_foo-20081210T071243/index.html">test_foo-20081210T071243</a>
+            </th>
+            <th> <a
+            href="test_foo-20081210T071241/index.html">test_foo-20081210T071241</a>
+            </th>
+            <th> <a
+            href="test_foo-20081209T071242/index.html">test_foo-20081209T071242</a>
+            </th>
+            <th> <a
+            href="test_foo-20081205T071242/index.html">test_foo-20081205T071242</a>
+            </th>
+            <th> <a
+            href="test_foo-20081204T071242/index.html">test_foo-20081204T071242</a>
+            </th>
+            <th> <a
+            href="test_foo-20081203T071242/index.html">test_foo-20081203T071242</a>
+            </th>
+            <th> <a
+            href="test_foo-20081111T071242/index.html">test_foo-20081111T071242</a>
+            </th>
+            <th> <a
+            href="test_foo-20071211T071242/index.html">test_foo-20071211T071242</a>
+            </th>
+        </tr> </tfooter>
+    <h1>test_baz reports</h1>
+    <table>
+    test_baz-20081211T071243/index.html
+    diff_baz-20081211T_071243_vs_071242/index.html
+    test_baz-20081211T071242/index.html
+    diff_baz-20081211T_071243_vs_071242/index.html
+    </table>
+    <h1>test_bar reports</h1>
+    <table>
+    test_bar-20081211T071242/index.html
+    </table>
 
 The diff module provides a function for parsing the date stamp from a
 HTML report directory name.
