@@ -81,13 +81,17 @@ def run(options):
             if os.path.basename(path) != 'funkload.xml':
                 path = report.build_html_report(options, path)
 
-            path, diffs = tests.setdefault(test, (path, {}))
+            test_d = tests.setdefault(
+                test, dict(report=path, diffs={}))
+            diffs = test_d['diffs']
             for label_vs in sorted(labels):
                 tests_vs = labels[label_vs]
                 if label == label_vs or test not in tests_vs:
                     continue
 
-                path_vs, diffs_vs = tests_vs[test]
+                test_vs_d = tests_vs[test]
+                path_vs = test_vs_d['report']
+                diffs_vs = test_vs_d['diffs']
                 if os.path.dirname(path_vs) not in paths_vs:
                     diff_path = report.build_diff_report(
                         options,
