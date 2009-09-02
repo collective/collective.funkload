@@ -26,12 +26,11 @@ reports = ['test_bar-20081211T071242',
            'test_foo-20081111T071242',
            'test_foo-20071211T071242']
 
-def setUpReports(test):
-    test.globs['reports_dir'] = os.path.join(
-        os.path.join(test.globs['tmp_dir'], 'reports'))
-    os.mkdir(test.globs['reports_dir'])
+def setUpReports(reports_dir):
+    shutil.rmtree(reports_dir)
+    os.mkdir(reports_dir)
     for report in reports:
-        report_dir = os.path.join(test.globs['reports_dir'], report)
+        report_dir = os.path.join(reports_dir, report)
         os.mkdir(report_dir)
         shutil.copyfile(
             os.path.join(os.path.dirname(__file__), 'index.rst'),
@@ -46,10 +45,11 @@ def setUp(test):
     directory_with_tests = os.path.join(this_directory, 'src')
     test.globs['defaults'] = ['--path', directory_with_tests,
                               '--tests-pattern', '^sampletests$']
-
-    setUpReports(test)
+    test.globs['reports_dir'] = os.path.join(
+        os.path.join(test.globs['tmp_dir'], 'reports'))
 
 def tearDown(test):
+    shutil.rmtree(test.globs['tmp_dir'])
     tests.tearDown(test)
 
 def test_suite():
