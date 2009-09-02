@@ -39,7 +39,7 @@ def build_html_report(options, xml_file):
     utils.trace("done: \n")
     utils.trace("file://%s\n" % html_path)
     os.remove(xml_file)
-    return os.path.join(os.path.dirname(html_path), 'funkload.xml')
+    return os.path.dirname(html_path)
 
 def build_diff_report(options, directory_1, directory_2):
     """Build a differential report for the given HTML report directories"""
@@ -54,19 +54,18 @@ def build_diff_report(options, directory_1, directory_2):
 def results_by_label(directory):
     labels = {}
     for path in os.listdir(directory):
+        abs_path = os.path.join(directory, path)
         xml_parser = ReportBuilder.FunkLoadXmlParser()
 
         report_path = os.path.join(path, 'funkload.xml')
         report_abs_path = os.path.join(directory, report_path)
         diff_path = os.path.join(path, 'diffbench.dat')
         diff_abs_path = os.path.join(directory, diff_path)
-        abs_path_vs = None
+        path_vs = None
 
         if os.path.isfile(report_abs_path):
             # Is a HTML report directory, use the contained XML
-            path = report_path
-            abs_path = report_abs_path
-            xml_parser.parse(abs_path)
+            xml_parser.parse(report_abs_path)
         elif os.path.isfile(diff_abs_path):
             # Is a diff report directory, use the contained DAT to get
             # the two test paths, parse the 
@@ -74,10 +73,10 @@ def results_by_label(directory):
             abs_path, abs_path_vs = opened.readline(
                 )[1:].strip().split(' vs ')
             opened.close()
-            path = abs_path = os.path.join(abs_path, 'funkload.xml')
-            xml_parser.parse(abs_path)
+            path = os.path.basename(abs_path)
+            path_vs = os.path.basename(abs_path_vs)
+            xml_parser.parse(os.path.join(abs_path, 'funkload.xml'))
         else:
-            abs_path = os.path.join(directory, path)
             try:
                 xml_parser.parser.ParseFile(open(abs_path))
             except xml.parsers.expat.ExpatError:
@@ -93,7 +92,7 @@ def results_by_label(directory):
                          ['module', 'class', 'method']),
                 ({}, []))
             tests[xml_parser.config['time']] = path
-            if abs_path_vs:
-                diffs.append(abs_path_vs)                
+            if path_vs:
+                diffs.append(path_vs)                
                 
     return labels

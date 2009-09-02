@@ -79,16 +79,15 @@ def run(options):
         for test in sorted(found[label]):
             all_tests.add(test)
             times, paths_vs = found[label][test]
-            rel_path = times[max(times)]
-            path = os.path.join(options.output_dir, rel_path)
+            path = times[max(times)]
+            abs_path = os.path.join(options.output_dir, path)
 
-            if os.path.basename(path) != 'funkload.xml':
-                path = report.build_html_report(options, path)
+            if not os.path.isfile(os.path.join(abs_path, 'funkload.xml')):
+                abs_path = report.build_html_report(options, abs_path)
+                path = os.path.basename(abs_path)
 
             test_d = tests.setdefault(
-                test, dict(results=path,
-                           report=os.path.join(
-                               os.path.dirname(path), 'index.html'),
+                test, dict(report=path,
                            name=test.rsplit('.', 1)[-1],
                            diffs={}))
             diffs = test_d['diffs']
@@ -98,13 +97,12 @@ def run(options):
                     continue
 
                 test_vs_d = tests_vs[test]
-                path_vs = test_vs_d['results']
+                path_vs = test_vs_d['report']
                 diffs_vs = test_vs_d['diffs']
                 if os.path.dirname(path_vs) not in paths_vs:
                     diff_path = report.build_diff_report(
-                        options,
-                        os.path.dirname(path),
-                        os.path.dirname(path_vs))
+                        options, abs_path,
+                        os.path.join(options.output_dir, path_vs))
                     
                 diffs_vs[label] = diff_path
                 diffs[label_vs] = diff_path

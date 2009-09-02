@@ -290,19 +290,20 @@
           <tal:label tal:repeat="label sorted_labels">
             <tal:test tal:repeat="test options/tests">
               <tr tal:define="label_d python:options['labels'][label];
-                              test_d python:label_d[test];">
+                              test_d python:label_d.get(test, {});">
                 <th class="field-name" rowspan="3"
                     tal:condition="repeat/test/start"
                     tal:attributes="rowspan python:len(options['tests']);"
                     tal:content="label">label</th>
                 <th class="field-name">
                   <a href="test_report/index.html"
-                     tal:attributes="href test_d/report;"
+                     tal:condition="test_d"
+                     tal:attributes="href string:${test_d/report}/index.html;"
                      tal:content="test">test</a>
                 </th>
                 <td class="field-body" tal:repeat="label_vs sorted_labels">
                   <a href="diff/index.html"
-                     tal:define="diff python:test_d['diffs'].get(label_vs);"
+                     tal:define="diff python:test_d.get('diffs', {}).get(label_vs);"
                      tal:condition="diff"
                      tal:attributes="href diff;"
                      tal:content="string:$label vs $label_vs for ${test_d/name}">

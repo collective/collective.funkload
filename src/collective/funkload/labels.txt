@@ -92,6 +92,7 @@ reports for each test.
 
     >>> print open(os.path.join(reports_dir, 'index.html')).read()
     <...
+    
     <h2 class="subtitle">python-2.4, python-2.6</h2>
     <table class="docutils">
       <thead>
@@ -205,6 +206,7 @@ results and reports.
 
     >>> print open(os.path.join(reports_dir, 'index.html')).read()
     <...
+    
     <h2 class="subtitle">python-2.4, python-2.5, python-2.6</h2>
     <table class="docutils">
         <thead> <tr>
