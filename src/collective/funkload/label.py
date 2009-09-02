@@ -48,7 +48,7 @@ labels_group.add_option(
 A label filter specifying which reports to include on the Y axis.""")
 
 def build_index(directory, labels):
-    utils.trace("Creating report index: ...")
+    utils.trace("Creating report index ...")
     html_path = os.path.join(directory, 'index.html')
     open(html_path, 'w').write(repr(labels))
     utils.trace("done: \n")
@@ -58,7 +58,7 @@ def build_index(directory, labels):
 def run(options):
     found = report.results_by_label(options.output_dir)
     labels = {}
-    for label in found:
+    for label in sorted(found):
         for filter in options.x_label + options.y_label:
             if filter(label):
                 break
@@ -66,14 +66,16 @@ def run(options):
             continue
 
         tests = labels.setdefault(label, {}) # XXX
-        for test, times in found[label].iteritems():
+        for test in sorted(found[label]):
+            times = found[label][test]
             rel_path = times[max(times)]
             path = os.path.join(options.output_dir, rel_path)
             if report.results_re.match(path) is not None:
                 path = report.build_html_report(options, path)
 
             path, diffs = tests.setdefault(test, (path, {}))
-            for label_vs, tests_vs in labels.iteritems():
+            for label_vs in sorted(labels):
+                tests_vs = labels[label_vs]
                 if label == label_vs or test not in tests_vs:
                     continue
 
