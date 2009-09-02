@@ -19,20 +19,22 @@ tested.
 
 Start with some bench result XML files.
 
+    >>> import os
     >>> from collective.funkload import testing
-    >>> sorted(os.listdir(testing.reports_dir), reverse=True)
-    ['read-bench-20081211T071242.xml',
+    >>> testing.setUpReports(reports_dir)
+    >>> sorted(os.listdir(reports_dir), reverse=True)
+    ['write-bench-20081211T071242.xml',
+     'read-bench-20081211T071242.xml',
      'read-bench-20081211T071241.xml',
      'read-bench-20081210T071243.xml',
      'read-bench-20081210T071241.xml',
      'add-bench-20081211T071243.xml',
-     'add-bench-20081211T071242.xml',
-     'write-bench-20081211T071242.xml']
+     'add-bench-20081211T071242.xml']
 
 These bench results cover multiple tests and have multiple labels.
 Some labels are applied to bench results for multiple tests.
 
-    >>> testing.listreports(testing.reports_dir)
+    >>> testing.listreports(reports_dir)
     ('python-2.4', [
        ('foo.sampletests.FooTestCase.test_read', [
            'read-bench-20081211T071242.xml',
@@ -156,7 +158,7 @@ the HTML report directory includes the original bench result XML file
 inside the directory as the funkload.xml file.  To avoid duplication
 the original bench result XML file is removed.
 
-    >>> sorted(os.listdir(testing.reports_dir), reverse=True)
+    >>> sorted(os.listdir(reports_dir), reverse=True)
     ['test_read-20081211T071242-python-2.4',
      'test_read-20081211T071241-python-2.6',
      'read-bench-20081210T071243.xml',
@@ -183,7 +185,7 @@ without labels will be ignored.
     Creating report index ...done:
     file://.../reports/index.html
 
-    >>> sorted(os.listdir(testing.reports_dir), reverse=True)
+    >>> sorted(os.listdir(reports_dir), reverse=True)
     ['test_read-20081211T071242-python-2.4',
      'test_read-20081211T071241-python-2.6',
      'read-bench-20081210T071243.xml',

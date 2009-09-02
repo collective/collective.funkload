@@ -12,6 +12,7 @@
 <config key="id" value="%(test)s" />
 <config key="module" value="%(module)s" />
 <config key="method" value="%(test)s" />
+<config key="label" value="%(label)s" />
 <config key="configuration_file" value="" />
 <config key="server_url" value="" />
 <config key="log_xml" value="%(path)s" />
