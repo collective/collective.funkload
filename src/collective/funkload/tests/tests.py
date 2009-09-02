@@ -27,7 +27,8 @@ reports = ['test_bar-20081211T071242',
            'test_foo-20071211T071242']
 
 def setUpReports(reports_dir):
-    shutil.rmtree(reports_dir)
+    if os.path.isdir(reports_dir):
+        shutil.rmtree(reports_dir)
     os.mkdir(reports_dir)
     for report in reports:
         report_dir = os.path.join(reports_dir, report)
