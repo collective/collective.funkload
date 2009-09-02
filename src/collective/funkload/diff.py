@@ -30,17 +30,28 @@ parser = optparse.OptionParser(
     usage="Usage: %prog", description=description)
 parser.add_option(report.parser.get_option('--output-directory'))
 parser.add_option(report.parser.get_option('--report-directory'))
-parser.add_option(
-    "-x", "--x-axis", type="string",
-    action='callback', callback=parse_axis, default=[],
-    help= "A results XML file or HTML report directory to include on "
-    "the X axis for differential reports.")
-parser.add_option(
-    "-y", "--y-axis", type="string",
-    action='callback', callback=parse_axis, default=[],
-    help= "A results XML file or HTML report directory to include on "
-    "the Y axis for differential reports.")
 parser.add_option(report.parser.get_option('--with-percentiles'))
+
+labels_group = optparse.OptionGroup(parser, "Labels", """\
+Options in this group are used to define the lables for which to build
+reports.  Specify a bench label filter as regular expressions.  These
+are case-sensitive regular expression, used in search (not match)
+mode, to limit which labels are included.  The regular expressions are
+checked against the label given to the"fl-run-bench --label" option .
+In an extension of Python regexp notation, a leading"!" is stripped
+and causes the sense of the remaining regexp to be negated (so "!bc"
+matches any string that does not match "bc", and vice versa).  The
+option can be specified multiple times. Reports are generated for the
+latest bench results whose label matched any of the label filters.  If
+no label filter is specified, then all bench results with a label are
+used.  The bench results inside HTML report directories are included
+in the search.""")
+labels_group.add_option(
+    '--x-label', '-x', action="append", help="""\
+A label filter specifying which reports to include on the X axis.""")
+labels_group.add_option(
+    '--y-label', '-y', action="append", help="""\
+A label filter specifying which reports to include on the Y axis.""")
 
 zero_delta = datetime.timedelta(0)
 
