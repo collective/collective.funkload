@@ -7,10 +7,6 @@ from funkload import utils
 
 from collective.funkload import report
 
-def append_filter(option, opt_str, value, parser):
-    parser.values.ensure_value(option.dest, []).append(
-        options.compile_filter(value))
-
 cur_path = os.path.abspath(os.path.curdir)
 parser = optparse.OptionParser(
     usage="Usage: %prog", description="""\
@@ -36,13 +32,22 @@ latest bench results whose label matched any of the label filters.  If
 no label filter is specified, then all bench results with a label are
 used.  The bench results inside HTML report directories are included
 in the search.""")
+
+default_filter = [options.compile_filter('.')]
+def append_filter(option, opt_str, value, parser):
+    values = getattr(parser.values, option.dest)
+    if values is default_filter:
+        values = []
+    values.append(options.compile_filter(value))
+    setattr(parser.values, option.dest, values)
+
 labels_group.add_option(
-    '--x-label', '-x', type='string', default=[],
+    '--x-label', '-x', type='string', default=default_filter,
     action="callback", callback=append_filter,
     help="""\
 A label filter specifying which reports to include on the X axis.""")
 labels_group.add_option(
-    '--y-label', '-y', type='string', default=[],
+    '--y-label', '-y', type='string', default=default_filter,
     action="callback", callback=append_filter,
     help="""\
 A label filter specifying which reports to include on the Y axis.""")
