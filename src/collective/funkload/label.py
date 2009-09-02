@@ -37,13 +37,13 @@ no label filter is specified, then all bench results with a label are
 used.  The bench results inside HTML report directories are included
 in the search.""")
 labels_group.add_option(
-    '--x-label', '-x',
-    action="callback", callback=append_filter, type='string',
+    '--x-label', '-x', type='string', default=[],
+    action="callback", callback=append_filter,
     help="""\
 A label filter specifying which reports to include on the X axis.""")
 labels_group.add_option(
-    '--y-label', '-y',
-    action="callback", callback=append_filter, type='string',
+    '--y-label', '-y', type='string', default=[],
+    action="callback", callback=append_filter,
     help="""\
 A label filter specifying which reports to include on the Y axis.""")
 
