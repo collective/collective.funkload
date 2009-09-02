@@ -88,7 +88,7 @@ def run(options):
                     continue
 
                 path_vs, diffs_vs = tests_vs[test]
-                if path_vs not in paths_vs:
+                if os.path.dirname(path_vs) not in paths_vs:
                     diff_path = report.build_diff_report(
                         options,
                         os.path.dirname(path),
