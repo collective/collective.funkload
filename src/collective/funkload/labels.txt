@@ -92,11 +92,10 @@ reports for each test.
 
     >>> print open(os.path.join(reports_dir, 'index.html')).read()
     <...
-    
     <h2 class="subtitle">python-2.4, python-2.6</h2>
     <table class="docutils">
       <thead>
-        <tr>
+        <tr class="field">
           <th class="field-name" colspan="2">&nbsp;</th>
           <th class="field-name">python-2.4</th>
           <th class="field-name">python-2.6</th>
@@ -105,45 +104,49 @@ reports for each test.
       <tbody>
           <tr>
               <th class="field-name" rowspan="2">python-2.4</th>
-              <th class="field-name"> <a
-              href="test_read-20081211T071241-python-2.4/index.html">test_read</a>
+              <th class="field-name">
+              <a href="test_add-20081211T071243-python-2.4/index.html">foo.sampletests.FooTestCase.test_add</a>
               </th>
-              <td class="field-body"></td>
-              <td class="field-body"> <a
-              href="diff_read-20081211T_071242-python-2.4_vs_071241-python2.6/index.html">python-2.4 vs python2.6 for test_read</a>
+              <td class="field-body">
+              </td>
+              <td class="field-body">
+              <a href="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/index.html">python-2.4 vs python-2.6 for test_add</a>
               </td>
           </tr>
           <tr>
-              <th class="field-name"> <a
-              href="test_add-20081211T071243-python-2.4/index.html">test_add</a>
+              <th class="field-name">
+              <a href="test_read-20081211T071242-python-2.4/index.html">foo.sampletests.FooTestCase.test_read</a>
               </th>
-              <td class="field-body"></td>
-              <td class="field-body"> <a
-              href="diff_add-20081211T_071243-python-2.4_vs_071242-python2.6/index.html">python-2.4 vs python2.6 for test_add</a>
+              <td class="field-body">
+              </td>
+              <td class="field-body">
+              <a href="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/index.html">python-2.4 vs python-2.6 for test_read</a>
               </td>
           </tr>
           <tr>
               <th class="field-name" rowspan="2">python-2.6</th>
-              <th class="field-name"> <a
-              href="test_read-20081211T071241-python-2.6/index.html">test_read</a>
+              <th class="field-name">
+              <a href="test_add-20081211T071242-python-2.6/index.html">foo.sampletests.FooTestCase.test_add</a>
               </th>
-              <td class="field-body"> <a
-              href="diff_read-20081211T_071242-python-2.4_vs_071241-python2.6/index.html">python-2.4 vs python2.6 for test_read</a>
+              <td class="field-body">
+              <a href="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/index.html">python-2.6 vs python-2.4 for test_add</a>
               </td>
-              <td class="field-body"></td>
+              <td class="field-body">
+              </td>
           </tr>
           <tr>
-              <th class="field-name"> <a
-              href="test_add-20081211T071243-python-2.6/index.html">test_add</a>
+              <th class="field-name">
+              <a href="test_read-20081211T071241-python-2.6/index.html">foo.sampletests.FooTestCase.test_read</a>
               </th>
-              <td class="field-body"> <a
-              href="diff_add-20081211T_071243-python-2.4_vs_071242-python2.6/index.html">python-2.4 vs python2.6 for test_add</a>
+              <td class="field-body">
+              <a href="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/index.html">python-2.6 vs python-2.4 for test_read</a>
               </td>
-              <td class="field-body"></td>
+              <td class="field-body">
+              </td>
           </tr>
       </tbody>
       <tfooter>
-        <tr>
+        <tr class="field">
           <th class="field-name" colspan="2">&nbsp;</th>
           <th class="field-name">python-2.4</th>
           <th class="field-name">python-2.6</th>
@@ -206,86 +209,100 @@ results and reports.
 
     >>> print open(os.path.join(reports_dir, 'index.html')).read()
     <...
-    
     <h2 class="subtitle">python-2.4, python-2.5, python-2.6</h2>
     <table class="docutils">
-        <thead> <tr>
+      <thead>
+        <tr class="field">
             <th class="field-name" colspan="2">&nbsp;</th>
             <th class="field-name">python-2.4</th>
             <th class="field-name">python-2.5</th>
             <th class="field-name">python-2.6</th>
-        </tr> </thead>
+        </tr>
+        </thead>
         <tbody>
             <tr>
                 <th class="field-name" rowspan="2">python-2.4</th>
-                <th class="field-name"> <a
-                href="test_read-20081211T071241-python-2.4/index.html">test_read</a>
+                <th class="field-name">
+              <a href="test_add-20081211T071243-python-2.4/index.html">foo.sampletests.FooTestCase.test_add</a>
                 </th>
-                <td class="field-body"></td>
-                <td class="field-body"> <a
-                href="diff_read-20081211T071242-python-2.4_vs_20081210T071241-python-2.5/index.html">python-2.4 vs python-2.5 for test_read</a>
-                </td>
-                <td class="field-body"> <a
-                href="diff_read-20081211T_071242-python-2.4_vs_071241-python2.6/index.html">python-2.4 vs python2.6 for test_read</a>
+                <td class="field-body">
+              </td>
+                <td class="field-body">
+              </td>
+                <td class="field-body">
+              <a href="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/index.html">python-2.4 vs python-2.6 for test_add</a>
                 </td>
             </tr>
             <tr>
-                <th class="field-name"> <a
-                href="test_add-20081211T071243-python-2.4/index.html">test_add</a>
+                <th class="field-name">
+              <a href="test_read-20081211T071242-python-2.4/index.html">foo.sampletests.FooTestCase.test_read</a>
                 </th>
-                <td class="field-body"></td>
-                <td class="field-body"></td>
-                <td class="field-body"> <a
-                href="diff_add-20081211T_071243-python-2.4_vs_071242-python2.6/index.html">python-2.4 vs python2.6 for test_add</a>
+                <td class="field-body">
+              </td>
+                <td class="field-body">
+              <a href="diff_read_20081211T071242-python-2.4_vs_20081210T071241-python-2.5/index.html">python-2.4 vs python-2.5 for test_read</a>
+                </td>
+                <td class="field-body">
+              <a href="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/index.html">python-2.4 vs python-2.6 for test_read</a>
                 </td>
             </tr>
             <tr>
                 <th class="field-name" rowspan="2">python-2.5</th>
-                <th class="field-name"> <a
-                href="test_read-20081210T071241-python-2.5/index.html">test_read</a>
+                <th class="field-name">
                 </th>
-                <td class="field-body"> <a
-                href="diff_read-20081211T071242-python-2.4_vs_20081210T071241-python-2.5/index.html">python-2.4 vs python-2.5 for test_read</a>
-                </td>
-                <td class="field-body"></td>
-                <td class="field-body"> <a
-                href="diff_read-20081210T071241-python-2.5_vs_20081211T071241-python-2.6/index.html">python-2.5 vs python2.6 for test_read</a>
-                </td>
+                <td class="field-body">
+              </td>
+                <td class="field-body">
+              </td>
+                <td class="field-body">
+              </td>
             </tr>
             <tr>
-                <th class="field-name">test_add</th>
-                <td class="field-body"></td>
-                <td class="field-body"></td>
-                <td class="field-body"></td>
+                <th class="field-name">
+              <a href="test_read-20081210T071241-python-2.5/index.html">foo.sampletests.FooTestCase.test_read</a>
+                </th>
+                <td class="field-body">
+              <a href="diff_read_20081211T071242-python-2.4_vs_20081210T071241-python-2.5/index.html">python-2.5 vs python-2.4 for test_read</a>
+                </td>
+                <td class="field-body">
+              </td>
+                <td class="field-body">
+              <a href="diff_read_20081210T071241-python-2.5_vs_20081211T071241-python-2.6/index.html">python-2.5 vs python-2.6 for test_read</a>
+                </td>
             </tr>
             <tr>
                 <th class="field-name" rowspan="2">python-2.6</th>
-                <th class="field-name"> <a
-                href="test_read-20081211T071241-python-2.6/index.html">test_read</a>
+                <th class="field-name">
+              <a href="test_add-20081211T071242-python-2.6/index.html">foo.sampletests.FooTestCase.test_add</a>
                 </th>
-                <td class="field-body"> <a
-                href="diff_read-20081211T_071242-python-2.4_vs_071241-python2.6/index.html">python-2.4 vs python2.6 for test_read</a>
+                <td class="field-body">
+              <a href="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/index.html">python-2.6 vs python-2.4 for test_add</a>
                 </td>
-                <td class="field-body"> <a
-                href="diff_read-20081210T071241-python-2.5_vs_20081211T071241-python-2.6/index.html">python-2.5 vs python2.6 for test_read</a>
-                </td>
-                <td class="field-body"></td>
+                <td class="field-body">
+              </td>
+                <td class="field-body">
+              </td>
             </tr>
             <tr>
-                <th class="field-name"> <a
-                href="test_add-20081211T071243-python-2.6/index.html">test_add</a>
+                <th class="field-name">
+              <a href="test_read-20081211T071241-python-2.6/index.html">foo.sampletests.FooTestCase.test_read</a>
                 </th>
-                <td class="field-body"> <a
-                href="diff_add-20081211T_071243-python-2.4_vs_071242-python2.6/index.html">python-2.4 vs python2.6 for test_add</a>
+                <td class="field-body">
+              <a href="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/index.html">python-2.6 vs python-2.4 for test_read</a>
                 </td>
-                <td class="field-body"></td>
-                <td class="field-body"></td>
+                <td class="field-body">
+              <a href="diff_read_20081210T071241-python-2.5_vs_20081211T071241-python-2.6/index.html">python-2.6 vs python-2.5 for test_read</a>
+                </td>
+                <td class="field-body">
+              </td>
             </tr>
         </tbody>
-        <tfooter> <tr>
+      <tfooter>
+        <tr class="field">
             <th class="field-name" colspan="2">&nbsp;</th>
             <th class="field-name">python-2.4</th>
             <th class="field-name">python-2.5</th>
             <th class="field-name">python-2.6</th>
-        </tr> </tfooter>
+        </tr>
+        </tfooter>
     </table>...

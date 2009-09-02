@@ -305,7 +305,7 @@
                   <a href="diff/index.html"
                      tal:define="diff python:test_d.get('diffs', {}).get(label_vs);"
                      tal:condition="diff"
-                     tal:attributes="href diff;"
+                     tal:attributes="href string:$diff/index.html;"
                      tal:content="string:$label vs $label_vs for ${test_d/name}">
                     diff label vs label for test
                   </a>
@@ -315,7 +315,7 @@
           </tal:label>
         </tbody>
         <tfooter>
-          <tr>
+          <tr class="field">
             <th class="field-name" colspan="2">&nbsp;</th>
             <th class="field-name"
                 tal:repeat="label sorted_labels" tal:content="label">

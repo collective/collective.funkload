@@ -103,6 +103,7 @@ def run(options):
                     diff_path = report.build_diff_report(
                         options, abs_path,
                         os.path.join(options.output_dir, path_vs))
+                    diff_path = os.path.basename(diff_path)
                     
                 diffs_vs[label] = diff_path
                 diffs[label_vs] = diff_path

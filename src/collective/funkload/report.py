@@ -49,7 +49,7 @@ def build_diff_report(options, directory_1, directory_2):
         directory_1, directory_2, options)
     utils.trace("done: \n")
     utils.trace("%s\n" % html_path)
-    return html_path
+    return os.path.dirname(str(html_path))
 
 def results_by_label(directory):
     labels = {}
