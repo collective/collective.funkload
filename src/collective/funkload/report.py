@@ -78,7 +78,7 @@ def results_by_label(directory):
         else:
             try:
                 xml_parser.parser.ParseFile(open(abs_path))
-            except xml.parsers.expat.ExpatError:
+            except IOError, xml.parsers.expat.ExpatError:
                 # Is not a parsable funkload file, ignore
                 continue
             # Is a bench results XML file itself, use directly
