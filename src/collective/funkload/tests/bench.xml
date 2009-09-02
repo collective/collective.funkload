@@ -1,20 +1,22 @@
-<funkload version="1.10.0" time="%s(time)">
+<funkload version="1.10.0" time="%(time)s">
+<config key="duration" value="1" />
+<config key="sleep_time" value="1.0" />
+<config key="sleep_time_max" value="2.0" />
+<config key="startup_delay" value="0.2" />
+<config key="cycles" value="[1]" />
+<config key="cycle_time" value="1.0" />
 <config key="sleep_time_min" value="0.0" />
 <config key="class_description" value="" />
-<config key="cycles" value="[]" />
-<config key="cycle_time" value="0" />
 <config key="description" value="" />
 <config key="class_title" value="" />
-<config key="id" value="%s(test)" />
-<config key="sleep_time_max" value="0" />
-<config key="startup_delay" value="0" />
-<config key="module" value="%s(module)" />
-<config key="method" value="%s(test)" />
+<config key="id" value="%(test)s" />
+<config key="module" value="%(module)s" />
+<config key="method" value="%(test)s" />
 <config key="configuration_file" value="" />
-<config key="sleep_time" value="0" />
 <config key="server_url" value="" />
-<config key="duration" value="0" />
-<config key="log_xml" value="%s(path)" />
-<config key="class" value="%s(class)" />
+<config key="log_xml" value="%(path)s" />
+<config key="class" value="%(class_)s" />
 <config key="localhost" value="The benching machine" />
+<response cycle="000" cvus="001" thread="000" suite="%(class_)s" name="%(test)s" step="001" number="001" type="get" result="Successful" url="/" code="200" description="Get /" time="1251570349.63" duration="0.283231019974" />
+<testResult cycle="000" cvus="001" thread="000" suite="%(class_)s" name="%(test)s"  time="1251569646.52" result="Successful" steps="1" duration="36.4461379051" connection_duration="29.5637657642" requests="1" pages="1" xmlrpc="0" redirects="0" images="0" links="0" />
 </funkload>
