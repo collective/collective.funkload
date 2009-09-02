@@ -17,6 +17,7 @@ ago."""
 cur_path = os.path.abspath(os.path.curdir)
 parser = optparse.OptionParser(
     usage="Usage: %prog", description=description)
+parser.add_option(report.parser.get_option('--output-directory'))
 parser.add_option(report.parser.get_option('--report-directory'))
 parser.add_option(
     "-x", "--x-axis", type="string", action='append',
@@ -112,8 +113,8 @@ def get_interval_reports(latest_date, latest_path, reports):
                 yield candidate_date, candidate_path
 
 def run(options):
-    report.build_html_reports(options, options.report_dir)
-    for reports in get_report_dates(options.report_dir).itervalues():
+    report.build_html_reports(options, options.output_dir)
+    for reports in get_report_dates(options.output_dir).itervalues():
         if len(reports) < 2:
             continue
 

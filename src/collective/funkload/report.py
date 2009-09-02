@@ -13,6 +13,11 @@ parser = optparse.OptionParser(
     ReportBuilder.USAGE,
     formatter=optparse.TitledHelpFormatter(),
     version="FunkLoad %s" % utils.get_version())
+parser.add_option("-o", "--output-directory", type="string",
+                  dest="output_dir",
+                  help="Parent directory to store reports, the directory"
+                  "name of the report will be generated automatically.",
+                  default=os.path.abspath(os.getcwd()))
 parser.add_option("-r", "--report-directory", type="string",
                   dest="report_dir",
                   help="Directory name to store the report.",
@@ -38,7 +43,6 @@ def build_html_report(options, xml_file):
 
 def build_html_reports(options, directory):
     """Build HTML reports for all bench results in the directory"""
-    options.report_dir = directory
     for path in os.listdir(directory):
         match = results_re.match(path)
         if match is not None:
