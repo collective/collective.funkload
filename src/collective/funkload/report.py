@@ -38,7 +38,6 @@ def build_html_report(options, xml_file):
         options)()
     utils.trace("done: \n")
     utils.trace("file://%s\n" % html_path)
-    os.remove(xml_file)
     return os.path.dirname(html_path)
 
 def build_diff_report(options, directory_1, directory_2):
