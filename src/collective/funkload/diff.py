@@ -7,6 +7,8 @@ import optparse
 from funkload import ReportRenderDiff
 from funkload import utils
 
+from collective.funkload import report
+
 description = """\
 Generate FunkLoad differential reports against the previous report and
 against any available reports from a day, a week, a month and a year
@@ -15,9 +17,7 @@ ago."""
 cur_path = os.path.abspath(os.path.curdir)
 parser = optparse.OptionParser(
     usage="Usage: %prog", description=description)
-parser.add_option(
-    "-d", "--directory", type="string", default=None,
-    help= "Directory of bench results or HTML reports.")
+parser.add_option(report.parser.get_option('--report-directory'))
 parser.add_option(
     "-x", "--x-axis", type="string", action='append',
     help= "A results XML file or HTML report directory to include on "
@@ -26,6 +26,7 @@ parser.add_option(
     "-y", "--y-axis", type="string", action='append',
     help= "A results XML file or HTML report directory to include on "
     "the Y axis for differential reports.")
+parser.add_option(report.parser.get_option('--with-percentiles'))
 
 zero_delta = datetime.timedelta(0)
 
@@ -111,7 +112,8 @@ def get_interval_reports(latest_date, latest_path, reports):
                 yield candidate_date, candidate_path
 
 def run(options):
-    for reports in get_report_dates(options.directory).itervalues():
+    report.build_html_reports(options, options.report_dir)
+    for reports in get_report_dates(options.report_dir).itervalues():
         if len(reports) < 2:
             continue
 
