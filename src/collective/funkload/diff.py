@@ -4,10 +4,11 @@ import bisect
 import datetime
 import optparse
 
+from zope.testing.testrunner import options
+
 from funkload import ReportRenderDiff
 from funkload import utils
 
-from collective.funkload import stamp
 from collective.funkload import report
 
 description = """\
@@ -15,15 +16,9 @@ Generate FunkLoad differential reports against the previous report and
 against any available reports from a day, a week, a month and a year
 ago."""
 
-def parse_axis(option, opt_str, value, parser):
-    stamps = stamp.sorted_stamps(parser.values.output_dir)
-    values = getattr(parser.values, option.dest)
-    if value == 'latest':
-        values.append(stamps[0])
-    elif stamp.stamp_re.match(value) is None:
-        values.append(float(value))
-    else:
-        values.append(value)
+def append_filter(option, opt_str, value, parser):
+    parser.values.ensure_value(option.dest, []).append(
+        options.compile_filter(value))
 
 cur_path = os.path.abspath(os.path.curdir)
 parser = optparse.OptionParser(
@@ -47,10 +42,14 @@ no label filter is specified, then all bench results with a label are
 used.  The bench results inside HTML report directories are included
 in the search.""")
 labels_group.add_option(
-    '--x-label', '-x', action="append", help="""\
+    '--x-label', '-x',
+    action="callback", callback=append_filter, type='string',
+    help="""\
 A label filter specifying which reports to include on the X axis.""")
 labels_group.add_option(
-    '--y-label', '-y', action="append", help="""\
+    '--y-label', '-y',
+    action="callback", callback=append_filter, type='string',
+    help="""\
 A label filter specifying which reports to include on the Y axis.""")
 
 zero_delta = datetime.timedelta(0)
