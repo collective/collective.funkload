@@ -182,19 +182,20 @@ without labels will be ignored.
     .../reports/diff_read_20081210T071241-python-2.5_vs_20081211T071241-python-2.6/index.html
     Creating report index ...done:
     .../reports/index.html
+    '.../reports/index.html'
 
     >>> pprint.pprint(sorted(os.listdir(reports_dir), reverse=True))
     ['write-bench-20081211T071242.xml',
      'test_read-20081211T071242-python-2.4',
      'test_read-20081211T071241-python-2.6',
-     'test_read-20081210T071241-python-2.5.xml',
+     'test_read-20081210T071241-python-2.5',
      'test_add-20081211T071243-python-2.4',
      'test_add-20081211T071242-python-2.6',
      'read-bench-20081210T071243.xml',
      'index.html',
      'diff_read_20081211T071242-python-2.4_vs_20081210T071241-python-2.5',
-     'diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6',
      'diff_read_20081210T071241-python-2.5_vs_20081211T071241-python-2.6',
+     'diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6',
      'diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6']
     
 The HTML report index will be updated to reflect the newly included
