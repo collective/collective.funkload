@@ -3,6 +3,7 @@ import optparse
 import xml.parsers.expat
 
 from zope.testing.testrunner import options
+from zope.pagetemplate import pagetemplatefile
 
 from funkload import utils
 from funkload import ReportBuilder
@@ -54,10 +55,11 @@ labels_group.add_option(
     help="""\
 A label filter specifying which reports to include on the Y axis.""")
 
-def build_index(directory, labels):
+def build_index(directory, labels, tests):
     utils.trace("Creating report index ...")
     html_path = os.path.join(directory, 'index.html')
-    open(html_path, 'w').write(repr(labels))
+    template = pagetemplatefile.PageTemplateFile('label.pt')
+    open(html_path, 'w').write(template(labels=labels, tests=tests))
     utils.trace("done: \n")
     utils.trace("file://%s\n" % html_path)
     return html_path
@@ -65,6 +67,7 @@ def build_index(directory, labels):
 def run(options):
     found = report.results_by_label(options.output_dir)
     labels = {}
+    all_tests = set()
     for label in sorted(found):
         for filter in options.x_label + options.y_label:
             if filter(label):
@@ -74,6 +77,7 @@ def run(options):
 
         tests = labels.setdefault(label, {}) # XXX
         for test in sorted(found[label]):
+            all_tests.add(test)
             times, paths_vs = found[label][test]
             rel_path = times[max(times)]
             path = os.path.join(options.output_dir, rel_path)
@@ -82,7 +86,10 @@ def run(options):
                 path = report.build_html_report(options, path)
 
             test_d = tests.setdefault(
-                test, dict(report=path, diffs={}))
+                test, dict(results=path,
+                           report=os.path.join(
+                               os.path.dirname(path), 'index.html'),
+                           diffs={}))
             diffs = test_d['diffs']
             for label_vs in sorted(labels):
                 tests_vs = labels[label_vs]
@@ -90,7 +97,7 @@ def run(options):
                     continue
 
                 test_vs_d = tests_vs[test]
-                path_vs = test_vs_d['report']
+                path_vs = test_vs_d['results']
                 diffs_vs = test_vs_d['diffs']
                 if os.path.dirname(path_vs) not in paths_vs:
                     diff_path = report.build_diff_report(
@@ -101,7 +108,7 @@ def run(options):
                 diffs_vs[label] = diff_path
                 diffs[label_vs] = diff_path
 
-    return build_index(options.output_dir, labels)
+    return build_index(options.output_dir, labels, sorted(all_tests))
     
 def main(args=None, values=None):
     (options, args) = parser.parse_args(args, values)

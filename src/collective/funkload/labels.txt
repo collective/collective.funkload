@@ -92,7 +92,7 @@ reports for each test.
 
     >>> print open(os.path.join(reports_dir, 'index.html')).read()
     <...
-    <h1>python-2.4 vs python-2.6</h1>
+    <h2>python-2.4, python-2.6</h2>
     <table>
         <thead> <tr>
             <th></th>
@@ -203,7 +203,7 @@ results and reports.
 
     >>> print open(os.path.join(reports_dir, 'index.html')).read()
     <...
-    <h1>python-2.4 vs python-2.6</h1>
+    <h2>python-2.4, python-2.5, python-2.6</h2>
     <table>
         <thead> <tr>
             <th></th>

@@ -29,11 +29,12 @@ setup(name='collective.funkload',
           # -*- Extra requirements: -*-
           'funkload',
           'zope.testing>=3.6', # testrunner refactored
+          'zope.pagetemplate',
       ],
       entry_points={
           'console_scripts': [
               'fl-run-bench = collective.funkload.bench:run',
-              'build-diffs = collective.funkload.diff:main'],
+              'fl-build-label-reports = collective.funkload.label:main'],
           'zc.buildout': [
               'default = collective.funkload.recipe:TestRunner'],
           },
