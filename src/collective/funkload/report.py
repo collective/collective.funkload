@@ -36,7 +36,7 @@ def build_html_report(options, xml_file):
     options.html = True
     xml_parser = ReportBuilder.FunkLoadXmlParser()
     xml_parser.parse(xml_file)
-    utils.trace("Creating html report: ...")
+    utils.trace("Creating html report ...")
     html_path = ReportRenderHtml.RenderHtml(
         xml_parser.config, xml_parser.stats,
         xml_parser.error, xml_parser.monitor,
