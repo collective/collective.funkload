@@ -55,58 +55,68 @@ A label filter specifying which reports to include on the Y axis.""")
 
 parser.add_option_group(labels_group)
 
-def build_index(directory, labels):
+def build_index(directory, x_labels, y_labels):
     utils.trace("Creating report index ...")
     html_path = os.path.join(directory, 'index.html')
     template = pagetemplatefile.PageTemplateFile('label.pt')
-    open(html_path, 'w').write(template(labels=labels))
+    open(html_path, 'w').write(
+        template(x_labels=x_labels, y_labels=y_labels))
     utils.trace("done: \n")
     utils.trace("file://%s\n" % html_path)
     return html_path
 
+def process_axis(options, found, labels, labels_vs, label):
+    tests = labels.setdefault(label, {}) # XXX
+    for test in sorted(found[label]):
+        times, paths_vs = found[label][test]
+        path = times[max(times)]
+        abs_path = os.path.join(options.output_dir, path)
+
+        if not os.path.isfile(os.path.join(abs_path, 'funkload.xml')):
+            abs_path = report.build_html_report(options, abs_path)
+            path = os.path.basename(abs_path)
+
+        test_d = tests.setdefault(
+            test, dict(report=path,
+                       name=test.rsplit('.', 1)[-1],
+                       diffs={}))
+        diffs = test_d['diffs']
+        for label_vs in sorted(labels_vs):
+            tests_vs = labels_vs[label_vs]
+            if label == label_vs or test not in tests_vs:
+                continue
+
+            test_vs_d = tests_vs[test]
+            path_vs = test_vs_d['report']
+            diffs_vs = test_vs_d['diffs']
+            if os.path.dirname(path_vs) not in paths_vs:
+                diff_path = report.build_diff_report(
+                    options, abs_path,
+                    os.path.join(options.output_dir, path_vs))
+                diff_path = os.path.basename(diff_path)
+
+            diffs_vs[label] = diff_path
+            diffs[label_vs] = diff_path
+
 def run(options):
     found = report.results_by_label(options.output_dir)
-    labels = {}
+    x_labels = {}
+    y_labels = {}
     for label in sorted(found):
-        for filter in options.x_label + options.y_label:
+        matched = False
+        for filter in options.x_label:
             if filter(label):
+                process_axis(
+                    options, found, x_labels, y_labels, label)
                 break
-        else:
-            continue
 
-        tests = labels.setdefault(label, {}) # XXX
-        for test in sorted(found[label]):
-            times, paths_vs = found[label][test]
-            path = times[max(times)]
-            abs_path = os.path.join(options.output_dir, path)
+        for filter in options.y_label:
+            if filter(label):
+                process_axis(
+                    options, found, y_labels, x_labels, label)
+                break
 
-            if not os.path.isfile(os.path.join(abs_path, 'funkload.xml')):
-                abs_path = report.build_html_report(options, abs_path)
-                path = os.path.basename(abs_path)
-
-            test_d = tests.setdefault(
-                test, dict(report=path,
-                           name=test.rsplit('.', 1)[-1],
-                           diffs={}))
-            diffs = test_d['diffs']
-            for label_vs in sorted(labels):
-                tests_vs = labels[label_vs]
-                if label == label_vs or test not in tests_vs:
-                    continue
-
-                test_vs_d = tests_vs[test]
-                path_vs = test_vs_d['report']
-                diffs_vs = test_vs_d['diffs']
-                if os.path.dirname(path_vs) not in paths_vs:
-                    diff_path = report.build_diff_report(
-                        options, abs_path,
-                        os.path.join(options.output_dir, path_vs))
-                    diff_path = os.path.basename(diff_path)
-                    
-                diffs_vs[label] = diff_path
-                diffs[label_vs] = diff_path
-
-    return build_index(options.output_dir, labels)
+    return build_index(options.output_dir, x_labels, y_labels)
     
 def main(args=None, values=None):
     (options, args) = parser.parse_args(args, values)
