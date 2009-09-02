@@ -1,13 +1,18 @@
 import os
 import re
 import optparse
+import bisect
 
 from funkload import utils
 from funkload import ReportRenderHtml
 from funkload import ReportBuilder
 
+from collective.funkload import stamp
+
 results_re = re.compile(
     r'^([^-]*)-bench-(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2}).xml$')
+report_re = re.compile(
+    r'^([^-]*)-(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})-(\w*)$')
 
 parser = optparse.OptionParser(
     ReportBuilder.USAGE,
@@ -53,3 +58,33 @@ def build_html_reports(options, directory):
                 directory,
                 xml_parser.config['method']+match.group(1))):
                 build_html_report(options, abs_path)
+
+def results_by_label(directory):
+    labels = {}
+    for path in os.listdir(directory):
+        xml_parser = ReportBuilder.FunkLoadXmlParser()
+
+        results_match = results_re.match(path)
+        if results_match is not None:
+            abs_path = os.path.join(directory, path)
+            xml_parser.parse(abs_path)
+        else:
+            report_match = report_re.match(path)
+            path = os.path.join(path, 'funkload.xml')
+            abs_path = os.path.join(directory, path)
+            if report_match is not None:
+                xml_parser.parse(abs_path)
+            else:
+                # Not a bench
+                continue
+
+        if 'label' in xml_parser.config and xml_parser.config[
+            'label']:
+            label = labels.setdefault(xml_parser.config['label'], {})
+            tests = label.setdefault(
+                '.'.join(xml_parser.config[key] for key in
+                         ['module', 'class', 'method']),
+                {})
+            tests[xml_parser.config['time']] = path
+                
+    return labels

@@ -34,28 +34,22 @@ Start with some bench result XML files.
 These bench results cover multiple tests and have multiple labels.
 Some labels are applied to bench results for multiple tests.
 
-    >>> testing.listreports(reports_dir)
-    ('python-2.4', [
-       ('foo.sampletests.FooTestCase.test_read', [
-           'read-bench-20081211T071242.xml',
-           'read-bench-20081210T071243.xml']),
-       ('foo.sampletests.FooTestCase.test_add', [
-           'add-bench-20081211T071243.xml']),
-       ]),
-    ('python-2.6', [
-       ('foo.sampletests.FooTestCase.test_read', [
-           'read-bench-20081211T071241.xml']),
-       ('foo.sampletests.FooTestCase.test_add', [
-           'add-bench-20081211T071242.xml']),
-       ]),
-    ('python-2.5', [
-       ('foo.sampletests.FooTestCase.test_read', [
-           'read-bench-20081210T071241.xml']),
-    (None, [
-       ('foo.sampletests.FooTestCase.test_write', [
-           'write-bench-20081211T071242.xml']),
-       ]),
-    ]
+    >>> import pprint
+    >>> pprint.pprint(testing.listReports(reports_dir))
+    [(u'python-2.4',
+      [(u'foo.sampletests.FooTestCase.test_add',
+        [(u'2008-12-11T07:12:43.000000', 'add-bench-20081211T071243.xml')]),
+       (u'foo.sampletests.FooTestCase.test_read',
+        [(u'2008-12-11T07:12:42.000000', 'read-bench-20081211T071242.xml'),
+         (u'2008-12-10T07:12:43.000000', 'read-bench-20081210T071243.xml')])]),
+     (u'python-2.5',
+      [(u'foo.sampletests.FooTestCase.test_read',
+        [(u'2008-12-10T07:12:41.000000', 'read-bench-20081210T071241.xml')])]),
+     (u'python-2.6',
+      [(u'foo.sampletests.FooTestCase.test_add',
+        [(u'2008-12-11T07:12:42.000000', 'add-bench-20081211T071242.xml')]),
+       (u'foo.sampletests.FooTestCase.test_read',
+        [(u'2008-12-11T07:12:41.000000', 'read-bench-20081211T071241.xml')])])]
 
 When labels are specified for the X or Y axes, HTML reports are
 generated for the latest bench result XML file for each combination of
