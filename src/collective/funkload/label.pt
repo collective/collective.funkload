@@ -276,12 +276,12 @@
       <h2 class="subtitle"
           tal:content="python:', '.join(sorted_labels)">labels</h2>
 
-      <table>
+      <table class="docutils">
         <thead>
-          <tr>
-            <th></th>
-            <th></th>
-            <th tal:repeat="label sorted_labels" tal:content="label">
+          <tr class="field">
+            <th class="field-name" colspan="2">&nbsp;</th>
+            <th class="field-name"
+                tal:repeat="label sorted_labels" tal:content="label">
               label
             </th>
           </tr>
@@ -291,20 +291,23 @@
             <tal:test tal:repeat="test options/tests">
               <tr tal:define="label_d python:options['labels'][label];
                               test_d python:label_d[test];">
-                <th rowspan="3"
+                <th class="field-name" rowspan="3"
                     tal:condition="repeat/test/start"
                     tal:attributes="rowspan python:len(options['tests']);"
                     tal:content="label">label</th>
-                <th>
+                <th class="field-name">
                   <a href="test_report/index.html"
                      tal:attributes="href test_d/report;"
                      tal:content="test">test</a>
                 </th>
-                <td tal:repeat="label_vs sorted_labels">
+                <td class="field-body" tal:repeat="label_vs sorted_labels">
                   <a href="diff/index.html"
                      tal:define="diff python:test_d['diffs'].get(label_vs);"
                      tal:condition="diff"
-                     tal:attributes="href diff;">diff</a>
+                     tal:attributes="href diff;"
+                     tal:content="string:$label vs $label_vs for ${test_d/name}">
+                    diff label vs label for test
+                  </a>
                 </td>
               </tr>
             </tal:test>
@@ -312,9 +315,9 @@
         </tbody>
         <tfooter>
           <tr>
-            <th></th>
-            <th></th>
-            <th tal:repeat="label sorted_labels" tal:content="label">
+            <th class="field-name" colspan="2">&nbsp;</th>
+            <th class="field-name"
+                tal:repeat="label sorted_labels" tal:content="label">
               label
             </th>
           </tr>

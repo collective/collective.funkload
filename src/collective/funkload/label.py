@@ -89,6 +89,7 @@ def run(options):
                 test, dict(results=path,
                            report=os.path.join(
                                os.path.dirname(path), 'index.html'),
+                           name=test.rsplit('.', 1)[-1],
                            diffs={}))
             diffs = test_d['diffs']
             for label_vs in sorted(labels):
