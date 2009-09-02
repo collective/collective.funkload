@@ -1,13 +1,11 @@
 import os
 import re
 import optparse
-import bisect
 
 from funkload import utils
 from funkload import ReportRenderHtml
+from funkload import ReportRenderDiff
 from funkload import ReportBuilder
-
-from collective.funkload import stamp
 
 results_re = re.compile(
     r'^([^-]*)-bench-(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2}).xml$')
@@ -45,6 +43,18 @@ def build_html_report(options, xml_file):
         options)()
     utils.trace("done: \n")
     utils.trace("file://%s\n" % html_path)
+    os.remove(xml_file)
+    return os.path.join(os.path.dirname(html_path), 'funkload.xml')
+
+def build_diff_report(options, directory_1, directory_2):
+    """Build a differential report for the given HTML report directories"""
+    utils.trace("Creating diff report ...")
+    output_dir = options.output_dir
+    html_path = ReportRenderDiff.RenderDiff(
+        directory_1, directory_2, options)
+    utils.trace("done: \n")
+    utils.trace("%s\n" % html_path)
+    return html_path
 
 def build_html_reports(options, directory):
     """Build HTML reports for all bench results in the directory"""

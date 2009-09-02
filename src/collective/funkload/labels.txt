@@ -59,11 +59,11 @@ Y axes forming a grid of reports.  Finally, an index.html file is
 generated providing clear and easy access to the generated reports.
 Generate reports and comparisons for python-2.4 vs python-2.6.
 
-    >>> from collective.funkload import diff
+    >>> from collective.funkload import label
     >>> args = ('-o %s --x-label=python-2.4 --y-label=!.*-2.5'
     ...         % reports_dir)
-    >>> options, _ = diff.parser.parse_args(args=args.split())
-    >>> diff.run(options)
+    >>> options, _ = label.parser.parse_args(args=args.split())
+    >>> label.run(options)
     Creating html report: ...done: 
     file://.../reports/test_read-20081211T071242-python-2.4/index.html
     Creating html report: ...done: 
@@ -78,6 +78,7 @@ Generate reports and comparisons for python-2.4 vs python-2.6.
     file://.../reports/diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/index.html
     Creating report index ...done:
     file://.../reports/index.html
+    '.../reports/index.html'
 
 The report index renders a table with links to the HTML reports on the
 X and Y axes and links to the differential reports in the table cells.
@@ -168,8 +169,8 @@ already.  IOW, existing reports will be re-used.  Reports or results
 without labels will be ignored.
 
     >>> args = ('-o %s' % reports_dir)
-    >>> options, _ = diff.parser.parse_args(args=args.split())
-    >>> diff.run(options)
+    >>> options, _ = label.parser.parse_args(args=args.split())
+    >>> label.run(options)
     Creating html report: ...done: 
     file://.../reports/test_read-20081210T071241-python-2.5/index.html
     Creating diff report: ...done: 
