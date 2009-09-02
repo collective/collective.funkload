@@ -103,35 +103,35 @@ ago, one month ago and 1 year ago.
     >>> args='-r %s -x latest -y 1 -y 7 -y 30 -y 365' % reports_dir
     >>> options, _ = diff.parser.parse_args(args=args.split())
     >>> diff.run(options)
-    Creating html report ...done: 
+    Creating html report: ...done: 
     file://.../reports/test_foo-20081211T071242/index.html
-    Creating html report ...done: 
+    Creating html report: ...done: 
     file://.../reports/test_foo-20081211T071241/index.html
-    Creating html report ...done: 
+    Creating html report: ...done: 
     file://.../reports/test_foo-20081210T071243/index.html
-    Creating html report ...done: 
+    Creating html report: ...done: 
     file://.../reports/test_foo-20081204T071242/index.html
-    Creating html report ...done: 
+    Creating html report: ...done: 
     file://.../reports/test_foo-20081111T071242/index.html
-    Creating html report ...done: 
+    Creating html report: ...done: 
     file://.../reports/test_foo-20071211T071242/index.html
-    Creating html report ...done: 
+    Creating html report: ...done: 
     file://.../reports/test_baz-20081211T071243/index.html
-    Creating html report ...done: 
+    Creating html report: ...done: 
     file://.../reports/test_baz-20081211T071242/index.html
-    Creating html report ...done: 
+    Creating html report: ...done: 
     file://.../reports/test_bar-20081211T071242/index.html
-    Creating diff report ...done: 
+    Creating diff report: ...done: 
     file://.../reports/diff_foo-20081211T_071242_vs_071241/index.html
-    Creating diff report ...done: 
+    Creating diff report: ...done: 
     file://.../reports/diff_foo_20081211T071242_vs_20081210T071243/index.html
-    Creating diff report ...done: 
+    Creating diff report: ...done: 
     file://.../reports/diff_foo_20081211T071242_vs_20081204T071242/index.html
-    Creating diff report ...done: 
+    Creating diff report: ...done: 
     file://.../reports/diff_foo_20081211T071242_vs_20081111T071242/index.html
-    Creating diff report ...done: 
+    Creating diff report: ...done: 
     file://.../reports/diff_foo_20081211T071242_vs_20071211T071242/index.html
-    Creating diff report ...done: 
+    Creating diff report: ...done: 
     file://.../reports/diff_baz-20081211T_071243_vs_071242/index.html
     Creating report index ...done:
     file://.../reports/index.html
@@ -237,93 +237,93 @@ timestamp placing the most recent first.
     >>> args='-r %s' % reports_dir
     >>> options, _ = diff.parser.parse_args(args=args.split())
     >>> diff.run(options)
-    Creating html report ...done: 
+    Creating html report: ...done: 
     file://.../reports/test_foo-20081210T071241/index.html
-    Creating html report ...done: 
+    Creating html report: ...done: 
     file://.../reports/test_foo-20081209T071242/index.html
-    Creating html report ...done: 
+    Creating html report: ...done: 
     file://.../reports/test_foo-20081205T071242/index.html
-    Creating html report ...done: 
+    Creating html report: ...done: 
     file://.../reports/test_foo-20081203T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081211T071242_vs_20081210T071241/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081211T071242_vs_20081209T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081211T071242_vs_20081205T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081211T071242_vs_20081203T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081211T071241_vs_20081210T071243/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081211T071241_vs_20081210T071241/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081211T071241_vs_20081209T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081211T071241_vs_20081205T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081211T071241_vs_20081204T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081211T071241_vs_20081203T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081211T071241_vs_20081111T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081211T071241_vs_20071211T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081210T071243_vs_20081210T071241/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081210T071243_vs_20081209T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081210T071243_vs_20081205T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081210T071243_vs_20081204T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081210T071243_vs_20081203T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081210T071243_vs_20081111T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081210T071243_vs_20071211T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081210T071241_vs_20081209T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081210T071241_vs_20081205T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081210T071241_vs_20081204T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081210T071241_vs_20081203T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081210T071241_vs_20081111T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081210T071241_vs_20071211T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081209T071242_vs_20081205T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081209T071242_vs_20081204T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081209T071242_vs_20081203T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081209T071242_vs_20081111T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081209T071242_vs_20071211T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081205T071242_vs_20081204T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081205T071242_vs_20081203T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081205T071242_vs_20081111T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081205T071242_vs_20071211T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081204T071242_vs_20081203T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081204T071242_vs_20081111T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081204T071242_vs_20071211T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081203T071242_vs_20081111T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081203T071242_vs_20071211T071242/index.html
-    Creating diff report ...done:
+    Creating diff report: ...done:
     file://.../reports/diff_foo_20081111T071242_vs_20071211T071242/index.html
 
 The report index now includes all the reports on both axes for a
