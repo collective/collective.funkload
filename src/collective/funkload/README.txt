@@ -40,40 +40,84 @@ argument semantics for finding tests with "-s", "-m" and "-t".
 collective.funkload.diff
 ------------------------
 
-The build-diffs console script will use "fl-build-report --diff" to
-generate a differential report comparing the most recent benchmark
-report against the previous report and against any available reports
-from a day, a week, a month and a year ago.  When multiple reports are
-available from the previous unit of time, the differential report will
-be generated against the report closest to exactly that unit of time
-in the past.
+The build-diffs console script is intended to make building HTML and
+differential HTML report directories from existing bench result XML
+files convenient.  It automatically builds HTML report directories
+based on the bench result XML files specified or on all those present
+in the directory if none are specified.  The bench result XML files
+can also be selected relative to the current date.  The script can
+also build differential HTML report directories for the specified
+result XML files against other specified result XML files or against
+all the result XML files for the same test.  This makes generating MxN
+grids of differential HTML report directories quick and simple.
+Finally, it generates a simple HTML index to the HTML report
+directories and differentials generated.
 
-The diff module provides a function for parsing the date stamp from
-a report filename.
+For example, when investigating the relative performance merits of
+several different configurations, start with an empty directory and
+run fl-run-bench for each configuration.  Then run simply
+"build-diffs" and the result XML files for each configuration will be
+compared against the result XML files for every other configuration
+for each test.
 
-    >>> from collective.funkload import diff
-    >>> diff.parse_date(diff.report_re.match(
-    ...     'test_foo-20081211T071242')).isoformat()
-    '2008-12-11T07:12:42'
+On the other hand, for generating continuous integration (such as with
+buildbot) benchmarking where developers want to monitor benchmarks
+compared to the last change, last week, last month and last year, the
+result XML files and HTML report directories would be selected
+relative to the current date.
+
+The build-diffs script also only generates HTML report directories and
+differentials if they haven't already been generated.
+
+Both "-x" or "--x-axis" and "-y" or "--y-axis" options may be given
+multiple times to select multiple result XML files or HTML report
+directories.  Differential HTML report directories will be generated
+for each result XML file or HTML report directory selected with the
+"-x" or "--x-axis" options will be
+
+Start with a directory with a number of benchmark result XML files.
 
     >>> import os
+    >>> from collective.funkload.tests import tests
+    >>> tests.setUpReports(reports_dir)
     >>> sorted(os.listdir(reports_dir), reverse=True)
-    ['test_foo-20081211T071242',
-     'test_foo-20081211T071241',
-     'test_foo-20081210T071243',
-     'test_foo-20081210T071241',
-     'test_foo-20081209T071242',
-     'test_foo-20081205T071242',
-     'test_foo-20081204T071242',
-     'test_foo-20081203T071242',
-     'test_foo-20081111T071242',
-     'test_foo-20071211T071242',
-     'test_baz-20081211T071243',
-     'test_baz-20081211T071242',
-     'test_bar-20081211T071242']
+    ['foo-bench-20081211T071242',
+     'foo-bench-20081211T071241',
+     'foo-bench-20081210T071243',
+     'foo-bench-20081210T071241',
+     'foo-bench-20081209T071242',
+     'foo-bench-20081205T071242',
+     'foo-bench-20081204T071242',
+     'foo-bench-20081203T071242',
+     'foo-bench-20081111T071242',
+     'foo-bench-20071211T071242',
+     'baz-bench-20081211T071243',
+     'baz-bench-20081211T071242',
+     'bar-bench-20081211T071242']
 
-    >>> options, _ = diff.parser.parse_args(args=['-o', reports_dir])
+Compare the most recent result XML files against HTML report
+directories relative to the current date for one day ago, one week
+ago, one month ago and 1 year ago.
+
+    >>> args='-o reports_dir -x latest -y 1 -y 7 -y 30 -y 365'
+    >>> options, _ = diff.parser.parse_args(args=args.split())
     >>> diff.run(options)
+    Creating html report ...done: 
+    file://.../reports/test_foo-20081211T071242/index.html
+    Creating html report ...done: 
+    file://.../reports/test_foo-20081211T071241/index.html
+    Creating html report ...done: 
+    file://.../reports/test_foo_20081210T071243/index.html
+    Creating html report ...done: 
+    file://.../reports/test_foo_20081204T071242/index.html
+    Creating html report ...done: 
+    file://.../reports/test_foo_20081111T071242/index.html
+    Creating html report ...done: 
+    file://.../reports/test_foo_20071211T071242/index.html
+    Creating html report ...done: 
+    file://.../reports/test_baz-20081211T071243/index.html
+    Creating html report ...done: 
+    file://.../reports/test_baz-20081211T071242/index.html
     Creating diff report ...done: 
     file://.../reports/diff_foo-20081211T_071242_vs_071241/index.html
     Creating diff report ...done: 
@@ -86,3 +130,112 @@ a report filename.
     file://.../reports/diff_foo_20081211T071242_vs_20071211T071242/index.html
     Creating diff report ...done: 
     file://.../reports/diff_baz-20081211T_071243_vs_071242/index.html
+
+Without any arguments, HTML report directories are generated for each
+set of benchmark result XML files and differentials are generated
+between each HTML report directory for the same test.  HTML report
+directories and differentials are not generated if they already have
+been.  All result XML files and HTML report directories are processed
+sorted in reverse alphabetical order for consistent ordering by the
+timestamp placing the most recent first.
+
+    >>> tests.setUpReports(reports_dir)
+    >>> args='-o reports_dir'
+    >>> options, _ = diff.parser.parse_args(args=args.split())
+    >>> diff.run(options)
+    Creating html report ...done: 
+    file://.../reports/test_foo-20081210T071241/index.html
+    Creating html report ...done: 
+    file://.../reports/test_foo-20081209T071242/index.html
+    Creating html report ...done: 
+    file://.../reports/test_foo-20081205T071242/index.html
+    Creating html report ...done: 
+    file://.../reports/test_foo-20081203T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081211T071242_vs_20081210T071241/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081211T071242_vs_20081209T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081211T071242_vs_20081205T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081211T071242_vs_20081203T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081211T071241_vs_20081210T071243/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081211T071241_vs_20081210T071241/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081211T071241_vs_20081209T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081211T071241_vs_20081205T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081211T071241_vs_20081204T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081211T071241_vs_20081203T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081211T071241_vs_20081111T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081211T071241_vs_20071211T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081210T071243_vs_20081210T071241/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081210T071243_vs_20081209T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081210T071243_vs_20081205T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081210T071243_vs_20081204T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081210T071243_vs_20081203T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081210T071243_vs_20081111T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081210T071243_vs_20071211T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081210T071241_vs_20081209T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081210T071241_vs_20081205T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081210T071241_vs_20081204T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081210T071241_vs_20081203T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081210T071241_vs_20081111T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081210T071241_vs_20071211T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081209T071242_vs_20081205T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081209T071242_vs_20081204T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081209T071242_vs_20081203T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081209T071242_vs_20081111T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081209T071242_vs_20071211T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081205T071242_vs_20081204T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081205T071242_vs_20081203T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081205T071242_vs_20081111T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081205T071242_vs_20071211T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081204T071242_vs_20081203T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081204T071242_vs_20081111T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081204T071242_vs_20071211T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081203T071242_vs_20081111T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081203T071242_vs_20071211T071242/index.html
+    Creating diff report ...done:
+    file://.../reports/diff_foo_20081111T071242_vs_20071211T071242/index.html
+
+The diff module provides a function for parsing the date stamp from a
+HTML report directory name.
+
+    >>> from collective.funkload import diff
+    >>> diff.parse_date(diff.report_re.match(
+    ...     'test_foo-20081211T071242')).isoformat()
+    '2008-12-11T07:12:42'
