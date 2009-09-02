@@ -99,6 +99,7 @@ Compare the most recent result XML files against HTML report
 directories relative to the current date for one day ago, one week
 ago, one month ago and 1 year ago.
 
+    >>> from collective.funkload import diff
     >>> args='-o reports_dir -x latest -y 1 -y 7 -y 30 -y 365'
     >>> options, _ = diff.parser.parse_args(args=args.split())
     >>> diff.run(options)
@@ -503,7 +504,6 @@ complete NxN grid.
 The diff module provides a function for parsing the date stamp from a
 HTML report directory name.
 
-    >>> from collective.funkload import diff
     >>> diff.parse_date(diff.report_re.match(
     ...     'test_foo-20081211T071242')).isoformat()
     '2008-12-11T07:12:42'
