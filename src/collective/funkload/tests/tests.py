@@ -12,30 +12,28 @@ optionflags = (doctest.NORMALIZE_WHITESPACE|
                doctest.ELLIPSIS|
                doctest.REPORT_NDIFF)
 
-reports = ['test_bar-20081211T071242',
-           'test_baz-20081211T071243',
-           'test_baz-20081211T071242',
-           'test_foo-20081211T071242',
-           'test_foo-20081211T071241',
-           'test_foo-20081210T071243',
-           'test_foo-20081210T071241',
-           'test_foo-20081209T071242',
-           'test_foo-20081205T071242',
-           'test_foo-20081204T071242',
-           'test_foo-20081203T071242',
-           'test_foo-20081111T071242',
-           'test_foo-20071211T071242']
+reports = ['bar-bench-20081211T071242.xml',
+           'baz-bench-20081211T071243.xml',
+           'baz-bench-20081211T071242.xml',
+           'foo-bench-20081211T071242.xml',
+           'foo-bench-20081211T071241.xml',
+           'foo-bench-20081210T071243.xml',
+           'foo-bench-20081210T071241.xml',
+           'foo-bench-20081209T071242.xml',
+           'foo-bench-20081205T071242.xml',
+           'foo-bench-20081204T071242.xml',
+           'foo-bench-20081203T071242.xml',
+           'foo-bench-20081111T071242.xml',
+           'foo-bench-20071211T071242.xml']
 
 def setUpReports(reports_dir):
     if os.path.isdir(reports_dir):
         shutil.rmtree(reports_dir)
     os.mkdir(reports_dir)
     for report in reports:
-        report_dir = os.path.join(reports_dir, report)
-        os.mkdir(report_dir)
         shutil.copyfile(
-            os.path.join(os.path.dirname(__file__), 'index.rst'),
-            os.path.join(report_dir, 'index.rst'))
+            os.path.join(os.path.dirname(__file__), 'bench.xml'),
+            os.path.join(reports_dir, report))
 
 def setUp(test):
     tests.setUp(test)

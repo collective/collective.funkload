@@ -81,19 +81,19 @@ Start with a directory with a number of benchmark result XML files.
     >>> from collective.funkload.tests import tests
     >>> tests.setUpReports(reports_dir)
     >>> sorted(os.listdir(reports_dir), reverse=True)
-    ['foo-bench-20081211T071242',
-     'foo-bench-20081211T071241',
-     'foo-bench-20081210T071243',
-     'foo-bench-20081210T071241',
-     'foo-bench-20081209T071242',
-     'foo-bench-20081205T071242',
-     'foo-bench-20081204T071242',
-     'foo-bench-20081203T071242',
-     'foo-bench-20081111T071242',
-     'foo-bench-20071211T071242',
-     'baz-bench-20081211T071243',
-     'baz-bench-20081211T071242',
-     'bar-bench-20081211T071242']
+    ['foo-bench-20081211T071242.xml',
+     'foo-bench-20081211T071241.xml',
+     'foo-bench-20081210T071243.xml',
+     'foo-bench-20081210T071241.xml',
+     'foo-bench-20081209T071242.xml',
+     'foo-bench-20081205T071242.xml',
+     'foo-bench-20081204T071242.xml',
+     'foo-bench-20081203T071242.xml',
+     'foo-bench-20081111T071242.xml',
+     'foo-bench-20071211T071242.xml',
+     'baz-bench-20081211T071243.xml',
+     'baz-bench-20081211T071242.xml',
+     'bar-bench-20081211T071242.xml']
  
 Compare the most recent result XML files against HTML report
 directories relative to the current date for one day ago, one week
