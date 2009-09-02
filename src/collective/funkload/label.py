@@ -1,12 +1,10 @@
 import os
 import optparse
-import xml.parsers.expat
 
 from zope.testing.testrunner import options
 from zope.pagetemplate import pagetemplatefile
 
 from funkload import utils
-from funkload import ReportBuilder
 
 from collective.funkload import report
 
@@ -54,6 +52,8 @@ labels_group.add_option(
     action="callback", callback=append_filter,
     help="""\
 A label filter specifying which reports to include on the Y axis.""")
+
+parser.add_option_group(labels_group)
 
 def build_index(directory, labels):
     utils.trace("Creating report index ...")
