@@ -55,11 +55,11 @@ labels_group.add_option(
     help="""\
 A label filter specifying which reports to include on the Y axis.""")
 
-def build_index(directory, labels, tests):
+def build_index(directory, labels):
     utils.trace("Creating report index ...")
     html_path = os.path.join(directory, 'index.html')
     template = pagetemplatefile.PageTemplateFile('label.pt')
-    open(html_path, 'w').write(template(labels=labels, tests=tests))
+    open(html_path, 'w').write(template(labels=labels))
     utils.trace("done: \n")
     utils.trace("file://%s\n" % html_path)
     return html_path
@@ -67,7 +67,6 @@ def build_index(directory, labels, tests):
 def run(options):
     found = report.results_by_label(options.output_dir)
     labels = {}
-    all_tests = set()
     for label in sorted(found):
         for filter in options.x_label + options.y_label:
             if filter(label):
@@ -77,7 +76,6 @@ def run(options):
 
         tests = labels.setdefault(label, {}) # XXX
         for test in sorted(found[label]):
-            all_tests.add(test)
             times, paths_vs = found[label][test]
             path = times[max(times)]
             abs_path = os.path.join(options.output_dir, path)
@@ -108,7 +106,7 @@ def run(options):
                 diffs_vs[label] = diff_path
                 diffs[label_vs] = diff_path
 
-    return build_index(options.output_dir, labels, sorted(all_tests))
+    return build_index(options.output_dir, labels)
     
 def main(args=None, values=None):
     (options, args) = parser.parse_args(args, values)

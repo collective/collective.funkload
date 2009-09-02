@@ -288,12 +288,14 @@
         </thead>
         <tbody>
           <tal:label tal:repeat="label sorted_labels">
-            <tal:test tal:repeat="test options/tests">
-              <tr tal:define="label_d python:options['labels'][label];
+            <tal:define define="label_d python:options['labels'][label];
+                                tests python:sorted(label_d);">
+            <tal:test tal:repeat="test tests">
+              <tr tal:define="
                               test_d python:label_d.get(test, {});">
                 <th class="field-name" rowspan="3"
                     tal:condition="repeat/test/start"
-                    tal:attributes="rowspan python:len(options['tests']);"
+                    tal:attributes="rowspan python:len(tests);"
                     tal:content="label">label</th>
                 <th class="field-name">
                   <a href="test_report/index.html"
@@ -312,6 +314,7 @@
                 </td>
               </tr>
             </tal:test>
+            </tal:define>
           </tal:label>
         </tbody>
         <tfooter>

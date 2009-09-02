@@ -247,17 +247,7 @@ results and reports.
                 </td>
             </tr>
             <tr>
-                <th class="field-name" rowspan="2">python-2.5</th>
-                <th class="field-name">
-                </th>
-                <td class="field-body">
-              </td>
-                <td class="field-body">
-              </td>
-                <td class="field-body">
-              </td>
-            </tr>
-            <tr>
+                <th class="field-name" rowspan="1">python-2.5</th>
                 <th class="field-name">
               <a href="test_read-20081210T071241-python-2.5/index.html">foo.sampletests.FooTestCase.test_read</a>
                 </th>
