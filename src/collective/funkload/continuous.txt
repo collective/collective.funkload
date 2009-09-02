@@ -1,0 +1,7 @@
+For continuous integration, assign labels reflecting the revision
+identifier when running the tests and generating the bench results.  A
+separate tool can then interpret the revision identifiers, consult
+with the VCS to find which of the available labels are appropriate
+(yesterday, last week, last month, last year, for example) and
+generate the fl-build-label-reports --x-label and --y-label options as
+appropriate.
