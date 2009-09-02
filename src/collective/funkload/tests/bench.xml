@@ -1,1 +1,20 @@
-<funkload>
+<funkload version="1.10.0" time="%s(time)">
+<config key="sleep_time_min" value="0.0" />
+<config key="class_description" value="" />
+<config key="cycles" value="[]" />
+<config key="cycle_time" value="0" />
+<config key="description" value="" />
+<config key="class_title" value="" />
+<config key="id" value="%s(test)" />
+<config key="sleep_time_max" value="0" />
+<config key="startup_delay" value="0" />
+<config key="module" value="%s(module)" />
+<config key="method" value="%s(test)" />
+<config key="configuration_file" value="" />
+<config key="sleep_time" value="0" />
+<config key="server_url" value="" />
+<config key="duration" value="0" />
+<config key="log_xml" value="%s(path)" />
+<config key="class" value="%s(class)" />
+<config key="localhost" value="The benching machine" />
+</funkload>
