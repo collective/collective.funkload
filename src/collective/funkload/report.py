@@ -1,16 +1,11 @@
 import os
-import re
 import optparse
+import xml.parsers.expat
 
 from funkload import utils
 from funkload import ReportRenderHtml
 from funkload import ReportRenderDiff
 from funkload import ReportBuilder
-
-results_re = re.compile(
-    r'^([^-]*)-bench-(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2}).xml$')
-report_re = re.compile(
-    r'^([^-]*)-(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})-(\w*)$')
 
 parser = optparse.OptionParser(
     ReportBuilder.USAGE,
@@ -56,45 +51,49 @@ def build_diff_report(options, directory_1, directory_2):
     utils.trace("%s\n" % html_path)
     return html_path
 
-def build_html_reports(options, directory):
-    """Build HTML reports for all bench results in the directory"""
-    for path in os.listdir(directory):
-        match = results_re.match(path)
-        if match is not None:
-            abs_path = os.path.join(directory, path)
-            xml_parser = ReportBuilder.FunkLoadXmlParser()
-            xml_parser.parse(abs_path)
-            if not os.path.isdir(os.path.join(
-                directory,
-                xml_parser.config['method']+match.group(1))):
-                build_html_report(options, abs_path)
-
 def results_by_label(directory):
     labels = {}
     for path in os.listdir(directory):
         xml_parser = ReportBuilder.FunkLoadXmlParser()
 
-        results_match = results_re.match(path)
-        if results_match is not None:
-            abs_path = os.path.join(directory, path)
+        report_path = os.path.join(path, 'funkload.xml')
+        report_abs_path = os.path.join(directory, report_path)
+        diff_path = os.path.join(path, 'diffbench.dat')
+        diff_abs_path = os.path.join(directory, diff_path)
+        abs_path_vs = None
+
+        if os.path.isfile(report_abs_path):
+            # Is a HTML report directory, use the contained XML
+            path = report_path
+            abs_path = report_abs_path
+            xml_parser.parse(abs_path)
+        elif os.path.isfile(diff_abs_path):
+            # Is a diff report directory, use the contained DAT to get
+            # the two test paths, parse the 
+            opened = open(diff_abs_path)
+            abs_path, abs_path_vs = opened.readline(
+                )[1:].strip().split(' vs ')
+            opened.close()
+            path = abs_path = os.path.join(abs_path, 'funkload.xml')
             xml_parser.parse(abs_path)
         else:
-            report_match = report_re.match(path)
-            path = os.path.join(path, 'funkload.xml')
             abs_path = os.path.join(directory, path)
-            if report_match is not None:
-                xml_parser.parse(abs_path)
-            else:
-                # Not a bench
+            try:
+                xml_parser.parser.ParseFile(open(abs_path))
+            except xml.parsers.expat.ExpatError:
+                # Is not a parsable funkload file, ignore
                 continue
+            # Is a bench results XML file itself, use directly
 
         if 'label' in xml_parser.config and xml_parser.config[
             'label']:
             label = labels.setdefault(xml_parser.config['label'], {})
-            tests = label.setdefault(
+            tests, diffs = label.setdefault(
                 '.'.join(xml_parser.config[key] for key in
                          ['module', 'class', 'method']),
-                {})
+                ({}, []))
             tests[xml_parser.config['time']] = path
+            if abs_path_vs:
+                diffs.append(abs_path_vs)                
                 
     return labels

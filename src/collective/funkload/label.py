@@ -1,9 +1,11 @@
 import os
 import optparse
+import xml.parsers.expat
 
 from zope.testing.testrunner import options
 
 from funkload import utils
+from funkload import ReportBuilder
 
 from collective.funkload import report
 
@@ -72,10 +74,11 @@ def run(options):
 
         tests = labels.setdefault(label, {}) # XXX
         for test in sorted(found[label]):
-            times = found[label][test]
+            times, paths_vs = found[label][test]
             rel_path = times[max(times)]
             path = os.path.join(options.output_dir, rel_path)
-            if report.results_re.match(path) is not None:
+
+            if os.path.basename(path) != 'funkload.xml':
                 path = report.build_html_report(options, path)
 
             path, diffs = tests.setdefault(test, (path, {}))
@@ -85,9 +88,11 @@ def run(options):
                     continue
 
                 path_vs, diffs_vs = tests_vs[test]
-                diff_path = report.build_diff_report(
-                    options,
-                    os.path.dirname(path), os.path.dirname(path_vs))
+                if path_vs not in paths_vs:
+                    diff_path = report.build_diff_report(
+                        options,
+                        os.path.dirname(path),
+                        os.path.dirname(path_vs))
                     
                 diffs_vs[label] = diff_path
                 diffs[label_vs] = diff_path

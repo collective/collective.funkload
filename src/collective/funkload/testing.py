@@ -4,7 +4,6 @@ import os
 import shutil
 
 from collective.funkload import report
-from collective.funkload import tests
 
 reports = [
     dict(name='read', stamp='20081211T071242',
@@ -36,8 +35,8 @@ reports = [
          test='test_write', class_='FooTestCase',
          module='foo.sampletests', label='')]
 
-bench_tmpl = open(
-    os.path.join(os.path.dirname(tests.__file__), 'bench.xml')).read()
+bench_tmpl = open(os.path.join(
+    os.path.dirname(__file__), 'tests', 'bench.xml')).read()
 
 def setUpReports(reports_dir):
     if os.path.isdir(reports_dir):
@@ -52,7 +51,7 @@ def setUpReports(reports_dir):
 def listReports(reports_dir):
     return sorted(
         (label, sorted(
-            (test, sorted(times.iteritems(), reverse=True))
+            (test, sorted(times[0].iteritems(), reverse=True))
             for test, times in tests.iteritems()))
         for label, tests in
         report.results_by_label(reports_dir).iteritems())
