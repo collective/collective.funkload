@@ -18,6 +18,14 @@ parser = optparse.OptionParser(
 parser.add_option(
     "-d", "--directory", type="string", default=None,
     help= "Directory of bench results or HTML reports.")
+parser.add_option(
+    "-x", "--x-axis", type="string", action='append',
+    help= "A results XML file or HTML report directory to include on "
+    "the X axis for differential reports.")
+parser.add_option(
+    "-y", "--y-axis", type="string", action='append',
+    help= "A results XML file or HTML report directory to include on "
+    "the Y axis for differential reports.")
 
 zero_delta = datetime.timedelta(0)
 
