@@ -96,7 +96,8 @@ reports for each test.
     <table class="docutils">
       <thead>
         <tr class="field">
-          <th class="field-name" colspan="2">&nbsp;</th>
+          <th class="field-name">Label</th>
+          <th class="field-name">Test</th>
           <th class="field-name">python-2.4</th>
         </tr>
        </thead>
@@ -136,7 +137,8 @@ reports for each test.
       </tbody>
       <tfooter>
         <tr class="field">
-          <th class="field-name" colspan="2">&nbsp;</th>
+          <th class="field-name">Label</th>
+          <th class="field-name">Test</th>
           <th class="field-name">python-2.4</th>
         </tr>
       </tfooter>
@@ -189,7 +191,8 @@ results and reports.
     <table class="docutils">
       <thead>
         <tr class="field">
-            <th class="field-name" colspan="2">&nbsp;</th>
+            <th class="field-name">Label</th>
+            <th class="field-name">Test</th>
             <th class="field-name">python-2.4</th>
             <th class="field-name">python-2.5</th>
             <th class="field-name">python-2.6</th>
@@ -265,7 +268,8 @@ results and reports.
         </tbody>
       <tfooter>
         <tr class="field">
-            <th class="field-name" colspan="2">&nbsp;</th>
+            <th class="field-name">Label</th>
+            <th class="field-name">Test</th>
             <th class="field-name">python-2.4</th>
             <th class="field-name">python-2.5</th>
             <th class="field-name">python-2.6</th>

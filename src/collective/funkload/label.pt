@@ -280,7 +280,8 @@
       <table class="docutils">
         <thead>
           <tr class="field">
-            <th class="field-name" colspan="2">&nbsp;</th>
+            <th class="field-name">Label</th>
+            <th class="field-name">Test</th>
             <th class="field-name"
                 tal:repeat="label sorted_x_labels" tal:content="label">
               label
@@ -320,7 +321,8 @@
         </tbody>
         <tfooter>
           <tr class="field">
-            <th class="field-name" colspan="2">&nbsp;</th>
+            <th class="field-name">Label</th>
+            <th class="field-name">Test</th>
             <th class="field-name"
                 tal:repeat="label sorted_x_labels" tal:content="label">
               label
