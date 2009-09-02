@@ -15,15 +15,9 @@ ago."""
 cur_path = os.path.abspath(os.path.curdir)
 parser = optparse.OptionParser(
     usage="Usage: %prog", description=description)
-parser.add_option("-o", "--output-directory", type="string",
-                  dest="output_dir",
-                  help="Parent directory to store reports, the directory"
-                  "name of the report will be generated automatically.",
-                  default=cur_path)
-parser.add_option("-r", "--report-directory", type="string",
-                  dest="report_dir",
-                  help="Directory name to store the report.",
-                  default=None)
+parser.add_option(
+    "-d", "--directory", type="string", default=None,
+    help= "Directory of bench results or HTML reports.")
 
 zero_delta = datetime.timedelta(0)
 
@@ -109,7 +103,7 @@ def get_interval_reports(latest_date, latest_path, reports):
                 yield candidate_date, candidate_path
 
 def run(options):
-    for reports in get_report_dates(options.output_dir).itervalues():
+    for reports in get_report_dates(options.directory).itervalues():
         if len(reports) < 2:
             continue
 
