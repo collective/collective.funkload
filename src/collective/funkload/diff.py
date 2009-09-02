@@ -7,6 +7,7 @@ import optparse
 from funkload import ReportRenderDiff
 from funkload import utils
 
+from collective.funkload import stamp
 from collective.funkload import report
 
 description = """\
@@ -14,17 +15,29 @@ Generate FunkLoad differential reports against the previous report and
 against any available reports from a day, a week, a month and a year
 ago."""
 
+def parse_axis(option, opt_str, value, parser):
+    stamps = stamp.sorted_stamps(parser.values.output_dir)
+    values = getattr(parser.values, option.dest)
+    if value == 'latest':
+        values.append(stamps[0])
+    elif stamp.stamp_re.match(value) is None:
+        values.append(float(value))
+    else:
+        values.append(value)
+
 cur_path = os.path.abspath(os.path.curdir)
 parser = optparse.OptionParser(
     usage="Usage: %prog", description=description)
 parser.add_option(report.parser.get_option('--output-directory'))
 parser.add_option(report.parser.get_option('--report-directory'))
 parser.add_option(
-    "-x", "--x-axis", type="string", action='append',
+    "-x", "--x-axis", type="string",
+    action='callback', callback=parse_axis, default=[],
     help= "A results XML file or HTML report directory to include on "
     "the X axis for differential reports.")
 parser.add_option(
-    "-y", "--y-axis", type="string", action='append',
+    "-y", "--y-axis", type="string",
+    action='callback', callback=parse_axis, default=[],
     help= "A results XML file or HTML report directory to include on "
     "the Y axis for differential reports.")
 parser.add_option(report.parser.get_option('--with-percentiles'))
