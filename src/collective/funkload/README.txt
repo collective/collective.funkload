@@ -100,7 +100,7 @@ directories relative to the current date for one day ago, one week
 ago, one month ago and 1 year ago.
 
     >>> from collective.funkload import diff
-    >>> args='-o reports_dir -x latest -y 1 -y 7 -y 30 -y 365'
+    >>> args='-d reports_dir -x latest -y 1 -y 7 -y 30 -y 365'
     >>> options, _ = diff.parser.parse_args(args=args.split())
     >>> diff.run(options)
     Creating html report ...done: 
@@ -234,7 +234,7 @@ sorted in reverse alphabetical order for consistent ordering by the
 timestamp placing the most recent first.
 
     >>> tests.setUpReports(reports_dir)
-    >>> args='-o reports_dir'
+    >>> args='-d reports_dir'
     >>> options, _ = diff.parser.parse_args(args=args.split())
     >>> diff.run(options)
     Creating html report ...done: 
