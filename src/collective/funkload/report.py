@@ -1,4 +1,5 @@
 import os
+import collections
 import optparse
 import xml.parsers.expat
 
@@ -50,6 +51,8 @@ def build_diff_report(options, directory_1, directory_2):
     utils.trace("%s\n" % html_path)
     return os.path.dirname(str(html_path))
 
+Test = collections.namedtuple('Test', ['times', 'diffs'])
+
 def results_by_label(directory):
     labels = {}
     for path in os.listdir(directory):
@@ -89,12 +92,12 @@ def results_by_label(directory):
         if 'label' in xml_parser.config and xml_parser.config[
             'label']:
             label = labels.setdefault(xml_parser.config['label'], {})
-            tests, diffs = label.setdefault(
-                xml_parser.config['method'], ({}, {}))
+            test = label.setdefault(
+                xml_parser.config['method'], Test({}, {}))
             time = xml_parser.config['time']
-            if time not in tests or is_report:
-                tests[time] = path
+            if time not in test.times or is_report:
+                test.times[time] = path
             if path_vs:
-                diffs[path_vs] = diff_path
+                test.diffs[path_vs] = diff_path
                 
     return labels

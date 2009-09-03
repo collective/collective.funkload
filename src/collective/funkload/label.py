@@ -68,8 +68,8 @@ def build_index(directory, x_labels, y_labels):
 def process_axis(options, found, labels, labels_vs, label):
     tests = labels.setdefault(label, {})
     for test in sorted(found[label]):
-        times, paths_vs = found[label][test]
-        path = times[max(times)]
+        test_tuple = found[label][test]
+        path = test_tuple.times[max(test_tuple.times)]
         abs_path = os.path.join(options.output_dir, path)
 
         if not os.path.isfile(os.path.join(abs_path, 'funkload.xml')):
@@ -89,7 +89,7 @@ def process_axis(options, found, labels, labels_vs, label):
             test_vs_d = tests_vs[test]
             path_vs = test_vs_d['report']
             diffs_vs = test_vs_d['diffs']
-            diff_path = paths_vs.get(path_vs)
+            diff_path = test_tuple.diffs.get(path_vs)
             if not diff_path:
                 diff_path = report.build_diff_report(
                     options, abs_path,
