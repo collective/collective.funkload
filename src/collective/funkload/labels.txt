@@ -37,18 +37,18 @@ Some labels are applied to bench results for multiple tests.
     >>> import pprint
     >>> pprint.pprint(testing.listReports(reports_dir))
     [(u'python-2.4',
-      [(u'foo.sampletests.FooTestCase.test_add',
+      [(u'test_add',
         [(u'2008-12-11T07:12:43.000000', 'add-bench-20081211T071243.xml')]),
-       (u'foo.sampletests.FooTestCase.test_read',
+       (u'test_read',
         [(u'2008-12-11T07:12:42.000000', 'read-bench-20081211T071242.xml'),
          (u'2008-12-10T07:12:43.000000', 'read-bench-20081210T071243.xml')])]),
      (u'python-2.5',
-      [(u'foo.sampletests.FooTestCase.test_read',
+      [(u'test_read',
         [(u'2008-12-10T07:12:41.000000', 'read-bench-20081210T071241.xml')])]),
      (u'python-2.6',
-      [(u'foo.sampletests.FooTestCase.test_add',
+      [(u'test_add',
         [(u'2008-12-11T07:12:42.000000', 'add-bench-20081211T071242.xml')]),
-       (u'foo.sampletests.FooTestCase.test_read',
+       (u'test_read',
         [(u'2008-12-11T07:12:41.000000', 'read-bench-20081211T071241.xml')])])]
 
 When labels are specified for the X or Y axes, HTML reports are
@@ -105,14 +105,14 @@ reports for each test.
           <tr>
               <th class="field-name" rowspan="2">python-2.4</th>
               <th class="field-name">
-              <a href="test_add-20081211T071243-python-2.4/index.html">foo.sampletests.FooTestCase.test_add</a>
+              <a href="test_add-20081211T071243-python-2.4/index.html">test_add</a>
               </th>
               <td class="field-body">
               </td>
           </tr>
           <tr>
               <th class="field-name">
-              <a href="test_read-20081211T071242-python-2.4/index.html">foo.sampletests.FooTestCase.test_read</a>
+              <a href="test_read-20081211T071242-python-2.4/index.html">test_read</a>
               </th>
               <td class="field-body">
               </td>
@@ -120,18 +120,24 @@ reports for each test.
           <tr>
               <th class="field-name" rowspan="2">python-2.6</th>
               <th class="field-name">
-              <a href="test_add-20081211T071242-python-2.6/index.html">foo.sampletests.FooTestCase.test_add</a>
+              <a href="test_add-20081211T071242-python-2.6/index.html">test_add</a>
               </th>
               <td class="field-body">
-              <a href="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/index.html">python-2.6 vs python-2.4 for test_add</a>
+              <a href="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/index.html">
+                <img alt="python-2.6 vs python-2.4 for test_add"
+                     src="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/spps_diff.png"/>
+              </a>
               </td>
           </tr>
           <tr>
               <th class="field-name">
-              <a href="test_read-20081211T071241-python-2.6/index.html">foo.sampletests.FooTestCase.test_read</a>
+              <a href="test_read-20081211T071241-python-2.6/index.html">test_read</a>
               </th>
               <td class="field-body">
-              <a href="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/index.html">python-2.6 vs python-2.4 for test_read</a>
+              <a href="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/index.html">
+                <img alt="python-2.6 vs python-2.4 for test_read"
+                     src="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/spps_diff.png"/>
+              </a>
               </td>
           </tr>
       </tbody>
@@ -202,50 +208,68 @@ results and reports.
             <tr>
                 <th class="field-name" rowspan="2">python-2.4</th>
                 <th class="field-name">
-              <a href="test_add-20081211T071243-python-2.4/index.html">foo.sampletests.FooTestCase.test_add</a>
+              <a href="test_add-20081211T071243-python-2.4/index.html">test_add</a>
                 </th>
                 <td class="field-body">
               </td>
                 <td class="field-body">
               </td>
                 <td class="field-body">
-              <a href="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/index.html">python-2.4 vs python-2.6 for test_add</a>
+              <a href="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/index.html">
+                <img alt="python-2.4 vs python-2.6 for test_add"
+                     src="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/spps_diff.png"/>
+              </a>
                 </td>
             </tr>
             <tr>
                 <th class="field-name">
-              <a href="test_read-20081211T071242-python-2.4/index.html">foo.sampletests.FooTestCase.test_read</a>
+              <a href="test_read-20081211T071242-python-2.4/index.html">test_read</a>
                 </th>
                 <td class="field-body">
               </td>
                 <td class="field-body">
-              <a href="diff_read_20081211T071242-python-2.4_vs_20081210T071241-python-2.5/index.html">python-2.4 vs python-2.5 for test_read</a>
+              <a href="diff_read_20081211T071242-python-2.4_vs_20081210T071241-python-2.5/index.html">
+                <img alt="python-2.4 vs python-2.5 for test_read"
+                     src="diff_read_20081211T071242-python-2.4_vs_20081210T071241-python-2.5/spps_diff.png"/>
+              </a>
                 </td>
                 <td class="field-body">
-              <a href="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/index.html">python-2.4 vs python-2.6 for test_read</a>
+              <a href="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/index.html">
+                <img alt="python-2.4 vs python-2.6 for test_read"
+                     src="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/spps_diff.png"/>
+              </a>
                 </td>
             </tr>
             <tr>
                 <th class="field-name" rowspan="1">python-2.5</th>
                 <th class="field-name">
-              <a href="test_read-20081210T071241-python-2.5/index.html">foo.sampletests.FooTestCase.test_read</a>
+              <a href="test_read-20081210T071241-python-2.5/index.html">test_read</a>
                 </th>
                 <td class="field-body">
-              <a href="diff_read_20081211T071242-python-2.4_vs_20081210T071241-python-2.5/index.html">python-2.5 vs python-2.4 for test_read</a>
+              <a href="diff_read_20081211T071242-python-2.4_vs_20081210T071241-python-2.5/index.html">
+                <img alt="python-2.5 vs python-2.4 for test_read"
+                     src="diff_read_20081211T071242-python-2.4_vs_20081210T071241-python-2.5/spps_diff.png"/>
+              </a>
                 </td>
                 <td class="field-body">
               </td>
                 <td class="field-body">
-              <a href="diff_read_20081210T071241-python-2.5_vs_20081211T071241-python-2.6/index.html">python-2.5 vs python-2.6 for test_read</a>
+              <a href="diff_read_20081210T071241-python-2.5_vs_20081211T071241-python-2.6/index.html">
+                <img alt="python-2.5 vs python-2.6 for test_read"
+                     src="diff_read_20081210T071241-python-2.5_vs_20081211T071241-python-2.6/spps_diff.png"/>
+              </a>
                 </td>
             </tr>
             <tr>
                 <th class="field-name" rowspan="2">python-2.6</th>
                 <th class="field-name">
-              <a href="test_add-20081211T071242-python-2.6/index.html">foo.sampletests.FooTestCase.test_add</a>
+              <a href="test_add-20081211T071242-python-2.6/index.html">test_add</a>
                 </th>
                 <td class="field-body">
-              <a href="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/index.html">python-2.6 vs python-2.4 for test_add</a>
+              <a href="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/index.html">
+                <img alt="python-2.6 vs python-2.4 for test_add"
+                     src="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/spps_diff.png"/>
+              </a>
                 </td>
                 <td class="field-body">
               </td>
@@ -254,13 +278,19 @@ results and reports.
             </tr>
             <tr>
                 <th class="field-name">
-              <a href="test_read-20081211T071241-python-2.6/index.html">foo.sampletests.FooTestCase.test_read</a>
+              <a href="test_read-20081211T071241-python-2.6/index.html">test_read</a>
                 </th>
                 <td class="field-body">
-              <a href="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/index.html">python-2.6 vs python-2.4 for test_read</a>
+              <a href="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/index.html">
+                <img alt="python-2.6 vs python-2.4 for test_read"
+                     src="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/spps_diff.png"/>
+              </a>
                 </td>
                 <td class="field-body">
-              <a href="diff_read_20081210T071241-python-2.5_vs_20081211T071241-python-2.6/index.html">python-2.6 vs python-2.5 for test_read</a>
+              <a href="diff_read_20081210T071241-python-2.5_vs_20081211T071241-python-2.6/index.html">
+                <img alt="python-2.6 vs python-2.5 for test_read"
+                     src="diff_read_20081210T071241-python-2.5_vs_20081211T071241-python-2.6/spps_diff.png"/>
+              </a>
                 </td>
                 <td class="field-body">
               </td>

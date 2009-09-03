@@ -309,9 +309,11 @@
                   <a href="diff/index.html"
                      tal:define="diff python:test_d.get('diffs', {}).get(label_vs);"
                      tal:condition="diff"
-                     tal:attributes="href string:$diff/index.html;"
-                     tal:content="string:$label vs $label_vs for ${test_d/name}">
-                    diff label vs label for test
+                     tal:attributes="href string:$diff/index.html;">
+                    <img alt="diff label vs label for test"
+                         src="diff/spps_diff.png"
+                     tal:attributes="src string:$diff/spps_diff.png;
+                                     alt string:$label vs $label_vs for ${test_d/name};" />
                   </a>
                 </td>
               </tr>

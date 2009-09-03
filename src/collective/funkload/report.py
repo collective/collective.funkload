@@ -87,9 +87,7 @@ def results_by_label(directory):
             'label']:
             label = labels.setdefault(xml_parser.config['label'], {})
             tests, diffs = label.setdefault(
-                '.'.join(xml_parser.config[key] for key in
-                         ['module', 'class', 'method']),
-                ({}, []))
+                xml_parser.config['method'], ({}, []))
             tests[xml_parser.config['time']] = path
             if path_vs:
                 diffs.append(path_vs)                
