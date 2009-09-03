@@ -280,6 +280,13 @@
       <table class="docutils">
         <thead>
           <tr class="field">
+            <th class="field-name" colspan="2">&nbsp;</th>
+            <th class="field-name" colspan="1"
+                tal:attributes="colspan python:len(sorted_x_labels);">
+              Label
+            </th>
+          </tr>
+          <tr class="field">
             <th class="field-name">Label</th>
             <th class="field-name">Test</th>
             <th class="field-name"
@@ -328,6 +335,13 @@
             <th class="field-name"
                 tal:repeat="label sorted_x_labels" tal:content="label">
               label
+            </th>
+          </tr>
+          <tr class="field">
+            <th class="field-name" colspan="2">&nbsp;</th>
+            <th class="field-name" colspan="1"
+                tal:attributes="colspan python:len(sorted_x_labels);">
+              Label
             </th>
           </tr>
         </tfooter>
