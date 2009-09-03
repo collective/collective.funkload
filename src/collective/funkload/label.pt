@@ -307,7 +307,7 @@
                 </th>
                 <td class="field-body" tal:repeat="label_vs sorted_x_labels">
                   <a href="diff/index.html"
-                     tal:define="diff python:test_d.get('diffs', {}).get(label_vs);"
+                     tal:define="diff python:getattr(test_d, 'diffs', {}).get(label_vs);"
                      tal:condition="diff"
                      tal:attributes="href string:$diff/index.html;">
                     <img alt="diff label vs label for test"

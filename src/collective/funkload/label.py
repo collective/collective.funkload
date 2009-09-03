@@ -1,4 +1,5 @@
 import os
+import collections
 import optparse
 
 from zope.testing.testrunner import options
@@ -65,6 +66,8 @@ def build_index(directory, x_labels, y_labels):
     utils.trace("file://%s\n" % html_path)
     return html_path
 
+Test = collections.namedtuple('Test', ['report', 'name', 'diffs'])
+
 def process_axis(options, found, labels, labels_vs, label):
     tests = labels.setdefault(label, {})
     for test in sorted(found[label]):
@@ -76,26 +79,24 @@ def process_axis(options, found, labels, labels_vs, label):
             abs_path = report.build_html_report(options, abs_path)
             path = os.path.basename(abs_path)
 
-        test_d = tests.setdefault(
-            test, dict(report=path,
+        test_tuple = tests.setdefault(
+            test, Test(report=path,
                        name=test.rsplit('.', 1)[-1],
                        diffs={}))
-        diffs = test_d['diffs']
+        diffs = test_tuple.diffs
         for label_vs in sorted(labels_vs):
             tests_vs = labels_vs[label_vs]
             if label == label_vs or test not in tests_vs:
                 continue
 
-            test_vs_d = tests_vs[test]
-            path_vs = test_vs_d['report']
-            diffs_vs = test_vs_d['diffs']
-            diff_path = test_tuple.diffs.get(path_vs)
+            test_vs_tuple = tests_vs[test]
+            diff_path = test_tuple.diffs.get(test_vs_tuple.report)
             if not diff_path:
                 diff_path = report.build_diff_report(
-                    options, abs_path,
-                    os.path.join(options.output_dir, path_vs))
+                    options, abs_path, os.path.join(
+                        options.output_dir, test_vs_tuple.report))
                 diff_path = os.path.basename(diff_path)
-            diffs_vs[label] = diff_path
+            test_vs_tuple.diffs[label] = diff_path
             diffs[label_vs] = diff_path
 
 def run(options):
