@@ -56,6 +56,7 @@ def results_by_label(directory):
         abs_path = os.path.join(directory, path)
         xml_parser = ReportBuilder.FunkLoadXmlParser()
 
+        is_report = False
         report_path = os.path.join(path, 'funkload.xml')
         report_abs_path = os.path.join(directory, report_path)
         diff_path = os.path.join(path, 'diffbench.dat')
@@ -65,6 +66,7 @@ def results_by_label(directory):
         if os.path.isfile(report_abs_path):
             # Is a HTML report directory, use the contained XML
             xml_parser.parse(report_abs_path)
+            is_report = True
         elif os.path.isfile(diff_abs_path):
             # Is a diff report directory, use the contained DAT to get
             # the two test paths, parse the 
@@ -88,7 +90,9 @@ def results_by_label(directory):
             label = labels.setdefault(xml_parser.config['label'], {})
             tests, diffs = label.setdefault(
                 xml_parser.config['method'], ({}, []))
-            tests[xml_parser.config['time']] = path
+            time = xml_parser.config['time']
+            if time not in tests or is_report:
+                tests[time] = path
             if path_vs:
                 diffs.append(path_vs)                
                 
