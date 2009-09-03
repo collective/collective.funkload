@@ -70,6 +70,7 @@ def results_by_label(directory):
         elif os.path.isfile(diff_abs_path):
             # Is a diff report directory, use the contained DAT to get
             # the two test paths, parse the 
+            diff_path = path
             opened = open(diff_abs_path)
             abs_path, abs_path_vs = opened.readline(
                 )[1:].strip().split(' vs ')
@@ -89,11 +90,11 @@ def results_by_label(directory):
             'label']:
             label = labels.setdefault(xml_parser.config['label'], {})
             tests, diffs = label.setdefault(
-                xml_parser.config['method'], ({}, []))
+                xml_parser.config['method'], ({}, {}))
             time = xml_parser.config['time']
             if time not in tests or is_report:
                 tests[time] = path
             if path_vs:
-                diffs.append(path_vs)                
+                diffs[path_vs] = diff_path
                 
     return labels

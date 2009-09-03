@@ -89,13 +89,14 @@ def process_axis(options, found, labels, labels_vs, label):
             test_vs_d = tests_vs[test]
             path_vs = test_vs_d['report']
             diffs_vs = test_vs_d['diffs']
-            if path_vs not in paths_vs:
+            diff_path = paths_vs.get(path_vs)
+            if not diff_path:
                 diff_path = report.build_diff_report(
                     options, abs_path,
                     os.path.join(options.output_dir, path_vs))
                 diff_path = os.path.basename(diff_path)
-                diffs_vs[label] = diff_path
-                diffs[label_vs] = diff_path
+            diffs_vs[label] = diff_path
+            diffs[label_vs] = diff_path
 
 def run(options):
     found = report.results_by_label(options.output_dir)
