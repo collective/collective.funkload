@@ -66,7 +66,7 @@ def build_index(directory, x_labels, y_labels):
     return html_path
 
 def process_axis(options, found, labels, labels_vs, label):
-    tests = labels.setdefault(label, {}) # XXX
+    tests = labels.setdefault(label, {})
     for test in sorted(found[label]):
         times, paths_vs = found[label][test]
         path = times[max(times)]
