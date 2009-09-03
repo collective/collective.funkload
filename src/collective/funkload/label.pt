@@ -315,7 +315,7 @@
                          height="120" width="120"
                      tal:attributes="src string:${test_d/report}/pages_spps.png;
                                      alt string:${test_d/module}.${test_d/class_}.$test;" />
-                    <span tal:content="test">test</span>
+                    <div tal:content="test">test</div>
                   </a>
                 </th>
                 <td class="field-body" tal:repeat="label_vs sorted_x_labels">
@@ -323,11 +323,14 @@
                      tal:define="diff python:getattr(test_d, 'diffs', {}).get(label_vs);"
                      tal:condition="diff"
                      tal:attributes="href string:$diff/index.html;">
-                    <img alt="diff label vs label for test"
+                    <img alt="diff of label vs label for test"
                          src="diff/spps_diff.png"
-                         height="320" width="190"
+                         height="95" width="160"
                      tal:attributes="src string:$diff/spps_diff.png;
-                                     alt string:$label vs $label_vs for ${test_d/name};" />
+                                     alt string:diff of $label vs $label_vs for ${test_d/name};" />
+                    <div tal:content="string:$label vs $label_vs">
+                      label vs label
+                    </div>
                   </a>
                 </td>
               </tr>

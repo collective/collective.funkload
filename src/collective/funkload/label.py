@@ -72,8 +72,8 @@ Test = collections.namedtuple(
 def process_axis(options, found, labels, labels_vs, label):
     tests = labels.setdefault(label, {})
     for test in sorted(found[label]):
-        test_tuple = found[label][test]
-        path = test_tuple.times[max(test_tuple.times)]
+        found_test = found[label][test]
+        path = found_test.times[max(found_test.times)]
         abs_path = os.path.join(options.output_dir, path)
 
         if not os.path.isfile(os.path.join(abs_path, 'funkload.xml')):
@@ -84,24 +84,23 @@ def process_axis(options, found, labels, labels_vs, label):
             test, Test(report=path,
                        name=test.rsplit('.', 1)[-1],
                        diffs={},
-                       module=test_tuple.module,
-                       class_=test_tuple.class_,
-                       method=test_tuple.method))
-        diffs = test_tuple.diffs
+                       module=found_test.module,
+                       class_=found_test.class_,
+                       method=found_test.method))
         for label_vs in sorted(labels_vs):
             tests_vs = labels_vs[label_vs]
             if label == label_vs or test not in tests_vs:
                 continue
 
             test_vs_tuple = tests_vs[test]
-            diff_path = test_tuple.diffs.get(test_vs_tuple.report)
+            diff_path = found_test.diffs.get(test_vs_tuple.report)
             if not diff_path:
                 diff_path = report.build_diff_report(
                     options, abs_path, os.path.join(
                         options.output_dir, test_vs_tuple.report))
                 diff_path = os.path.basename(diff_path)
             test_vs_tuple.diffs[label] = diff_path
-            diffs[label_vs] = diff_path
+            test_tuple.diffs[label_vs] = diff_path
 
 def run(options):
     found = report.results_by_label(options.output_dir)
