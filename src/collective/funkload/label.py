@@ -106,7 +106,7 @@ def run(options):
     found = report.results_by_label(options.output_dir)
     x_labels = {}
     y_labels = {}
-    for label in sorted(found):
+    for label in sorted(found, reverse=True):
         matched = False
         for filter in options.x_label:
             if filter(label):
