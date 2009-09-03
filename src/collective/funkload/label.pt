@@ -309,8 +309,13 @@
                 <th class="field-name">
                   <a href="test_report/index.html"
                      tal:condition="test_d"
-                     tal:attributes="href string:${test_d/report}/index.html;"
-                     tal:content="test">test</a>
+                     tal:attributes="href string:${test_d/report}/index.html;">
+                    <img alt="module.class.method"
+                         src="report/pages_spps.png"
+                     tal:attributes="src string:${test_d/report}/pages_spps.png;
+                                     alt string:${test_d/module}.${test_d/class_}.$test;" />
+                    <span tal:content="test">test</span>
+                  </a>
                 </th>
                 <td class="field-body" tal:repeat="label_vs sorted_x_labels">
                   <a href="diff/index.html"

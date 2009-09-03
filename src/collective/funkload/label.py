@@ -66,7 +66,8 @@ def build_index(directory, x_labels, y_labels):
     utils.trace("file://%s\n" % html_path)
     return html_path
 
-Test = collections.namedtuple('Test', ['report', 'name', 'diffs'])
+Test = collections.namedtuple(
+    'Test', ['report', 'name', 'diffs', 'module', 'class_', 'method'])
 
 def process_axis(options, found, labels, labels_vs, label):
     tests = labels.setdefault(label, {})
@@ -82,7 +83,10 @@ def process_axis(options, found, labels, labels_vs, label):
         test_tuple = tests.setdefault(
             test, Test(report=path,
                        name=test.rsplit('.', 1)[-1],
-                       diffs={}))
+                       diffs={},
+                       module=test_tuple.module,
+                       class_=test_tuple.class_,
+                       method=test_tuple.method))
         diffs = test_tuple.diffs
         for label_vs in sorted(labels_vs):
             tests_vs = labels_vs[label_vs]

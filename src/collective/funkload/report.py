@@ -51,7 +51,8 @@ def build_diff_report(options, directory_1, directory_2):
     utils.trace("%s\n" % html_path)
     return os.path.dirname(str(html_path))
 
-Test = collections.namedtuple('Test', ['times', 'diffs'])
+Test = collections.namedtuple(
+    'Test', ['times', 'diffs', 'module', 'class_', 'method'])
 
 def results_by_label(directory):
     labels = {}
@@ -93,7 +94,11 @@ def results_by_label(directory):
             'label']:
             label = labels.setdefault(xml_parser.config['label'], {})
             test = label.setdefault(
-                xml_parser.config['method'], Test({}, {}))
+                xml_parser.config['method'], Test(
+                    times={}, diffs={},
+                    module=xml_parser.config['module'],
+                    class_=xml_parser.config['class'],
+                    method=xml_parser.config['method']))
             time = xml_parser.config['time']
             if time not in test.times or is_report:
                 test.times[time] = path
