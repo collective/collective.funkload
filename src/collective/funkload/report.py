@@ -60,7 +60,10 @@ class FunkLoadConfigParser(ReportBuilder.FunkLoadXmlParser, object):
     def __init__(self):
         """Disable the eng element handler"""
         super(FunkLoadConfigParser, self).__init__()
+        self.parser.CharacterDataHandler = None
         self.parser.EndElementHandler = None
+        self.parser.StartCdataSectionHandler = None
+        self.parser.EndCdataSectionHandler = None
 
 def results_by_label(directory):
     labels = {}
