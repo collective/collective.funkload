@@ -320,15 +320,16 @@
                 </th>
                 <td class="field-body" tal:repeat="label_vs sorted_x_labels">
                   <a href="diff/index.html"
-                     tal:define="diff python:getattr(test_d, 'diffs', {}).get(label_vs);"
+                     tal:define="diff python:getattr(test_d, 'diffs', {}).get(label_vs);
+                                 label_vs_label python:' vs '.join(sorted([label, label_vs]));"
                      tal:condition="diff"
                      tal:attributes="href string:$diff/index.html;">
                     <img alt="diff of label vs label for test"
                          src="diff/spps_diff.png"
                          height="95" width="160"
-                     tal:attributes="src string:$diff/spps_diff.png;
-                                     alt string:diff of $label vs $label_vs for ${test_d/name};" />
-                    <div tal:content="string:$label vs $label_vs">
+                         tal:attributes="src string:$diff/spps_diff.png;
+                                         alt string:diff of $label_vs_label for ${test_d/name};" />
+                    <div tal:content="string:$label_vs_label">
                       label vs label
                     </div>
                   </a>

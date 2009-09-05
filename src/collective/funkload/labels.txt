@@ -148,10 +148,10 @@ reports for each test.
               </th>
               <td class="field-body">
               <a href="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/index.html">
-                <img alt="diff of python-2.6 vs python-2.4 for test_add"
+                <img alt="diff of python-2.4 vs python-2.6 for test_add"
                      src="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/spps_diff.png"
                      height="95" width="160"/>
-                <div>python-2.6 vs python-2.4</div>
+                <div>python-2.4 vs python-2.6</div>
               </a>
               </td>
           </tr>
@@ -166,10 +166,10 @@ reports for each test.
               </th>
               <td class="field-body">
               <a href="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/index.html">
-                <img alt="diff of python-2.6 vs python-2.4 for test_read"
+                <img alt="diff of python-2.4 vs python-2.6 for test_read"
                      src="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/spps_diff.png"
                      height="95" width="160"/>
-                <div>python-2.6 vs python-2.4</div>
+                <div>python-2.4 vs python-2.6</div>
               </a>
               </td>
           </tr>
@@ -313,10 +313,10 @@ results and reports.
                 </th>
                 <td class="field-body">
               <a href="diff_read_20081211T071242-python-2.4_vs_20081210T071241-python-2.5/index.html">
-                <img alt="diff of python-2.5 vs python-2.4 for test_read"
+                <img alt="diff of python-2.4 vs python-2.5 for test_read"
                      src="diff_read_20081211T071242-python-2.4_vs_20081210T071241-python-2.5/spps_diff.png"
                      height="95" width="160"/>
-                <div>python-2.5 vs python-2.4</div>
+                <div>python-2.4 vs python-2.5</div>
               </a>
                 </td>
                 <td class="field-body">
@@ -342,10 +342,10 @@ results and reports.
                 </th>
                 <td class="field-body">
               <a href="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/index.html">
-                <img alt="diff of python-2.6 vs python-2.4 for test_add"
+                <img alt="diff of python-2.4 vs python-2.6 for test_add"
                      src="diff_add-20081211T_071243-python-2.4_vs_071242-python-2.6/spps_diff.png"
                      height="95" width="160"/>
-                <div>python-2.6 vs python-2.4</div>
+                <div>python-2.4 vs python-2.6</div>
               </a>
                 </td>
                 <td class="field-body">
@@ -364,18 +364,18 @@ results and reports.
                 </th>
                 <td class="field-body">
               <a href="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/index.html">
-                <img alt="diff of python-2.6 vs python-2.4 for test_read"
+                <img alt="diff of python-2.4 vs python-2.6 for test_read"
                      src="diff_read-20081211T_071242-python-2.4_vs_071241-python-2.6/spps_diff.png"
                      height="95" width="160"/>
-                <div>python-2.6 vs python-2.4</div>
+                <div>python-2.4 vs python-2.6</div>
               </a>
                 </td>
                 <td class="field-body">
               <a href="diff_read_20081210T071241-python-2.5_vs_20081211T071241-python-2.6/index.html">
-                <img alt="diff of python-2.6 vs python-2.5 for test_read"
+                <img alt="diff of python-2.5 vs python-2.6 for test_read"
                      src="diff_read_20081210T071241-python-2.5_vs_20081211T071241-python-2.6/spps_diff.png"
                      height="95" width="160"/>
-                <div>python-2.6 vs python-2.5</div>
+                <div>python-2.5 vs python-2.6</div>
               </a>
                 </td>
                 <td class="field-body">
