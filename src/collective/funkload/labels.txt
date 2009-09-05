@@ -130,7 +130,7 @@ reports for each test.
                     <th class="field-name">
                       <a href="test_add-20081211T071243-python-2.4/index.html">
                         <img alt="foo.sampletests.FooTestCase.test_add"
-                             src="test_add-20081211T071243-python-2.4/pages_spps.png"
+                             src="test_add-20081211T071243-python-2.4/tests.png"
                              height="120" width="120"/>
                         <div>test_add</div>
                       </a>
@@ -142,7 +142,7 @@ reports for each test.
                     <th class="field-name">
                     <a href="test_read-20081211T071242-python-2.4/index.html">
                       <img alt="foo.sampletests.FooTestCase.test_read"
-                           src="test_read-20081211T071242-python-2.4/pages_spps.png"
+                           src="test_read-20081211T071242-python-2.4/tests.png"
                            height="120" width="120"/>
                       <div>test_read</div>
                     </a>
@@ -155,7 +155,7 @@ reports for each test.
                     <th class="field-name">
                     <a href="test_add-20081211T071242-python-2.6/index.html">
                       <img alt="foo.sampletests.FooTestCase.test_add"
-                           src="test_add-20081211T071242-python-2.6/pages_spps.png"
+                           src="test_add-20081211T071242-python-2.6/tests.png"
                            height="120" width="120"/>
                       <div>test_add</div>
                     </a>
@@ -173,7 +173,7 @@ reports for each test.
                     <th class="field-name">
                     <a href="test_read-20081211T071241-python-2.6/index.html">
                       <img alt="foo.sampletests.FooTestCase.test_read"
-                           src="test_read-20081211T071241-python-2.6/pages_spps.png"
+                           src="test_read-20081211T071241-python-2.6/tests.png"
                            height="120" width="120"/>
                       <div>test_read</div>
                     </a>
@@ -271,7 +271,7 @@ results and reports.
                 <th class="field-name">
               <a href="test_add-20081211T071243-python-2.4/index.html">
                 <img alt="foo.sampletests.FooTestCase.test_add"
-                     src="test_add-20081211T071243-python-2.4/pages_spps.png"
+                     src="test_add-20081211T071243-python-2.4/tests.png"
                      height="120" width="120"/>
                 <div>test_add</div>
               </a>
@@ -293,7 +293,7 @@ results and reports.
                 <th class="field-name">
               <a href="test_read-20081211T071242-python-2.4/index.html">
                 <img alt="foo.sampletests.FooTestCase.test_read"
-                     src="test_read-20081211T071242-python-2.4/pages_spps.png"
+                     src="test_read-20081211T071242-python-2.4/tests.png"
                      height="120" width="120"/>
                 <div>test_read</div>
               </a>
@@ -322,7 +322,7 @@ results and reports.
                 <th class="field-name">
               <a href="test_read-20081210T071241-python-2.5/index.html">
                 <img alt="foo.sampletests.FooTestCase.test_read"
-                     src="test_read-20081210T071241-python-2.5/pages_spps.png"
+                     src="test_read-20081210T071241-python-2.5/tests.png"
                      height="120" width="120"/>
                 <div>test_read</div>
               </a>
@@ -351,7 +351,7 @@ results and reports.
                 <th class="field-name">
               <a href="test_add-20081211T071242-python-2.6/index.html">
                 <img alt="foo.sampletests.FooTestCase.test_add"
-                     src="test_add-20081211T071242-python-2.6/pages_spps.png"
+                     src="test_add-20081211T071242-python-2.6/tests.png"
                      height="120" width="120"/>
                 <div>test_add</div>
               </a>
@@ -373,7 +373,7 @@ results and reports.
                 <th class="field-name">
               <a href="test_read-20081211T071241-python-2.6/index.html">
                 <img alt="foo.sampletests.FooTestCase.test_read"
-                     src="test_read-20081211T071241-python-2.6/pages_spps.png"
+                     src="test_read-20081211T071241-python-2.6/tests.png"
                      height="120" width="120"/>
                 <div>test_read</div>
               </a>

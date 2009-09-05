@@ -311,9 +311,9 @@
                      tal:condition="test_d"
                      tal:attributes="href string:${test_d/report}/index.html;">
                     <img alt="module.class.method"
-                         src="report/pages_spps.png"
+                         src="report/tests.png"
                          height="120" width="120"
-                     tal:attributes="src string:${test_d/report}/pages_spps.png;
+                     tal:attributes="src string:${test_d/report}/tests.png;
                                      alt string:${test_d/module}.${test_d/class_}.$test;" />
                     <div tal:content="test">test</div>
                   </a>
