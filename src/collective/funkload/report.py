@@ -81,7 +81,11 @@ def results_by_label(directory):
             opened.close()
             path = os.path.basename(abs_path)
             path_vs = os.path.basename(abs_path_vs)
-            xml_parser.parse(os.path.join(abs_path, 'funkload.xml'))
+            parse_path = abs_path
+            report_path = os.path.join(abs_path, 'funkload.xml')
+            if os.path.isfile(report_path):
+                parse_path = report_path
+            xml_parser.parse(parse_path)
         else:
             try:
                 xml_parser.parser.ParseFile(open(abs_path))
