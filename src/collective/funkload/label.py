@@ -54,14 +54,21 @@ labels_group.add_option(
     help="""\
 A label filter specifying which reports to include on the Y axis.""")
 
+labels_group.add_option(
+    '--reverse', '-R', default=False, action="store_true",
+    help="""\
+The reference and challenger reports will be reversed from the label
+sort order.  Use if the polarity of the differential reports should be
+the reverse of the order of labels on the axes.""")
+
 parser.add_option_group(labels_group)
 
-def build_index(directory, x_labels, y_labels):
+def build_index(directory, x_labels, y_labels, reverse=False):
     utils.trace("Creating report index ...")
     html_path = os.path.join(directory, 'index.html')
     template = pagetemplatefile.PageTemplateFile('label.pt')
     open(html_path, 'w').write(
-        template(x_labels=x_labels, y_labels=y_labels))
+        template(x_labels=x_labels, y_labels=y_labels, reverse=reverse))
     utils.trace("done: \n")
     utils.trace("file://%s\n" % html_path)
     return html_path
@@ -73,20 +80,29 @@ def process_axis(options, found, labels, labels_vs, label):
     tests = labels.setdefault(label, {})
     for test in sorted(found[label]):
         found_test = found[label][test]
-        path = found_test.times[max(found_test.times)]
-        abs_path = os.path.join(options.output_dir, path)
 
-        if not os.path.isfile(os.path.join(abs_path, 'funkload.xml')):
-            abs_path = report.build_html_report(options, abs_path)
-            path = os.path.basename(abs_path)
+        if test in labels_vs.get(label, {}):
+            test_tuple = tests.setdefault(
+                test, labels_vs[label][test])
+            path = test_tuple.report
+            abs_path = os.path.join(options.output_dir, path)
+        else:
+            path = found_test.times[max(found_test.times)]
+            abs_path = os.path.join(options.output_dir, path)
 
-        test_tuple = tests.setdefault(
-            test, Test(report=path,
-                       name=test.rsplit('.', 1)[-1],
-                       diffs={},
-                       module=found_test.module,
-                       class_=found_test.class_,
-                       method=found_test.method))
+            if not os.path.isfile(
+                os.path.join(abs_path, 'funkload.xml')):
+                abs_path = report.build_html_report(options, abs_path)
+                path = os.path.basename(abs_path)
+
+            test_tuple = tests.setdefault(
+                test, Test(report=path,
+                           name=test.rsplit('.', 1)[-1],
+                           diffs={},
+                           module=found_test.module,
+                           class_=found_test.class_,
+                           method=found_test.method))
+
         for label_vs in sorted(labels_vs):
             tests_vs = labels_vs[label_vs]
             if label == label_vs or test not in tests_vs:
@@ -106,7 +122,7 @@ def run(options):
     found = report.results_by_label(options.output_dir)
     x_labels = {}
     y_labels = {}
-    for label in sorted(found):
+    for label in sorted(found, reverse=options.reverse):
         matched = False
         for filter in options.x_label:
             if filter(label):
@@ -120,7 +136,8 @@ def run(options):
                     options, found, y_labels, x_labels, label)
                 break
 
-    return build_index(options.output_dir, x_labels, y_labels)
+    return build_index(options.output_dir, x_labels, y_labels,
+                       options.reverse)
     
 def main(args=None, values=None):
     (options, args) = parser.parse_args(args, values)
