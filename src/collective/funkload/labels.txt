@@ -1,5 +1,8 @@
 .. -*-doctest-*-
 
+fl-build-label-reports
+======================
+
 The fl-build-label-reports script builds HTML (fl-build-report --html)
 and differential (fl-build-report --diff) reports for multiple bench
 results at once based on the bench result labels.  Labels are selected
