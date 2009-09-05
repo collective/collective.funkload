@@ -54,11 +54,19 @@ def build_diff_report(options, directory_1, directory_2):
 Test = collections.namedtuple(
     'Test', ['times', 'diffs', 'module', 'class_', 'method'])
 
+class FunkLoadConfigParser(ReportBuilder.FunkLoadXmlParser, object):
+    """XML bench results parser that only extracts config"""
+
+    def __init__(self):
+        """Disable the eng element handler"""
+        super(FunkLoadConfigParser, self).__init__()
+        self.parser.EndElementHandler = None
+
 def results_by_label(directory):
     labels = {}
     for path in os.listdir(directory):
         abs_path = os.path.join(directory, path)
-        xml_parser = ReportBuilder.FunkLoadXmlParser()
+        xml_parser = FunkLoadConfigParser()
 
         is_report = False
         report_path = os.path.join(path, 'funkload.xml')
