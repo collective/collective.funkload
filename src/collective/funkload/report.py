@@ -37,9 +37,14 @@ def build_html_report(options, xml_file):
         xml_parser.config, xml_parser.stats,
         xml_parser.error, xml_parser.monitor,
         options)()
+    report = os.path.dirname(html_path)
+    os.rename(xml_file[:-4]+'.log',
+              os.path.join(report, 'funkload.log'))
+    assert os.path.isfile(os.path.join(report, 'funkload.xml'))
+    os.remove(xml_file)
     utils.trace("done: \n")
     utils.trace("file://%s\n" % html_path)
-    return os.path.dirname(html_path)
+    return report
 
 def build_diff_report(options, directory_1, directory_2):
     """Build a differential report for the given HTML report directories"""
