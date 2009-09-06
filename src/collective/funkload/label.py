@@ -13,14 +13,14 @@ from collective.funkload import report
 
 cur_path = os.path.abspath(os.path.curdir)
 parser = optparse.OptionParser(
-    usage="Usage: %prog", description="""\
+    description="""\
 Build HTML (fl-build-report --html) and differential (fl-build-report
 --diff) reports for multiple bench results at once based on the bench
 result labels.  Labels are selected for the X and Y axes to be
 compared against each other.""")
-parser.add_option(report.parser.get_option('--output-directory'))
-parser.add_option(report.parser.get_option('--report-directory'))
-parser.add_option(report.parser.get_option('--with-percentiles'))
+parser.add_option(report.output_option)
+parser.add_option(report.report_option)
+parser.add_option(report.percent_option)
 
 labels_group = optparse.OptionGroup(parser, "Labels", """\
 Options in this group are used to define the lables for which to build
@@ -55,13 +55,7 @@ labels_group.add_option(
     action="callback", callback=append_filter, metavar='REGEXP',
     help="""\
 A label filter specifying which reports to include on the Y axis.""")
-
-reverse_option = labels_group.add_option(
-    '--reverse', '-R', default=False, action="store_true",
-    help="""\
-The reference and challenger reports will be reversed from the label
-sort order.  Use if the polarity of the differential reports should be
-the reverse of the order of labels on the axes.""")
+labels_group.add_option(report.reverse_option)
 
 parser.add_option_group(labels_group)
 
@@ -88,7 +82,7 @@ input_option = content_group.add_option(
 parser.add_option_group(content_group)
 
 def build_index(directory, x_labels, y_labels,
-                reverse=reverse_option.default,
+                reverse=report.reverse_option.default,
                 title=title_option.default,
                 sub_title=sub_title_option.default,
                 input_=input_option.default):

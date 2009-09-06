@@ -453,3 +453,14 @@ results and reports.
               </tr>
             </tfooter>
           </table>...
+
+The "fl-list" script prints out the labeled XML bench result files,
+HTML report directories, and differential report directories that meet
+the criteria of the given options.  The "--old" option lists
+everything for which there is an equivalent with a newer time stamp.
+
+    >>> from collective.funkload import report
+    >>> options, _ = report.list_parser.parse_args(
+    ...     args=('-o %s --old' % reports_dir).split())
+    >>> list(report.run(**options.__dict__))
+    ['read-bench-20081210T071243.xml']

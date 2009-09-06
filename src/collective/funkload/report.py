@@ -12,19 +12,38 @@ parser = optparse.OptionParser(
     ReportBuilder.USAGE,
     formatter=optparse.TitledHelpFormatter(),
     version="FunkLoad %s" % utils.get_version())
-parser.add_option("-o", "--output-directory", type="string",
-                  dest="output_dir",
-                  help="Parent directory to store reports, the directory"
-                  "name of the report will be generated automatically.",
-                  default=os.path.abspath(os.getcwd()))
-parser.add_option("-r", "--report-directory", type="string",
-                  dest="report_dir",
-                  help="Directory name to store the report.",
-                  default=None)
-parser.add_option("-P", "--with-percentiles", action="store_true",
-                  default=True, dest="with_percentiles",
-                  help=("Include percentiles in tables, use 10%, 50% and"
-                        " 90% for charts, default option."))
+output_option = parser.add_option(
+    "-o", "--output-directory", type="string",
+    dest="output_dir",
+    help="Parent directory to store reports, the directory"
+    "name of the report will be generated automatically.",
+    default=os.path.abspath(os.getcwd()))
+report_option = parser.add_option(
+    "-r", "--report-directory", type="string",
+    dest="report_dir",
+    help="Directory name to store the report.",
+    default=None)
+percent_option = parser.add_option(
+    "-P", "--with-percentiles", action="store_true",
+    default=True, dest="with_percentiles",
+    help=("Include percentiles in tables, use 10%, 50% and"
+          " 90% for charts, default option."))
+
+list_parser = optparse.OptionParser(description="""\
+List XML bench result files, HTML report directories, and differential
+report directories""")
+list_parser.add_option(output_option)
+old_option = list_parser.add_option(
+    "-O", "--old", action="store_true", default=True,
+    help="""\
+List everything for which there is an equivalent with a newer time
+stamp.  [default: %default]""")
+reverse_option = list_parser.add_option(
+    '--reverse', '-R', default=False, action="store_true",
+    help="""\
+The reference and challenger reports will be reversed from the label
+sort order.  Use if the polarity of the differential reports should be
+the reverse of the order of labels on the axes.""")
 
 def build_html_report(options, xml_file):
     """Build a HTML report for the given XML bench results file"""
@@ -126,3 +145,23 @@ def results_by_label(directory):
                 test.diffs[path_vs] = diff_path
                 
     return labels
+
+def run(output_dir, old=old_option.default,
+        reverse=reverse_option.default):
+    found = results_by_label(output_dir)
+    for label in sorted(found, reverse=reverse):
+        for test in sorted(found[label]):
+            found_test = found[label][test]
+            for time, path in sorted(
+                found_test.times.iteritems(), reverse=True)[1:]:
+                yield path
+                
+def main(args=None, values=None):
+    (options, args) = list_parser.parse_args(args, values)
+    if args:
+        parser.error('does not accept positional arguments')
+    for path in run(**options.__dict__):
+        print path
+
+if __name__=='__main__':
+    main()
