@@ -1,3 +1,4 @@
+import sys
 import os
 import collections
 import optparse
@@ -54,7 +55,7 @@ labels_group.add_option(
     help="""\
 A label filter specifying which reports to include on the Y axis.""")
 
-labels_group.add_option(
+reverse_option = labels_group.add_option(
     '--reverse', '-R', default=False, action="store_true",
     help="""\
 The reference and challenger reports will be reversed from the label
@@ -63,12 +64,37 @@ the reverse of the order of labels on the axes.""")
 
 parser.add_option_group(labels_group)
 
-def build_index(directory, x_labels, y_labels, reverse=False):
+def open_callback(option, opt_str, value, parser):
+    setattr(parser.values, option.dest, open(value))
+
+content_group = optparse.OptionGroup(
+    parser, "Content", "Content to render above the index matrix")
+title_option = content_group.add_option(
+    '--title', '-t', default="", metavar="STRING",
+    help="Title to render in the HTML head and at the top.  "
+    "[default: 'collective.funkload label matrix report']")
+sub_title_option = content_group.add_option(
+    '--sub-title', '-s', default="", metavar="STRING",
+    help="Sub-title to render below the title.  "
+    "[default: <generated from labels for X and Y axes>]")
+input_option = content_group.add_option(
+    '--input', '-i', type='string', metavar="STRING",
+    action='callback', callback=open_callback, default=sys.stdin,
+    help="Text or HTML to include below the subtitle and above the "
+    "matrix.  [default: stdin]")
+parser.add_option_group(content_group)
+
+def build_index(directory, x_labels, y_labels,
+                reverse=reverse_option.default,
+                title=title_option.default,
+                sub_title=sub_title_option.default,
+                input_=input_option.default):
     utils.trace("Creating report index ...")
     html_path = os.path.join(directory, 'index.html')
     template = pagetemplatefile.PageTemplateFile('label.pt')
     open(html_path, 'w').write(
-        template(x_labels=x_labels, y_labels=y_labels, reverse=reverse))
+        template(x_labels=x_labels, y_labels=y_labels, reverse=reverse,
+                title=title, sub_title=sub_title, input_=input_.read()))
     utils.trace("done: \n")
     utils.trace("file://%s\n" % html_path)
     return html_path
@@ -136,8 +162,9 @@ def run(options):
                     options, found, y_labels, x_labels, label)
                 break
 
-    return build_index(options.output_dir, x_labels, y_labels,
-                       options.reverse)
+    return build_index(
+        options.output_dir, x_labels, y_labels, options.reverse,
+        options.title, options.sub_title, options.input)
     
 def main(args=None, values=None):
     (options, args) = parser.parse_args(args, values)

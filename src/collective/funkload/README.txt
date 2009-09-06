@@ -106,11 +106,18 @@ Repeat this step for each setup.
 ---------------------------------------------------------------
 
 Use the "fl-build-label-reports" command with the "--x-label" and
-"--y-label" options to automatically build all the HTML reports,
-the differential reports based on the labels, and an index matrix
-to the HTML and differential reports::
+"--y-label" options to automatically build all the HTML reports, the
+differential reports based on the labels, and an index matrix to the
+HTML and differential reports.  The "fl-build-label-reports" script
+will use a default title and sub-title based on the labels but may
+specified using the "--title" and "--sub-title" options.  Arbitrary
+text or HTML may also be included on stdin or using the "--input"
+option::
 
-  $ fl-build-label-reports --x-label=baseline --y-label=foo-setup --y-label=bar-setup
+  $ echo "When deciding which setup to use..." | \
+  fl-build-label-reports --x-label=baseline --y-label=foo-setup \ 
+  --y-label=bar-setup --title="Setup Comparison"
+  --sub-title="Compare setups foo and bar against baseline"
   Creating html report ...done:
   file:///.../test_ReadOnly-YYYYMMDDThhmmss-baseline/index.html
   Creating html report ...done:

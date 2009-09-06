@@ -6,7 +6,13 @@
       lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>collective.funkload label matrix report</title>
+    <title tal:condition="options/title"
+           tal:content="options/title">
+      Title
+    </title>
+    <title tal:condition="not:options/title">
+      collective.funkload label matrix report
+    </title>
     <style type="text/css">
 
       /* funkload doc css */
@@ -273,9 +279,32 @@
     <div class="document" id="funkload-differential-report"
          tal:define="sorted_x_labels python:sorted(options['x_labels']);
                      sorted_y_labels python:sorted(options['y_labels'])">
-      <h1 class="title">collective.funkload label matrix report</h1>
+      <h1 class="title"
+          tal:condition="options/title"
+          tal:content="structure options/title">
+        Title
+      </h1>
+      <h1 class="title"
+          tal:condition="not:options/title">
+        <a href="http://pypi.python.org/pypi/collective.funkload">
+          collective.funkload label matrix report
+        </a>
+      </h1>
       <h2 class="subtitle"
-          tal:content="python:', '.join(sorted_x_labels)+' vs '+', '.join(sorted_y_labels)">x_labels vs y_labels</h2>
+          tal:condition="options/sub_title"
+          tal:content="structure options/sub_title">
+        Sub-title
+      </h2>
+      <h2 class="subtitle"
+          tal:condition="not:options/sub_title"
+          tal:content="structure python:', '.join(sorted_x_labels)+'
+          vs '+', '.join(sorted_y_labels)">
+        x_labels vs y_labels
+      </h2>
+
+      <p tal:replace="structure options/input_">
+        Body
+      </p>
 
       <table class="docutils">
         <thead>
