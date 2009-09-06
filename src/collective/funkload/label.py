@@ -78,7 +78,7 @@ sub_title_option = content_group.add_option(
     help="Sub-title to render below the title.  "
     "[default: <generated from labels for X and Y axes>]")
 input_option = content_group.add_option(
-    '--input', '-i', type='string', metavar="STRING",
+    '--input', '-i', type='string', metavar="FILE",
     action='callback', callback=open_callback, default=sys.stdin,
     help="Text or HTML to include below the subtitle and above the "
     "matrix.  [default: stdin]")
