@@ -46,12 +46,12 @@ def append_filter(option, opt_str, value, parser):
 
 labels_group.add_option(
     '--x-label', '-x', type='string', default=default_filter,
-    action="callback", callback=append_filter,
+    action="callback", callback=append_filter, metavar='REGEXP',
     help="""\
 A label filter specifying which reports to include on the X axis.""")
 labels_group.add_option(
     '--y-label', '-y', type='string', default=default_filter,
-    action="callback", callback=append_filter,
+    action="callback", callback=append_filter, metavar='REGEXP',
     help="""\
 A label filter specifying which reports to include on the Y axis.""")
 
