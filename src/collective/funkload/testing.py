@@ -47,6 +47,9 @@ def setUpReports(reports_dir):
             reports_dir, '%(name)s-bench-%(stamp)s.xml' % report_d)
         open(report_d['path'], 'w').write(
             bench_tmpl % report_d)
+        open(os.path.join(
+            reports_dir, '%(name)s-bench-%(stamp)s.log' % report_d),
+            'w').write('')
 
 def listReports(reports_dir):
     return sorted(
