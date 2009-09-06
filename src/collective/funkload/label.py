@@ -2,6 +2,7 @@ import sys
 import os
 import collections
 import optparse
+import cStringIO
 
 from zope.testing.testrunner import options
 from zope.pagetemplate import pagetemplatefile
@@ -77,9 +78,11 @@ sub_title_option = content_group.add_option(
     '--sub-title', '-s', default="", metavar="STRING",
     help="Sub-title to render below the title.  "
     "[default: <generated from labels for X and Y axes>]")
+input_default = os.isatty(
+    sys.stdin.fileno()) and cStringIO.StringIO('') or sys.stdin
 input_option = content_group.add_option(
     '--input', '-i', type='string', metavar="FILE",
-    action='callback', callback=open_callback, default=sys.stdin,
+    action='callback', callback=open_callback, default=input_default,
     help="Text or HTML to include below the subtitle and above the "
     "matrix.  [default: stdin]")
 parser.add_option_group(content_group)
