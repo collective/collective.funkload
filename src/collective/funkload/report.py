@@ -76,7 +76,9 @@ def build_diff_report(options, directory_1, directory_2):
     return os.path.dirname(str(html_path))
 
 Test = collections.namedtuple(
-    'Test', ['times', 'diffs', 'module', 'class_', 'method'])
+    'Test', ['times', 'module', 'class_', 'method'])
+
+Bench = collections.namedtuple('Bench', ['path', 'diffs'])
 
 class FunkLoadConfigParser(ReportBuilder.FunkLoadXmlParser, object):
     """XML bench results parser that only extracts config"""
@@ -134,27 +136,32 @@ def results_by_label(directory):
             label = labels.setdefault(xml_parser.config['label'], {})
             test = label.setdefault(
                 xml_parser.config['method'], Test(
-                    times={}, diffs={},
+                    times={},
                     module=xml_parser.config['module'],
                     class_=xml_parser.config['class'],
                     method=xml_parser.config['method']))
             time = xml_parser.config['time']
             if time not in test.times or is_report:
-                test.times[time] = path
+                bench = test.times[time] = Bench(path=path, diffs={})
+            else:
+                bench = test.times[time]
+
             if path_vs:
-                test.diffs[path_vs] = diff_path
+                bench.diffs[path_vs] = diff_path
                 
     return labels
 
 def run(output_dir, old=old_option.default,
         reverse=reverse_option.default):
     found = results_by_label(output_dir)
+    diffs = {}
     for label in sorted(found, reverse=reverse):
         for test in sorted(found[label]):
             found_test = found[label][test]
-            for time, path in sorted(
+            test_diffs = diffs.setdefault(test, {})
+            for time, bench in sorted(
                 found_test.times.iteritems(), reverse=True)[1:]:
-                yield path
+                yield bench.path
                 
 def main(args=None, values=None):
     (options, args) = list_parser.parse_args(args, values)

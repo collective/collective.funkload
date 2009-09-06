@@ -66,18 +66,24 @@ Some labels are applied to bench results for multiple tests.
     >>> pprint.pprint(testing.listReports(reports_dir))
     [(u'python-2.4',
       [(u'test_add',
-        [(u'2008-12-11T07:12:43.000000', 'add-bench-20081211T071243.xml')]),
+        [(u'2008-12-11T07:12:43.000000',
+          Bench(path='add-bench-20081211T071243.xml', diffs={}))]),
        (u'test_read',
-        [(u'2008-12-11T07:12:42.000000', 'read-bench-20081211T071242.xml'),
-         (u'2008-12-10T07:12:43.000000', 'read-bench-20081210T071243.xml')])]),
+        [(u'2008-12-11T07:12:42.000000',
+          Bench(path='read-bench-20081211T071242.xml', diffs={})),
+         (u'2008-12-10T07:12:43.000000',
+          Bench(path='read-bench-20081210T071243.xml', diffs={}))])]),
      (u'python-2.5',
       [(u'test_read',
-        [(u'2008-12-10T07:12:41.000000', 'read-bench-20081210T071241.xml')])]),
+        [(u'2008-12-10T07:12:41.000000',
+          Bench(path='read-bench-20081210T071241.xml', diffs={}))])]),
      (u'python-2.6',
       [(u'test_add',
-        [(u'2008-12-11T07:12:42.000000', 'add-bench-20081211T071242.xml')]),
+        [(u'2008-12-11T07:12:42.000000',
+          Bench(path='add-bench-20081211T071242.xml', diffs={}))]),
        (u'test_read',
-        [(u'2008-12-11T07:12:41.000000', 'read-bench-20081211T071241.xml')])])]
+        [(u'2008-12-11T07:12:41.000000',
+          Bench(path='read-bench-20081211T071241.xml', diffs={}))])])]
 
 When labels are specified for the X or Y axes, HTML reports are
 generated for the latest bench result XML file for each combination of

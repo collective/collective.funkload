@@ -103,6 +103,7 @@ def process_axis(options, found, labels, labels_vs, label):
     tests = labels.setdefault(label, {})
     for test in sorted(found[label]):
         found_test = found[label][test]
+        bench = found_test.times[max(found_test.times)]
 
         if test in labels_vs.get(label, {}):
             test_tuple = tests.setdefault(
@@ -110,7 +111,7 @@ def process_axis(options, found, labels, labels_vs, label):
             path = test_tuple.report
             abs_path = os.path.join(options.output_dir, path)
         else:
-            path = found_test.times[max(found_test.times)]
+            path = bench.path
             abs_path = os.path.join(options.output_dir, path)
 
             if not os.path.isfile(
@@ -132,7 +133,7 @@ def process_axis(options, found, labels, labels_vs, label):
                 continue
 
             test_vs_tuple = tests_vs[test]
-            diff_path = found_test.diffs.get(test_vs_tuple.report)
+            diff_path = bench.diffs.get(test_vs_tuple.report)
             if not diff_path:
                 diff_path = report.build_diff_report(
                     options, abs_path, os.path.join(
