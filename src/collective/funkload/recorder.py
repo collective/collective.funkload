@@ -13,7 +13,7 @@ class RecorderProgram(Recorder.RecorderProgram):
          
         tpl_name = 'data/ScriptTestCase.tpl' 
         trace('Creating script: %s.\n' % self.script_path)
-        tpl = resource_string('collective.recipe.funkload', tpl_name)
+        tpl = resource_string('collective.funkload', tpl_name)
         content = tpl % {'script': script, 
                          'test_name': self.test_name, 
                          'class_name': self.class_name}
