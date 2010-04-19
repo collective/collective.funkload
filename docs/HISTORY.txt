@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.3 - 2010-04-19
+------------------
+
+* add new TestCase class: PloneFLTestCase with two helper methods:
+  plone_login and addContent. Please check collective.recipe.funkload
+  for example usage
+  [amleczko]
+
 0.2.1 - 2010-04-16 
 ------------------
 

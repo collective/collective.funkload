@@ -82,3 +82,35 @@ class FLTestCase(FunkLoadTestCase.FunkLoadTestCase):
             xml.append('<config key="%s" value=%s />' % (
                 key, saxutils.quoteattr(str(value))))
         self._logr('\n'.join(xml), force=True)
+
+class PloneFLTestCase(FLTestCase):
+
+    def plone_login(self, server_url, username, password, description):
+        """Plone login action """
+
+        return self.post(server_url + "/login_form", params=[
+                        ['form.submitted', '1'],
+                        ['js_enabled', '0'],
+                        ['cookies_enabled', '0'],
+                        ['login_name', ''],
+                        ['pwd_empty', '0'],
+                        ['came_from', 'login_success'],
+                        ['__ac_name', username],
+                        ['__ac_password', password]],
+                        description=description)
+
+
+    def addContent(self, base_url, portal_type, params, description): 
+
+        portal_factory = self._browse(base_url + "/createObject?type_name=" + portal_type,
+                                      method='get', 
+                                      follow_redirect=False,
+                                      description = 'Get ' + portal_type + ' portal factory')
+        edit_url = portal_factory.headers.get('Location')
+        object_id = edit_url.split('/')[-2]
+        params = dict(params)
+        params['id'] = object_id
+        params = params.items()
+        object_created = self.post(edit_url, params=params, description=description)
+        new_object_id = object_created.url.split('/')[-2]
+        return new_object_id
