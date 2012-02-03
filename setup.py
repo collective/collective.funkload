@@ -30,7 +30,8 @@ setup(name='collective.funkload',
           'setuptools',
           # -*- Extra requirements: -*-
           'funkload',
-          'zope.testing>=3.6', # testrunner refactored
+          'zope.testing',
+          'zope.testrunner',
           'zope.pagetemplate',
       ],
       entry_points={

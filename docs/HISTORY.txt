@@ -1,5 +1,11 @@
 Changelog
 =========
+Unreleased
+------------------
+* Fix imports. zope.testing.testrunner now lives in the zope.testrunner
+  package.
+  [nueces]
+
 
 0.3 - 2010-04-19
 ------------------
