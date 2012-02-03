@@ -4,7 +4,7 @@ import tempfile
 import shutil
 
 from zope.testing import doctest
-from zope.testing.testrunner import tests
+from zope.testrunner import tests
 
 from collective import funkload
 

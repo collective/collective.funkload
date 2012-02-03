@@ -4,7 +4,7 @@ import collections
 import optparse
 import cStringIO
 
-from zope.testing.testrunner import options
+from zope.testrunner import options
 from zope.pagetemplate import pagetemplatefile
 
 from funkload import utils

@@ -5,8 +5,8 @@ import unittest
 import datetime
 from thread import error as ThreadError
 
-from zope.testing.testrunner import runner
-from zope.testing.testrunner import options
+from zope.testrunner import runner
+from zope.testrunner import options
 
 from funkload import BenchRunner
 from funkload import FunkLoadTestCase
