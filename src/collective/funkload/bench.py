@@ -105,7 +105,6 @@ class FLBenchRunner(BenchRunner.BenchRunner, unittest.TestCase):
         BenchRunner.trace("* Starting threads: ")
         threads = []
         i = 0
-        utils.set_running_flag(True)
         utils.set_recording_flag(False)
         for thread_id in range(number_of_threads):
             i += 1
