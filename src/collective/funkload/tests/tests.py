@@ -1,19 +1,21 @@
 import os
 import unittest
 import tempfile
-import shutil
 
-from zope.testing import doctest
-from zope.testrunner import tests
+from zope.testing import (
+    doctest,
+    setupstack
+)
 
 from collective import funkload
+
 
 optionflags = (doctest.NORMALIZE_WHITESPACE|
                doctest.ELLIPSIS|
                doctest.REPORT_NDIFF)
 
+
 def setUp(test):
-    tests.setUp(test)
 
     test.globs['tmp_dir'] = tempfile.mkdtemp()
 
@@ -21,12 +23,14 @@ def setUp(test):
     directory_with_tests = os.path.join(this_directory, 'src')
     test.globs['defaults'] = ['--path', directory_with_tests,
                               '--tests-pattern', '^sampletests$']
+
+    setupstack.setUpDirectory(test)
+
     test.globs['reports_dir'] = os.path.join(
-        os.path.join(test.globs['tmp_dir'], 'reports'))
+        os.path.join(os.getcwd(), 'reports'))
 
 def tearDown(test):
-    shutil.rmtree(test.globs['tmp_dir'])
-    tests.tearDown(test)
+    setupstack.tearDown(test)
 
 def test_suite():
     return doctest.DocFileSuite(

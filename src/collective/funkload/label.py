@@ -1,10 +1,10 @@
 import sys
 import os
+import re
 import collections
 import optparse
 import cStringIO
 
-from zope.testrunner import options
 from zope.pagetemplate import pagetemplatefile
 
 from funkload import utils
@@ -37,12 +37,18 @@ no label filter is specified, then all bench results with a label are
 used.  The bench results inside HTML report directories are included
 in the search.""")
 
-default_filter = [options.compile_filter('.')]
+def _compile_filter(pattern):
+    if pattern.startswith('!'):
+        pattern = re.compile(pattern[1:]).search
+        return (lambda s: not pattern(s))
+    return re.compile(pattern).search
+
+default_filter = [_compile_filter('.')]
 def append_filter(option, opt_str, value, parser):
     values = getattr(parser.values, option.dest)
     if values is default_filter:
         values = []
-    values.append(options.compile_filter(value))
+    values.append(_compile_filter(value))
     setattr(parser.values, option.dest, values)
 
 labels_group.add_option(
@@ -163,7 +169,7 @@ def run(options):
     return build_index(
         options.output_dir, x_labels, y_labels, options.reverse,
         options.title, options.sub_title, options.input)
-    
+
 def main(args=None, values=None):
     (options, args) = parser.parse_args(args, values)
     if args:

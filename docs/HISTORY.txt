@@ -1,7 +1,12 @@
 Changelog
 =========
+
 0.4dev Unreleased
 ------------------
+
+* Fix label.py and tests.py is not working with current zope.testing
+  [joka]
+
 * Fix imports. zope.testing.testrunner now lives in the zope.testrunner
   package.
   [nueces]
