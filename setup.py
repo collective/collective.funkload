@@ -7,7 +7,7 @@ setup(name='collective.funkload',
       version=version,
       description="Zope and Plone focussed extensions to funkload",
       long_description=open(os.path.join(
-          "src", "collective", "funkload", "README.txt")).read() +
+          "README.rst")).read() +
           "\n" + open(os.path.join(
           "src", "collective", "funkload", "labels.txt")).read() +
           "\n" + open(os.path.join("docs", "HISTORY.txt")).read(),
