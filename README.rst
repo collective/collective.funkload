@@ -15,7 +15,7 @@ reporting tool.  These extensions provide flexible yet simple ways to:
   - generate comparisons between those setups
 
 All of the console scripts provided by collective.funkload provide a
-"--help" option which documents the command and it's options.
+"--help" option which documents the command and its options.
 
 .. contents:: Table of Contents
 
@@ -115,7 +115,7 @@ text or HTML may also be included on stdin or using the "--input"
 option::
 
   $ echo "When deciding which setup to use..." | \
-  fl-build-label-reports --x-label=baseline --y-label=foo-setup \ 
+  fl-build-label-reports --x-label=baseline --y-label=foo-setup \
   --y-label=bar-setup --title="Setup Comparison"
   --sub-title="Compare setups foo and bar against baseline"
   Creating html report ...done:
