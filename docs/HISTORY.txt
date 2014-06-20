@@ -4,6 +4,12 @@ Changelog
 0.4dev Unreleased
 ------------------
 
+* make flake8 happy again
+  [giacomos]
+
+* add method for creating dexterity content types
+  [giacomos]
+
 * Fix label.py and tests.py is not working with current zope.testing
   [joka]
 
