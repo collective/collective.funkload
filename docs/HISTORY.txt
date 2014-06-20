@@ -1,8 +1,14 @@
 Changelog
 =========
 
-0.4dev Unreleased
-------------------
+0.5 (unreleased)
+----------------
+
+- Nothing changed yet.
+
+
+0.4 (2014-06-20)
+----------------
 
 * make flake8 happy again
   [giacomos]
@@ -16,12 +22,6 @@ Changelog
 * Fix imports. zope.testing.testrunner now lives in the zope.testrunner
   package.
   [nueces]
-
-
-0.5 (unreleased)
-----------------
-
-- Nothing changed yet.
 
 
 0.4 (2014-06-20)
