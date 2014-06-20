@@ -107,16 +107,17 @@ class PloneFLTestCase(FLTestCase):
 
     def addContent(self, base_url, portal_type, params, description):
 
-        portal_factory = self._browse(base_url + "/createObject?type_name=" + portal_type,
-                                      method='get',
-                                      follow_redirect=False,
-                                      description='Get ' + portal_type + ' portal factory')
+        portal_factory = self._browse(
+            base_url + "/createObject?type_name=" + portal_type,
+            method='get', follow_redirect=False,
+            description='Get ' + portal_type + ' portal factory')
         edit_url = portal_factory.headers.get('Location')
         object_id = edit_url.split('/')[-2]
         params = dict(params)
         params['id'] = object_id
         params = params.items()
-        object_created = self.post(edit_url, params=params, description=description)
+        object_created = self.post(
+            edit_url, params=params, description=description)
         new_object_id = object_created.url.split('/')[-2]
         return new_object_id
 
@@ -125,6 +126,7 @@ class PloneFLTestCase(FLTestCase):
         edit_url = base_url + "/++add++" + portal_type
         params = dict(params)
         params = params.items()
-        object_created = self.post(edit_url, params=params, description=description)
+        object_created = self.post(
+            edit_url, params=params, description=description)
         new_object_id = object_created.url.split('/')[-2]
         return new_object_id

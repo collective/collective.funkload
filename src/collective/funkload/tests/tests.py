@@ -10,8 +10,8 @@ from zope.testing import (
 from collective import funkload
 
 
-optionflags = (doctest.NORMALIZE_WHITESPACE|
-               doctest.ELLIPSIS|
+optionflags = (doctest.NORMALIZE_WHITESPACE |
+               doctest.ELLIPSIS |
                doctest.REPORT_NDIFF)
 
 
@@ -29,8 +29,10 @@ def setUp(test):
     test.globs['reports_dir'] = os.path.join(
         os.path.join(os.getcwd(), 'reports'))
 
+
 def tearDown(test):
     setupstack.tearDown(test)
+
 
 def test_suite():
     return doctest.DocFileSuite(

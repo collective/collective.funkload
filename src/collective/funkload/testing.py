@@ -38,6 +38,7 @@ reports = [
 bench_tmpl = open(os.path.join(
     os.path.dirname(__file__), 'tests', 'bench.xml')).read()
 
+
 def setUpReports(reports_dir):
     if os.path.isdir(reports_dir):
         shutil.rmtree(reports_dir)
@@ -50,6 +51,7 @@ def setUpReports(reports_dir):
         open(os.path.join(
             reports_dir, '%(name)s-bench-%(stamp)s.log' % report_d),
             'w').write('')
+
 
 def listReports(reports_dir):
     return sorted(

@@ -45,6 +45,7 @@ The reference and challenger reports will be reversed from the label
 sort order.  Use if the polarity of the differential reports should be
 the reverse of the order of labels on the axes.""")
 
+
 def build_html_report(options, xml_file):
     """Build a HTML report for the given XML bench results file"""
     options.xml_file = xml_file
@@ -57,13 +58,14 @@ def build_html_report(options, xml_file):
         xml_parser.error, xml_parser.monitor,
         options)()
     report = os.path.dirname(html_path)
-    os.rename(xml_file[:-4]+'.log',
+    os.rename(xml_file[:-4] + '.log',
               os.path.join(report, 'funkload.log'))
     assert os.path.isfile(os.path.join(report, 'funkload.xml'))
     os.remove(xml_file)
     utils.trace("done: \n")
     utils.trace("file://%s\n" % html_path)
     return report
+
 
 def build_diff_report(options, directory_1, directory_2):
     """Build a differential report for the given HTML report directories"""
@@ -80,6 +82,7 @@ Test = collections.namedtuple(
 
 Bench = collections.namedtuple('Bench', ['path', 'diffs'])
 
+
 class FunkLoadConfigParser(ReportBuilder.FunkLoadXmlParser, object):
     """XML bench results parser that only extracts config"""
 
@@ -90,6 +93,7 @@ class FunkLoadConfigParser(ReportBuilder.FunkLoadXmlParser, object):
         self.parser.EndElementHandler = None
         self.parser.StartCdataSectionHandler = None
         self.parser.EndCdataSectionHandler = None
+
 
 def results_by_label(directory):
     labels = {}
@@ -110,11 +114,10 @@ def results_by_label(directory):
             is_report = True
         elif os.path.isfile(diff_abs_path):
             # Is a diff report directory, use the contained DAT to get
-            # the two test paths, parse the 
+            # the two test paths, parse the
             diff_path = path
             opened = open(diff_abs_path)
-            abs_path, abs_path_vs = opened.readline(
-                )[1:].strip().split(' vs ')
+            abs_path, abs_path_vs = opened.readline()[1:].strip().split(' vs ')
             opened.close()
             path = os.path.basename(abs_path)
             path_vs = os.path.basename(abs_path_vs)
@@ -132,7 +135,7 @@ def results_by_label(directory):
             # Is a bench results XML file itself, use directly
 
         if 'label' in xml_parser.config and xml_parser.config[
-            'label']:
+                'label']:
             label = labels.setdefault(xml_parser.config['label'], {})
             test = label.setdefault(
                 xml_parser.config['method'], Test(
@@ -148,8 +151,9 @@ def results_by_label(directory):
 
             if path_vs:
                 bench.diffs[path_vs] = diff_path
-                
+
     return labels
+
 
 def run(output_dir, old=old_option.default,
         reverse=reverse_option.default):
@@ -160,9 +164,10 @@ def run(output_dir, old=old_option.default,
             found_test = found[label][test]
             test_diffs = diffs.setdefault(test, {})
             for time, bench in sorted(
-                found_test.times.iteritems(), reverse=True)[1:]:
+                    found_test.times.iteritems(), reverse=True)[1:]:
                 yield bench.path
-                
+
+
 def main(args=None, values=None):
     (options, args) = list_parser.parse_args(args, values)
     if args:
@@ -170,5 +175,5 @@ def main(args=None, values=None):
     for path in run(**options.__dict__):
         print path
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()

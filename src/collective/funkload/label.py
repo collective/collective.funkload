@@ -37,6 +37,7 @@ no label filter is specified, then all bench results with a label are
 used.  The bench results inside HTML report directories are included
 in the search.""")
 
+
 def _compile_filter(pattern):
     if pattern.startswith('!'):
         pattern = re.compile(pattern[1:]).search
@@ -44,6 +45,8 @@ def _compile_filter(pattern):
     return re.compile(pattern).search
 
 default_filter = [_compile_filter('.')]
+
+
 def append_filter(option, opt_str, value, parser):
     values = getattr(parser.values, option.dest)
     if values is default_filter:
@@ -64,6 +67,7 @@ A label filter specifying which reports to include on the Y axis.""")
 labels_group.add_option(report.reverse_option)
 
 parser.add_option_group(labels_group)
+
 
 def open_callback(option, opt_str, value, parser):
     setattr(parser.values, option.dest, open(value))
@@ -87,6 +91,7 @@ input_option = content_group.add_option(
     "matrix.  [default: stdin]")
 parser.add_option_group(content_group)
 
+
 def build_index(directory, x_labels, y_labels,
                 reverse=report.reverse_option.default,
                 title=title_option.default,
@@ -97,13 +102,14 @@ def build_index(directory, x_labels, y_labels,
     template = pagetemplatefile.PageTemplateFile('label.pt')
     open(html_path, 'w').write(
         template(x_labels=x_labels, y_labels=y_labels, reverse=reverse,
-                title=title, sub_title=sub_title, input_=input_.read()))
+                 title=title, sub_title=sub_title, input_=input_.read()))
     utils.trace("done: \n")
     utils.trace("file://%s\n" % html_path)
     return html_path
 
 Test = collections.namedtuple(
     'Test', ['report', 'name', 'diffs', 'module', 'class_', 'method'])
+
 
 def process_axis(options, found, labels, labels_vs, label):
     tests = labels.setdefault(label, {})
@@ -121,7 +127,7 @@ def process_axis(options, found, labels, labels_vs, label):
             abs_path = os.path.join(options.output_dir, path)
 
             if not os.path.isfile(
-                os.path.join(abs_path, 'funkload.xml')):
+                    os.path.join(abs_path, 'funkload.xml')):
                 abs_path = report.build_html_report(options, abs_path)
                 path = os.path.basename(abs_path)
 
@@ -148,6 +154,7 @@ def process_axis(options, found, labels, labels_vs, label):
             test_vs_tuple.diffs[label] = diff_path
             test_tuple.diffs[label_vs] = diff_path
 
+
 def run(options):
     found = report.results_by_label(options.output_dir)
     x_labels = {}
@@ -170,11 +177,12 @@ def run(options):
         options.output_dir, x_labels, y_labels, options.reverse,
         options.title, options.sub_title, options.input)
 
+
 def main(args=None, values=None):
     (options, args) = parser.parse_args(args, values)
     if args:
         parser.error('does not accept positional arguments')
     return run(options)
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()

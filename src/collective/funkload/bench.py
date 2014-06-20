@@ -1,5 +1,4 @@
 import sys
-import os
 import optparse
 import unittest
 import datetime
@@ -21,41 +20,42 @@ http://funkload.nuxeo.org/ for more information."""
 
 bench = optparse.OptionGroup(options.parser, 'Benchmark', USAGE)
 bench.add_option("--url", type="string", dest="main_url",
-                  help="Base URL to bench.")
+                 help="Base URL to bench.")
 bench.add_option("--cycles", type="string", dest="bench_cycles",
-                  help="Cycles to bench, this is a list of number of "
-                  "virtual concurrent users, "
-                  "to run a bench with 3 cycles with 5, 10 and 20 "
-                  "users use: -c 2:10:20")
+                 help="Cycles to bench, this is a list of number of "
+                 "virtual concurrent users, "
+                 "to run a bench with 3 cycles with 5, 10 and 20 "
+                 "users use: -c 2:10:20")
 bench.add_option("--duration", type="string", dest="bench_duration",
-                  help="Duration of a cycle in seconds.")
+                 help="Duration of a cycle in seconds.")
 bench.add_option("--sleep-time-min", type="string",
-                  dest="bench_sleep_time_min",
-                  help="Minimum sleep time between request.")
+                 dest="bench_sleep_time_min",
+                 help="Minimum sleep time between request.")
 bench.add_option("-M", "--sleep-time-max", type="string",
-                  dest="bench_sleep_time_max",
-                  help="Maximum sleep time between request.")
+                 dest="bench_sleep_time_max",
+                 help="Maximum sleep time between request.")
 bench.add_option("--startup-delay", type="string",
-                  dest="bench_startup_delay",
-                  help="Startup delay between thread.")
+                 dest="bench_startup_delay",
+                 help="Startup delay between thread.")
 bench.add_option("-l", "--label", type="string",
-                  help="Add a label to this bench run "
-                  "for easier identification (it will be appended to the directory name "
-                  "for reports generated from it).")
+                 help="Add a label to this bench run "
+                 "for easier identification (it will be appended "
+                 " to the directory name for reports generated from it).")
 bench.add_option("", "--accept-invalid-links", action="store_true",
-                  help="Do not fail if css/image links are "
-                  "not reachable.")
+                 help="Do not fail if css/image links are "
+                 "not reachable.")
 bench.add_option("", "--simple-fetch", action="store_true",
-                  help="Don't load additional links like css "
-                  "or images when fetching an html page.")
+                 help="Don't load additional links like css "
+                 "or images when fetching an html page.")
 options.parser.add_option_group(bench)
 
 in_bench_mode = False
 
+
 class FLBenchRunner(BenchRunner.BenchRunner, unittest.TestCase):
 
     __str__ = BenchRunner.BenchRunner.__repr__
-                        
+
     def __init__(self, test, options):
         self.threads = []
         self.module_name = test.__class__.__module__
@@ -115,14 +115,16 @@ class FLBenchRunner(BenchRunner.BenchRunner, unittest.TestCase):
             try:
                 thread.start()
             except ThreadError:
-                BenchRunner.trace("\nERROR: Can not create more than %i threads, try a "
-                      "smaller stack size using: 'ulimit -s 2048' "
-                      "for example\n" % i)
+                BenchRunner.trace(
+                    "\nERROR: Can not create more than %i threads,"
+                    " try a smaller stack size using: 'ulimit -s 2048' "
+                    "for example\n" % i)
                 raise
             threads.append(thread)
             BenchRunner.thread_sleep(self.startup_delay)
         BenchRunner.trace(' done.\n')
         self.threads = threads
+
 
 class Runner(runner.Runner):
 
@@ -144,7 +146,7 @@ class Runner(runner.Runner):
                 suite._tests.remove(test)
                 if isinstance(test, FunkLoadTestCase.FunkLoadTestCase):
                     suite._tests.insert(idx, FLBenchRunner(test, self.options))
-                    
+
 
 def run(defaults=None, args=None):
     runner = Runner(defaults, args)
@@ -153,8 +155,7 @@ def run(defaults=None, args=None):
     in_bench_mode = True
     runner.run()
     in_bench_mode = False
-    
+
     if runner.failed and runner.options.exitwithstatus:
         sys.exit(1)
     return runner.failed
-    

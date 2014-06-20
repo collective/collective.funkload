@@ -2,6 +2,7 @@ import threading
 
 from funkload import BenchRunner
 
+
 class LoopTestRunner(BenchRunner.LoopTestRunner):
 
     def __init__(self, test, options, cycle, cvus, thread_id,
