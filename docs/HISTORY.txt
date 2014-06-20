@@ -18,8 +18,8 @@ Changelog
   [nueces]
 
 
-0.3 - 2010-04-19
-------------------
+0.4 (2014-06-20)
+----------------
 
 * add new TestCase class: PloneFLTestCase with two helper methods:
   plone_login and addContent. Please check collective.recipe.funkload
